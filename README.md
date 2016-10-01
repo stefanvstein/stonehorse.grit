@@ -1,4 +1,5 @@
-# Stonehorse.Grit, simpler java
+
+# Stonehorse.Grit, persistent data structures for Java
 
 Grit is a collection of persistent collections. That is immutable collections where mutation are expressions. Inherited Java Collection methods that mutate will unconditionally throw UnsupportedOperationException, while these collections provide methods that return new altered instances of the collections.
 
@@ -56,3 +57,4 @@ to your pom
  <div align="right">
  /Stefan von Stein
 </div> 
+
