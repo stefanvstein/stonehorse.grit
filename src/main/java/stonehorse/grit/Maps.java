@@ -166,7 +166,7 @@ public class Maps {
     /**
      * A persistent map made of map entries
      */
-    public static <K,V> PersistentMap<K,V> fromEntries(Iterable<Map.Entry<? extends K, ? extends V>> entries){
+    public static <K,V> PersistentMap<K,V> fromEntries(Iterable<Map.Entry<K, V>> entries){
         return reduce((acc, entry)->
                         acc.with(entry.getKey(), entry.getValue()),
                 map(),

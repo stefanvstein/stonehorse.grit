@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.*;
@@ -113,4 +114,12 @@ public class TestArrayMap extends MapBase {
 						(old, current)->current));
 		assertEquals(Maps.map(1,"1", 2, "2", 3, "3"), a);
 	}
+
+	@Test public void fromEntries(){
+		Map<Integer, String>m = Maps.map(1, "1").with(2,"3");
+		Set<Map.Entry<Integer, String>> f = m.entrySet();
+
+		assertEquals(m, Maps.fromEntries(f));
+	}
+
 }

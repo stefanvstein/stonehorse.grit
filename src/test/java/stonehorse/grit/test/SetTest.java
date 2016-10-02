@@ -2,6 +2,7 @@ package stonehorse.grit.test;
 
 import org.junit.Test;
 import stonehorse.grit.PersistentSet;
+import stonehorse.grit.Sets;
 import stonehorse.grit.map.hash.PHashMap;
 import stonehorse.grit.set.PSet;
 import stonehorse.grit.tools.Util;
@@ -127,4 +128,20 @@ public class SetTest {
 	    	assertNotEquals(m,m2);
 	    	assertEquals(m3, m);
 	    }
+	    @Test
+	    public void setsTests(){
+	    	assertEquals(Sets.set(1,2,3), Sets.set().with(1).with(2).with(3).with(3));
+			assertEquals(Sets.set(1,2,3), Sets.setOfAll(1,2,3,2));
+			assertEquals(Sets.set(1,2,3), Sets.setOf(Sets.set(1,1,2,3)));
+			assertEquals(Sets.set(1,2,3),Sets.set(1,2,3,2).stream().parallel().collect(Sets.toSet()));
+		}
+
+		@Test public void traversable(){
+			assertEquals(Sets.set(4,2,3), Sets.set(1,2,3,3).map(v->v+1));
+			assertEquals(Sets.set(1),Sets.set(1,2,3,3).map(v->1));
+			assertEquals(Sets.set(2),Sets.set(1,2,3,3).filter(v->v%2==0));
+			assertEquals(Integer.valueOf(6), Sets.set(1,2,3,3).reduce((a,v)-> a+v));
+			assertEquals(Sets.set(1,1,2,3), Sets.set(1,2,3,3).fold((a,v)-> a.with(v), Sets.set()));
+			assertEquals(Sets.set(1,"1",2,"2",3,"3"),Sets.set(1,2,3).flatMap(v->Sets.set(v.toString(),v)));
+		}
 }
