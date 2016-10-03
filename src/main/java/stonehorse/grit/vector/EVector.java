@@ -5,7 +5,9 @@ import stonehorse.grit.Indexed;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 
+import static java.util.Objects.requireNonNull;
 import static stonehorse.candy.Choices.cond;
 import static stonehorse.candy.Choices.ifelse;
 import static stonehorse.candy.Choices.mapOr;
@@ -56,9 +58,10 @@ private AtomicReference<Object> owner;
 	}
 
 	@Override
-	public T get(int i, T notFound) {
+	public T getOr(int i, Supplier<T> notFound) {
+		requireNonNull(notFound);
 		return ifelse(outOfBounds(i, size),
-				() -> notFound,
+				() -> notFound.get(),
 				() -> get(i));
 	}
 

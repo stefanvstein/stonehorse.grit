@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 
 import static org.junit.Assert.*;
 import static stonehorse.candy.SupplierLogic.or;
@@ -138,10 +141,29 @@ public class SetTest {
 
 		@Test public void traversable(){
 			assertEquals(Sets.set(4,2,3), Sets.set(1,2,3,3).map(v->v+1));
+			assertEquals(Sets.set(), Sets.<Integer>set().map(v->v+1));
+			try{
+				Sets.<Integer>set().map((Function)null);
+fail();
+			}catch(NullPointerException e){
+			}
+			assertEquals(Sets.set(null), Sets.set(1,2,3,3).map(v->null));
 			assertEquals(Sets.set(1),Sets.set(1,2,3,3).map(v->1));
 			assertEquals(Sets.set(2),Sets.set(1,2,3,3).filter(v->v%2==0));
+			try {
+				assertEquals(Sets.set(), Sets.set(1, 2, 3, 3).filter(null));
+			}catch(NullPointerException e){}
 			assertEquals(Integer.valueOf(6), Sets.set(1,2,3,3).reduce((a,v)-> a+v));
-			assertEquals(Sets.set(1,1,2,3), Sets.set(1,2,3,3).fold((a,v)-> a.with(v), Sets.set()));
+			AtomicInteger cnt=new AtomicInteger(0);
+			assertNull(Sets.set(1,2,3,3).reduce((a,v)-> {cnt.incrementAndGet();return null;}));
+			assertEquals(2, cnt.get());
+			cnt.set(0);
+			assertEquals(Sets.set(1,1,2,3), Sets.set(1,2,3,3).fold((a,v)-> {cnt.incrementAndGet(); return a.with(v);}, Sets.set()));
+			assertEquals(3, cnt.get());
+			cnt.set(0);
+			assertNull( Sets.set(1,2,3,3).fold((a,v)-> {cnt.incrementAndGet();return a;}, (PersistentSet)null));
+			assertEquals(3, cnt.get());
 			assertEquals(Sets.set(1,"1",2,"2",3,"3"),Sets.set(1,2,3).flatMap(v->Sets.set(v.toString(),v)));
+			assertEquals(Sets.set(),Sets.set(1,2,3).flatMap(v->null));
 		}
 }

@@ -13,25 +13,25 @@ public interface Indexed<T> extends Randomly<T>, PersistentStack<T> {
     Indexed<T> withAt(T value, int index);
 
     /**
-     * This withAt value associated at the natural growing position
+     * This with value associated at the natural growing position
      */
     @Override
     Indexed<T> with(T value);
 
     /**
-     * This withAt the most naturally removable element removed.
+     * This with the most naturally removable element removed.
      */
     @Override
     Indexed<T> without();
 
     /**
-     * This withAt the all elements at the naturally growing position
+     * This with the all elements at the naturally growing position
      */
     @Override
     Indexed<T> withAll(Iterable<T> elements);
 
     /**
-     * This withAt the num most naturally removable elements removed.
+     * This with the num most naturally removable elements removed.
      */
     @Override
     Indexed<T> drop(int num);

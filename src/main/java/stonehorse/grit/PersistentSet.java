@@ -13,7 +13,7 @@ import java.util.function.Predicate;
  */
 public interface PersistentSet<T> extends Set<T>, Traversable<T> {
     /**
-     * This set withAt value
+     * This set with value
      */
     PersistentSet<T> with(T value);
 
@@ -33,7 +33,7 @@ public interface PersistentSet<T> extends Set<T>, Traversable<T> {
     boolean has(T value);
 
     /**
-     * This withAt all values
+     * This with all values
      */
     PersistentSet<T> union(Iterable<? extends T> values);
 
@@ -66,7 +66,7 @@ public interface PersistentSet<T> extends Set<T>, Traversable<T> {
     PersistentSet<T> filter(Predicate<? super T> p);
 
     /**
-     * The remaining value of repeatedly combining accumulation withAt each element in arbitrary order, starting withAt an initial accumulator value.
+     * The remaining value of repeatedly combining accumulation with each element in arbitrary order, starting with an initial accumulator value.
      */
     @Override
     default <V> V fold(BiFunction<? super V, ? super T, ? extends V> fn, V acc) {
@@ -74,7 +74,7 @@ public interface PersistentSet<T> extends Set<T>, Traversable<T> {
     }
 
     /**
-     * The remaining value of repeatedly combining accumulation withAt each element in arbitrary order except one, which is used as initial accumulator value
+     * The remaining value of repeatedly combining accumulation with each element in arbitrary order except one, which is used as initial accumulator value
      */
     @Override
     default T reduce(BiFunction<? super T, ? super T, ? extends T> fn) {

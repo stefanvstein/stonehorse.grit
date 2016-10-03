@@ -2,6 +2,7 @@ package stonehorse.grit;
 
 
 import java.util.function.IntFunction;
+import java.util.function.Supplier;
 
 /**
  * Composite where homogeneous members are randomly accessible by integer index
@@ -15,7 +16,7 @@ public interface Randomly<T> extends IntFunction<T> {
     /**
      * Element at i or notFound, where i is absolut
      */
-    T get(int index, T notFound);
+    T getOr(int index, Supplier<T> notFound);
 
     /**
      * the maximum index allowed in getOr

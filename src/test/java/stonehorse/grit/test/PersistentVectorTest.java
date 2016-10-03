@@ -106,24 +106,24 @@ public class PersistentVectorTest {
     }
 
     private void testIndexed(int n, PersistentVector<Integer> v) {
-        assertEquals(Integer.valueOf(99), v.get(0, 99));
+        assertEquals(Integer.valueOf(99), v.getOr(0, ()->99));
         Indexed<Integer> u = v;
         for (int i = 0; i < n; i++) {
             u = u.with(i + 1);
             for (int j = 0; j < i; j++)
-                assertEquals(Integer.valueOf(j + 1), u.get(j, n + 99));
-            assertEquals(Integer.valueOf(99), v.get(0, 99));
-            assertEquals(Integer.valueOf(-1), u.get(n + 1, -1));
+                assertEquals(Integer.valueOf(j + 1), u.getOr(j, ()->n + 99));
+            assertEquals(Integer.valueOf(99), v.getOr(0, ()->99));
+            assertEquals(Integer.valueOf(-1), u.getOr(n + 1, ()->-1));
             Indexed<Integer> w = u;
             for (int j = 0; j < i; j++) {
                 w = w.withAt(j + 1, i - 1 - j);
             }
             for (int j = 0; j < i; j++)
-                assertEquals(Integer.valueOf(j + 1), w.get(i - 1 - j, n + 99));
+                assertEquals(Integer.valueOf(j + 1), w.getOr(i - 1 - j, ()->n + 99));
         }
-        assertEquals(Integer.valueOf(99), v.get(0, 99));
-        assertEquals(Integer.valueOf(99), v.get(1, 99));
-        assertEquals(Integer.valueOf(-1), u.get(n + 1, -1));
+        assertEquals(Integer.valueOf(99), v.getOr(0,()-> 99));
+        assertEquals(Integer.valueOf(99), v.getOr(1, ()->99));
+        assertEquals(Integer.valueOf(-1), u.getOr(n + 1, ()->-1));
         try {
             u.withAt(-1, n + 1);
             fail();
@@ -223,8 +223,8 @@ try {
         v = PVector.createEphemeral(Arrays.asList(1, 2, 3));
         v = v.without();
         assertEquals(2, v.size());
-        assertEquals(Integer.valueOf(99), v.get(2, 99));
-        assertEquals(Integer.valueOf(2), v.get(1, 99));
+        assertEquals(Integer.valueOf(99), v.getOr(2, ()->99));
+        assertEquals(Integer.valueOf(2), v.getOr(1, ()->99));
         v = v.with(3);
         assertEquals(Arrays.asList(1, 2, 3), v.persistent());
 

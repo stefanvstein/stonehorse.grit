@@ -14,7 +14,9 @@ import java.util.NoSuchElementException;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
+import static java.util.Objects.requireNonNull;
 import static stonehorse.candy.Choices.cond;
 import static stonehorse.candy.Choices.ifelse;
 import static stonehorse.candy.Choices.mapOr;
@@ -126,9 +128,10 @@ public class PVector<T> extends APVector<T> implements Serializable{
         return (T) arrayFor(i,size,root, levels(size), tail)[indexOfArrayAt(i)];
     }
 
-    @Override public T get(int i, T notFound) {
+    @Override public T getOr(int i, Supplier<T> notFound) {
+        requireNonNull(notFound);
         return ifelse (outOfBounds(i, size),
-                ()->notFound,
+                ()->notFound.get(),
                 ()->get(i));
     }
 
@@ -147,7 +150,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
         throw new IllegalArgumentException("To few elements");
     }
 
-    // ************withAt
+    // ************with
     @Override public PVector<T> with(T val) {
         return ifelse (isFullTail(size),
                 ()->withPushedIntoTree(val),

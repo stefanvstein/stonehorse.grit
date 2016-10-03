@@ -8,17 +8,17 @@ import java.util.function.Supplier;
  */
 public interface Associative<K, V> extends Lookup<V>{
     /**
-     * This associated withAt new key and value binding, if key is not yet used as association
+     * This associated with new key and value binding, if key is not yet used as association
      */
     Associative<K, V> ensureKey(K key, V value);
 
     /**
-     * This associated withAt new key and lazy value binding, if key is not yet used as association
+     * This associated with new key and lazy value binding, if key is not yet used as association
      */
     Associative<K, V> ifMissing(K key, Supplier<V> valueSupplier);
 
     /**
-     * This associated withAt the key and value binding
+     * This associated with the key and value binding
      */
     Associative<K, V> with(K key, V value);
 

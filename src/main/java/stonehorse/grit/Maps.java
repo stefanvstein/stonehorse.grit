@@ -14,7 +14,7 @@ import static stonehorse.candy.Iterables.reduce;
  * Creation of persistent Associative Map structures that accept null as ordinary valid key value.
  * The maps are read only, while mutation is an expression and hence a new value.
  * The maps may differ in implementation depending on content and size.
- * Larger maps share structure withAt previous maps.
+ * Larger maps share structure with previous maps.
  * All element, keys and values, are expected to be effectively immutable.
  */
 public class Maps {

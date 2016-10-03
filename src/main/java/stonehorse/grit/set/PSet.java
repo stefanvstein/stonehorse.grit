@@ -18,6 +18,8 @@ import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static java.util.Objects.requireNonNull;
+
 public class PSet<T> extends ImmutableSet<T> implements PersistentSet<T>, Serializable{
 
 	private final PersistentMap<T, T> impl ;
@@ -136,6 +138,7 @@ public class PSet<T> extends ImmutableSet<T> implements PersistentSet<T>, Serial
 
 	@Override
 	public <V> PersistentSet<V> map(Function<? super T, ? extends V> f) {
+		requireNonNull(f);
 		EphemeralSet<V> destination = PSet.<V>empty().ephemeral();
 		for(T t:this)
 			destination=destination.with(f.apply(t));
@@ -161,6 +164,7 @@ public class PSet<T> extends ImmutableSet<T> implements PersistentSet<T>, Serial
 
 	@Override
 	public PersistentSet<T> filter(Predicate<? super T> p) {
+		requireNonNull(p);
 		EphemeralSet<T> destination = PSet.<T>empty().ephemeral();
 		for (T t : this)
 			if (p.test(t))

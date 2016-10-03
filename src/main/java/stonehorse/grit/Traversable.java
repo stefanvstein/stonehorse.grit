@@ -10,12 +10,12 @@ import java.util.function.Predicate;
  */
 public interface Traversable<T> {
     /**
-     * The remaining value of repeatedly combining accumulation withAt each element, starting withAt an initial accumulator value.
+     * The remaining value of repeatedly combining accumulation with each element, starting with an initial accumulator value.
      */
     <V> V fold(BiFunction<? super V, ? super T, ? extends V> fn, V acc);
 
     /**
-     * The remaining value of repeatedly combining accumulation withAt each element except the first, which is used as initial accumulator value
+     * The remaining value of repeatedly combining accumulation with each element except the first, which is used as initial accumulator value
      */
     T reduce(BiFunction<? super T, ? super T, ? extends T> fn);
 

@@ -11,7 +11,7 @@ import static stonehorse.grit.vector.VectorCollector.collector;
  * These vectors are immutable, while mutation is an expression and hence a new value.
  * These vectors share structure so all elements are expected to be effectively immutable.
  * <p>
- * These vectors are based on very shallow and highly branching trees, withAt an algorithmic
+ * These vectors are based on very shallow and highly branching trees, with an algorithmic
  * complexity of O log32 n. The same kind of vectors are used as default in languages like Clojure and Scala.
  */
 public class Vectors {

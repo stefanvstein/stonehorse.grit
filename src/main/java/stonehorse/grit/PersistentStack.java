@@ -10,7 +10,7 @@ public interface PersistentStack<T> {
   T get();
 
   /**
-   * This stack withAt an additional pushed element
+   * This stack with an additional pushed element
    */
   PersistentStack<T> with(T element);
 
@@ -20,7 +20,7 @@ public interface PersistentStack<T> {
   PersistentStack<T> without();
 
   /**
-   * This stack withAt elements added to head
+   * This stack with elements added to head
    */
   PersistentStack<T> withAll(Iterable<T> elements);
 

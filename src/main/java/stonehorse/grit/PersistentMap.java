@@ -8,13 +8,13 @@ import java.util.Map;
  */
 public interface PersistentMap<K, V> extends Map<K,V>, Associative<K, V> {
 	/**
-	 * This map withAt additional key value association if such key was not already present
+	 * This map with additional key value association if such key was not already present
 	 */
 	@Override
 	PersistentMap<K, V> ensureKey(K key, V value);
 
 	/**
-	 * This map withAt key value association
+	 * This map with key value association
 	 */
 	@Override
 	PersistentMap<K, V> with(K key, V value);
@@ -26,7 +26,7 @@ public interface PersistentMap<K, V> extends Map<K,V>, Associative<K, V> {
 	PersistentMap<K, V> without(Object key);
 
 	/**
-	 * This map withAt all associations found in map
+	 * This map with all associations found in map
 	 */
 	PersistentMap<K, V> withAll(Map<? extends K, ? extends V> map);
 

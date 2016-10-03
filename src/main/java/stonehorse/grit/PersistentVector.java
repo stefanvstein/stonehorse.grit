@@ -12,21 +12,27 @@ import java.util.function.Predicate;
 import static stonehorse.grit.tools.Util.defaultReduce;
 
 /**
- * A random access sequential collection withAt mutation as expression. Side effecting mutation throws UnsupportedOperationException
+ * A random access sequential collection with mutation as expression. Side effecting mutation throws UnsupportedOperationException
  */
 public interface PersistentVector<T> extends Indexed<T>, Traversable<T>,
 		 List<T>, Serializable, RandomAccess {
 	/**
-	 * Vector withAt val at index, where index is at most size
+	 * Vector with val at index, where index is at most size
 	 * <pre>{@code
-	 * vector(1, 2).withAt(0, 30) => [30, 2]
+	 * vector(1, 2).withAt(30, 0) => [30, 2]
 	 * }</pre>
 	 */
 	@Override
 	PersistentVector<T> withAt(T val, int i);
 
 	/**
-	 * Vector withAt val at the tail
+	 * The value at index or value if this is smaller
+	 */
+	public default T getOrDefault(int i, T value){
+		return getOr(i, ()->value);
+	}
+	/**
+	 * Vector with val at the tail
 	 */
 	@Override
 	PersistentVector<T> with(T val);
@@ -70,19 +76,19 @@ public interface PersistentVector<T> extends Indexed<T>, Traversable<T>,
 	PersistentVector<T> filter(Predicate<? super T> predicate);
 
 	/**
-	 * The vector withAt all elements added to end
+	 * The vector with all elements added to end
 	 */
 	@Override
 	PersistentVector<T> withAll(Iterable<T> elements);
 
 	/**
-	 * Vector withAt num elements dropped from the end
+	 * Vector with num elements dropped from the end
 	 */
 	@Override
 	PersistentVector<T> drop(int num);
 
 	/**
-	 * The remaining value of repeatedly combining accumulation withAt each element in this, starting withAt an initial accumulator value.
+	 * The remaining value of repeatedly combining accumulation with each element in this, starting with an initial accumulator value.
 	 */
 
 	@Override
@@ -91,7 +97,7 @@ public interface PersistentVector<T> extends Indexed<T>, Traversable<T>,
 	}
 
 	/**
-	 * The remaining value of repeatedly combining accumulation withAt each element in this except the first, which is used as initial accumulator value
+	 * The remaining value of repeatedly combining accumulation with each element in this except the first, which is used as initial accumulator value
 	 */
 	@Override
 	default T reduce(BiFunction<? super T, ? super T, ? extends T> fn) {

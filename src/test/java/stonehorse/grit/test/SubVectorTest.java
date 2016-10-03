@@ -78,7 +78,7 @@ public class SubVectorTest {
 		PersistentVector<Integer> sv = v.subList(2,4);
 		assertEquals(null, sv.get(0));
 		assertEquals(Integer.valueOf(4), sv.get(1));
-		assertEquals(Integer.valueOf(99), sv.get(2, 99));
+		assertEquals(Integer.valueOf(99), sv.getOr(2, ()->99));
 		
 	}
 	@Test public void withOrWithoutYou(){

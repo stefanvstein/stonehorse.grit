@@ -10,7 +10,7 @@ import static stonehorse.grit.set.SetCollector.collector;
  * Creation of persistent Set structures that accept null as ordinary valid value.
  * These sets are read only, while mutation is an expression and hence a new value.
  * These sets may differ in implementation depending on content and size.
- * Larger sets share structure withAt previous sets.
+ * Larger sets share structure with previous sets.
  * All element are expected to be effectively immutable.
  */
 public class Sets {

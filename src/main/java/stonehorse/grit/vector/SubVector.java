@@ -8,7 +8,9 @@ import java.util.NoSuchElementException;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
+import static java.util.Objects.requireNonNull;
 import static stonehorse.candy.Choices.*;
 
 public class SubVector<T> extends APVector<T> {
@@ -117,11 +119,12 @@ public class SubVector<T> extends APVector<T> {
     }
 
     @Override
-    public T get(int i, T notFound) {
+    public T getOr(int i, Supplier<T> notFound) {
+        requireNonNull(notFound);
         return unless(
                 () -> v.get(start + i),
                 isAtEnd(i) || isOutOfBounds(i),
-                () -> notFound);
+                () -> notFound.get());
     }
 
     @Override

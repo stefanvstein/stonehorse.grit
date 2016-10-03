@@ -5,12 +5,12 @@ package stonehorse.grit;
  */
 public interface Lookup<V> {
     /**
-     * value associated withAt key or null when missing
+     * value associated with key or null when missing
      */
     V get(Object key);
 
     /**
-     * True if a value is associated withAt key
+     * True if a value is associated with key
      */
     boolean has(Object key);
 }
