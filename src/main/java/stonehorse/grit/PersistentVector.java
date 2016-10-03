@@ -52,7 +52,9 @@ public interface PersistentVector<T> extends Indexed<T>, Traversable<T>,
 	}
 
 	/**
-	 * subvector delimited by indexes from and to
+	 * subvector delimited by indexes from and to.
+	 * Returns a delimited view on this, that will keep on referring to this
+	 * even when this otherwise is forgotten.  
 	 */
 	@Override
 	PersistentVector<T> subList(int from, int to);
