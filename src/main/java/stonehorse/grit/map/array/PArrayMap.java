@@ -178,6 +178,6 @@ public class PArrayMap<K, V> extends APMap<K, V> implements EphemerableMap<K,V>,
 				()->this,
 				()->predicate.test(get(key)),
 				()->without(key),
-				()->without(key));
+				()->this);
 	}
 }

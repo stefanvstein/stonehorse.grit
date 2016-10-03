@@ -1,5 +1,6 @@
 package stonehorse.grit.vector;
 
+import stonehorse.candy.Atomic;
 import stonehorse.grit.Indexed;
 
 import java.util.Arrays;
@@ -8,6 +9,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
+import static stonehorse.candy.Atomic.atomic;
+import static stonehorse.candy.Atomic.value;
 import static stonehorse.candy.Choices.cond;
 import static stonehorse.candy.Choices.ifelse;
 import static stonehorse.candy.Choices.mapOr;
@@ -19,7 +22,7 @@ import static stonehorse.grit.vector.VFuns.*;
 
 public final class EVector<T> implements Indexed<T> {
 	private int size;
-private AtomicReference<Object> owner;
+    private AtomicReference<Object> owner;
 	private Node root;
 	private Object[] tail;
 
@@ -27,7 +30,7 @@ private AtomicReference<Object> owner;
 		this.size = cnt;
 		this.root = root;
 		this.tail = tail;
-		owner = new AtomicReference<>(new Object());
+		owner = atomic(new Object());
 	}
 
 	public static <T> EVector<T> of(PVector<T> v){
@@ -35,7 +38,7 @@ private AtomicReference<Object> owner;
 	}
 
 	private void ensureEditable() {
-		if(owner.get()==null)
+		if(value(owner)==null)
 			throw new IllegalStateException(
 					"No longer Ephemeral");
 

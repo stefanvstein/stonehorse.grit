@@ -1,6 +1,7 @@
 package stonehorse.grit.vector;
 
 
+import stonehorse.candy.Atomic;
 import stonehorse.grit.PersistentVector;
 import stonehorse.grit.Sets;
 
@@ -11,6 +12,9 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
+
+import static stonehorse.candy.Atomic.atomic;
+import static stonehorse.candy.Atomic.swap;
 
 public class VectorCollector<T>
         implements Collector<T, AtomicReference<PersistentVector<T>>, PersistentVector<T>> {
@@ -27,25 +31,25 @@ public class VectorCollector<T>
 
     @Override
     public Supplier<AtomicReference<PersistentVector<T>>> supplier() {
-        return ()->new AtomicReference<>(empty);
+        return ()->atomic(empty);
     }
 
     @Override
     public BiConsumer<AtomicReference<PersistentVector<T>>, T> accumulator() {
-        return (holder, t) -> holder.updateAndGet(v->v.with(t));
+        return (holder, t) -> swap(holder,v->v.with(t));
     }
 
     @Override
     public BinaryOperator<AtomicReference<PersistentVector<T>>> combiner() {
         return (left, right) -> {
-            left.updateAndGet(v->v.withAll(right.get()));
+            swap(left,v->v.withAll(right.get()));
             return left;
         };
     }
 
     @Override
     public Function<AtomicReference<PersistentVector<T>>, PersistentVector<T>> finisher() {
-        return AtomicReference::get;
+        return Atomic::value;
     }
 
     @Override

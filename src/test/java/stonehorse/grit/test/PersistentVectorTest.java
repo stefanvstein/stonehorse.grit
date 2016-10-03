@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
@@ -31,7 +33,6 @@ public class PersistentVectorTest {
     @Test
     public void testEmpty() {
         new EmptyListCheck().checkEmptyList(Vectors.vector());
-        // new EmptyListCheck().checkEmptyPersistent(f.vectorOfAll());
     }
 
     @Test
@@ -279,4 +280,45 @@ try {
 
         }
     }
+
+    @Test
+    public void getOr(){
+        PersistentVector<Integer> v=PVector.empty();
+        assertEquals(Integer.valueOf(1),v.getOr(0, ()->1));
+        assertNull(v.getOr(0, ()->null));
+        v=v.with(11);
+        assertEquals(Integer.valueOf(11),v.getOr(0, ()->1));
+        assertEquals(Integer.valueOf(1),v.getOr(1, ()->1));
+
+    }
+
+    @Test
+    public void traversable(){
+        assertEquals(Vectors.vector(2,3,4,4), Vectors.vector(1,2,3,3).map(v->v+1));
+        assertEquals(Vectors.vector(), Vectors.<Integer>vector().map(v->v+1));
+        try{
+            Vectors.<Integer>vector().map((Function)null);
+            fail();
+        }catch(NullPointerException e){
+        }
+        assertEquals(Vectors.vector(null, null, null, null), Vectors.vector(1,2,3,3).map(v->null));
+        assertEquals(Vectors.vector(1,1,1,1),Vectors.vector(1,2,3,3).map(v->1));
+        assertEquals(Vectors.vector(2),Vectors.vector(1,2,3,3).filter(v->v%2==0));
+        try {
+            assertEquals(Vectors.vector(), Vectors.vector(1, 2, 3, 3).filter(null));
+        }catch(NullPointerException e){}
+        assertEquals(Integer.valueOf(9), Vectors.vector(1,2,3,3).reduce((a,v)-> a+v));
+        AtomicInteger cnt=new AtomicInteger(0);
+        assertNull(Vectors.vector(1,2,3,3).reduce((a,v)-> {cnt.incrementAndGet();return null;}));
+        assertEquals(3, cnt.get());
+        cnt.set(0);
+        assertEquals(Vectors.vector(1,2,3,3), Vectors.vector(1,2,3,3).fold((a,v)-> {cnt.incrementAndGet(); return a.with(v);}, Vectors.vector()));
+        assertEquals(4, cnt.get());
+        cnt.set(0);
+        assertNull( Vectors.vector(1,2,3,3).fold((a,v)-> {cnt.incrementAndGet();return a;}, (PersistentVector)null));
+        assertEquals(4, cnt.get());
+        assertEquals(Vectors.vector(1,"1",2,"2",3,"3"),Vectors.vector(1,2,3).flatMap(v->Vectors.vector(v, v.toString())));
+        assertEquals(Vectors.vector(),Vectors.vector(1,2,3).flatMap(v->null));
+    }
+
 }

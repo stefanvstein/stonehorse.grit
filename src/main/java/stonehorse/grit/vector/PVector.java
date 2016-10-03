@@ -272,6 +272,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
 
     @Override
     public <V> V fold(BiFunction<? super V, ? super T, ? extends V> fn, V acc) {
+        requireNonNull(fn);
         int levels = levels(size);
         for(int i = 0; i<size();i++)
           acc=fn.apply(acc,(T)arrayFor(i,size,root, levels, tail)[indexOfArrayAt(i)]);
@@ -280,6 +281,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
 
     @Override
     public <V> PVector<V> map(Function<? super T, ? extends V> f) {
+        requireNonNull(f);
         EVector<V> destination = PVector.<V>empty().ephemeral();
         for(T t:this)
             destination=destination.with(f.apply(t));
@@ -288,6 +290,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
 //Gosh...rewrite this shit
     @Override
     public <V> PVector<V> flatMap(Function<? super T, Iterable<? extends V>> f) {
+        requireNonNull(f);
         EVector<V> destination = PVector.<V>empty().ephemeral();
         for(T t:this) {
             Iterable<? extends V> vs = f.apply(t);
@@ -303,6 +306,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
 
     @Override
     public PVector<T> filter(Predicate<? super T> p) {
+        requireNonNull(p);
         EVector<T> destination = PVector.<T>empty().ephemeral();
         for (T t : this)
             if (p.test(t))

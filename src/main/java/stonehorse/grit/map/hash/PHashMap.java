@@ -232,9 +232,6 @@ public class PHashMap<T, V> extends APMap<T, V> implements EphemerableMap<T,V>, 
 		return hasNull;
 	}
 
-	public V nullValue() {
-		return nullValue;
-	}
 
 	@Override
 	public boolean containsValue(Object value) {
@@ -255,6 +252,6 @@ public class PHashMap<T, V> extends APMap<T, V> implements EphemerableMap<T,V>, 
 				()->this,
 				()->predicate.test(get(key)),
 				()->without(key),
-				()->without(key));
+				()->this);
 	}
 }

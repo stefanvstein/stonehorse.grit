@@ -54,7 +54,9 @@ to your pom
 ## Usage
 
 
+
  <div align="right">
+_Choose immutability and see where it takes you_
  /Stefan von Stein
 </div> 
 

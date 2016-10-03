@@ -144,7 +144,7 @@ public class SetTest {
 			assertEquals(Sets.set(), Sets.<Integer>set().map(v->v+1));
 			try{
 				Sets.<Integer>set().map((Function)null);
-fail();
+				fail();
 			}catch(NullPointerException e){
 			}
 			assertEquals(Sets.set(null), Sets.set(1,2,3,3).map(v->null));
@@ -166,4 +166,21 @@ fail();
 			assertEquals(Sets.set(1,"1",2,"2",3,"3"),Sets.set(1,2,3).flatMap(v->Sets.set(v.toString(),v)));
 			assertEquals(Sets.set(),Sets.set(1,2,3).flatMap(v->null));
 		}
+
+		@Test public void emptyAndHas(){
+			PersistentSet<Integer> s = PSet.empty();
+			assertTrue(s.isEmpty());
+			assertFalse(s.has(null));
+			assertFalse(s.has(1));
+			s=s.with(1);
+			assertFalse(s.isEmpty());
+			assertFalse(s.has(null));
+			assertTrue(s.has(1));
+			s=s.with(null);
+			assertFalse(s.isEmpty());
+			assertTrue(s.has(null));
+			assertTrue(s.has(1));
+			assertFalse(s.has(2));
+
+	}
 }

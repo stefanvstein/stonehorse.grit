@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class AssociativeBase {
     public void testAssciative(PersistentMap<Number, String> empty) {
         assertTrue("Not empty", empty.entrySet().isEmpty());
-        nullkey(empty);
+
         nullValue(empty.with(0, null));
     }
 
@@ -44,9 +44,6 @@ public class AssociativeBase {
         assertEquals(o2.hashCode(), o1.hashCode());
     }
 
-    private void nullkey(Associative<Number, String> with) {
-        // TODO Auto-generated method stub
 
-    }
 
 }

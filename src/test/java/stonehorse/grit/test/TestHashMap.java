@@ -19,28 +19,6 @@ import static org.junit.Assert.*;
 public class TestHashMap extends MapBase {
 
 
-//    @Test
-//    public void testSome() {
-//        PersistentMap<String, String> a = PHashMap.empty();
-//        a = a.withAt("1", "One");
-//        a = a.withAt("2", "Two");
-//        assertEquals("One", a.getOr("1"));
-//        assertEquals("Two", a.getOr("2"));
-//        Map<String, String> hashmap = new HashMap<String, String>();
-//        hashmap.put("1", "One");
-//        hashmap.put("2", "Two");
-//        assertEquals(a, hashmap);
-//        assertEquals(hashmap, a);
-//        assertFalse(hashmap.equals(a.withoutEphemerally("1")));
-//        assertFalse(a.withoutEphemerally("1").equals(hashmap));
-//        assertFalse(hashmap.equals(a.withAt("3", "Three")));
-//        assertEquals("Three", a.getOr("3", "Three"));
-//        assertEquals("Two", a.getOr("2", "Three"));
-//        assertEquals("Three", a.getOr(null, "Three"));
-//        assertEquals("Three", a.withAt(null, "Three").getOr(null, "Nothing"));
-//        assertFalse(a.isEmpty());
-//    }
-
 
     @Test
     public void hashCollisionAmongOthers() {
@@ -358,7 +336,6 @@ public class TestHashMap extends MapBase {
         assertNull(t.get("Exceptions"));
         assertEquals(3, t.size());
 
-        ///	PHashMap<String, Integer> a = Iterables.fold((PHashMap<String, Integer> acc, Integer v) -> acc.withAt(Integer.toBinaryString(v), v), PHashMap.<String, Integer>empty(), Iterables.range(5000));
         PHashMap<String, String> source = Iterables.reduce(
                 (acc, v) -> acc.with(Integer.toBinaryString(v), Integer.toHexString(v)),
                 PHashMap.empty(),
@@ -385,9 +362,7 @@ public class TestHashMap extends MapBase {
         final PHashMap<String, String> source1 = source;
         for (String k : source.keySet()) {
             t = t.with(k, source.get(k));
-            //System.out.println(t.size());
             assertTrue(t.has(k));
-
         }
         assertTrue(t.has("1"));
     }

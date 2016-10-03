@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
+import static stonehorse.candy.Atomic.atomic;
 import static stonehorse.candy.Choices.cond;
 import static stonehorse.candy.Choices.ifelse;
 import static stonehorse.grit.tools.Util.changes;
@@ -21,7 +22,7 @@ import static stonehorse.grit.tools.Util.hash;
 import static stonehorse.grit.tools.Util.not;
 
 public final class EphemeralHashMap<T, V> implements EphemeralMap<T, V> {
-    final AtomicReference<Object> owner= new AtomicReference<Object>();
+    final AtomicReference<Object> owner= atomic(null);
     Node root;
     int count;
     boolean hasNull;

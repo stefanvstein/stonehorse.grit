@@ -1,13 +1,22 @@
 package stonehorse.grit.test;
 
 import org.junit.Test;
+import stonehorse.candy.Atomic;
+import stonehorse.candy.Iterables;
 import stonehorse.grit.PersistentMap;
 
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
+import static stonehorse.candy.Atomic.atomic;
+import static stonehorse.candy.Atomic.value;
+import static stonehorse.candy.Iterables.range;
+import static stonehorse.candy.Iterables.stream;
 
 public abstract class MapBase {
   public abstract <K,V> PersistentMap<K,V> create();
@@ -135,9 +144,23 @@ public abstract class MapBase {
       assertEquals(b,a);
       assertEquals(a.hashCode(),b.hashCode());
       
-  } 
-  
+  }
 
+    @Test public void withoutWhen(){
+        PersistentMap<String   , Integer> m = create();
+        AtomicBoolean b= atomic(false);
+        m.withoutWhen(null, v->{b.set(true);return v==null;});
+        assertFalse(value(b));
+        assertEquals(m.with("1", 1), m.with("1", 1).withoutWhen("1", v->v==2));
+        assertEquals(m, m.with("1", 1).withoutWhen("1", v->v==1));
+        assertEquals(m.with("1", 1), m.with("1", 1).with(null, 0).withoutWhen(null, v->v==0));
+
+        PersistentMap<String, Integer> mm = m.withAll(stream(range(20)).collect(Collectors.toMap(v -> v.toString(), v -> v, (ol, ne) -> ne)));
+        assertEquals(mm, mm.withoutWhen("1", v->v==2));
+        assertEquals(mm.without("1"), mm.withoutWhen("1", v->v==1));
+        assertEquals(mm, mm.with(null, 0).withoutWhen(null, v->v==0));
+
+    }
   
  
   
@@ -173,6 +196,31 @@ public abstract class MapBase {
       assertTrue(v.contains(0));
       assertTrue(v.contains(1));
       assertFalse(v.contains(2));
+
+  }
+
+  @Test public void ifMissing(){
+      PersistentMap<String, Integer> m = create();
+      assertEquals(create().with("1", 1), m.ifMissing("1", ()->1));
+
+      AtomicInteger ctr =  atomic(0);
+      PersistentMap<String, Integer> m1 = m.with("1", 1);
+      assertEquals(create().with("1", 1), m1.ifMissing("1", ()->{ctr.incrementAndGet();return 1;}));
+      assertEquals(0, value(ctr));
+
+      ctr.set(0);
+      assertEquals(m.with(null, null), m.with(null,null).ifMissing(null, ()->{ctr.incrementAndGet();return 22;}));
+      assertEquals(0, value(ctr));
+
+      assertEquals(m.with("1", 1),m.ensureKey("1", 1));
+      assertEquals(m.with("1", 1),m.with("1", 1).ensureKey("1", 2));
+
+      ctr.set(0);
+      PersistentMap<String, Integer> mm = m.withAll(stream(range(20)).collect(Collectors.toMap(v -> v.toString(), v -> v, (ol, ne) -> ne)));
+      assertEquals(mm.with(null, 0), mm.ifMissing(null, ()->0));
+      mm.ifMissing(null, ()->0).ifMissing(null, ()->{ctr.incrementAndGet();return 0;});
+      assertEquals(0, value(ctr));
+      assertEquals(mm.with("L", 1), mm.ifMissing("L", ()->1));
 
   }
 }
