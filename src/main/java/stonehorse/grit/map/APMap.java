@@ -68,7 +68,7 @@ public abstract class APMap<K, V> extends ImmutableMap<K, V> implements  Persist
     }
 
     @Override
-    public Associative<K, V> ifMissing(K key, Supplier<V> valueSupplier) {
+    public Associative<K, V> whenMissing(K key, Supplier<V> valueSupplier) {
         requireNonNull(valueSupplier);
         return ifelse(!has(key),
                 () -> with(key, valueSupplier.get()),

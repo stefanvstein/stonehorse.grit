@@ -13,9 +13,9 @@ public interface Associative<K, V> extends Lookup<V>{
     Associative<K, V> ensureKey(K key, V value);
 
     /**
-     * This associated with new key and lazy value binding, if key is not yet used as association
+     * This associated with new key and lazy value binding, when key is not yet used as association
      */
-    Associative<K, V> ifMissing(K key, Supplier<V> valueSupplier);
+    Associative<K, V> whenMissing(K key, Supplier<V> valueSupplier);
 
     /**
      * This associated with the key and value binding

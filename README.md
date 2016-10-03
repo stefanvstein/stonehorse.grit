@@ -77,7 +77,7 @@ The expression
 ```java
 list.without()
 ```
-...would return a vector [1] as the second element would be removed in it.
+...would return a vector [1] as the second element, the most effective, would be removed.
 
 
 ### Strict higher order

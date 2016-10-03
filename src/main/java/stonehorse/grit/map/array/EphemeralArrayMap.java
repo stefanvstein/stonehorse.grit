@@ -31,7 +31,7 @@ public class EphemeralArrayMap<K, V> implements EphemeralMap<K, V> {
     }}
 
     @Override
-    public Associative<K, V> ifMissing(K key, Supplier<V> valueSupplier) {
+    public Associative<K, V> whenMissing(K key, Supplier<V> valueSupplier) {
         requireNonNull(valueSupplier);
         return ifelse(!has(key),
                 () -> with(key, valueSupplier.get()),

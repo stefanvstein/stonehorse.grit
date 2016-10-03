@@ -71,7 +71,7 @@ public final class EphemeralHashMap<T, V> implements EphemeralMap<T, V> {
 
     }
     @Override
-    public Associative<T, V> ifMissing(T key, Supplier<V> valueSupplier) {
+    public Associative<T, V> whenMissing(T key, Supplier<V> valueSupplier) {
         requireNonNull(valueSupplier);
         return ifelse(!has(key),
                 () -> with(key, valueSupplier.get()),

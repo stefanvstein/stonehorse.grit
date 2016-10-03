@@ -2,7 +2,6 @@ package stonehorse.grit.test;
 
 import org.junit.Test;
 import stonehorse.candy.Atomic;
-import stonehorse.candy.Iterables;
 import stonehorse.grit.PersistentMap;
 
 
@@ -201,15 +200,15 @@ public abstract class MapBase {
 
   @Test public void ifMissing(){
       PersistentMap<String, Integer> m = create();
-      assertEquals(create().with("1", 1), m.ifMissing("1", ()->1));
+      assertEquals(create().with("1", 1), m.whenMissing("1", ()->1));
 
       AtomicInteger ctr =  atomic(0);
       PersistentMap<String, Integer> m1 = m.with("1", 1);
-      assertEquals(create().with("1", 1), m1.ifMissing("1", ()->{ctr.incrementAndGet();return 1;}));
+      assertEquals(create().with("1", 1), m1.whenMissing("1", ()->{ctr.incrementAndGet();return 1;}));
       assertEquals(0, value(ctr));
 
       ctr.set(0);
-      assertEquals(m.with(null, null), m.with(null,null).ifMissing(null, ()->{ctr.incrementAndGet();return 22;}));
+      assertEquals(m.with(null, null), m.with(null,null).whenMissing(null, ()->{ctr.incrementAndGet();return 22;}));
       assertEquals(0, value(ctr));
 
       assertEquals(m.with("1", 1),m.ensureKey("1", 1));
@@ -217,10 +216,10 @@ public abstract class MapBase {
 
       ctr.set(0);
       PersistentMap<String, Integer> mm = m.withAll(stream(range(20)).collect(Collectors.toMap(v -> v.toString(), v -> v, (ol, ne) -> ne)));
-      assertEquals(mm.with(null, 0), mm.ifMissing(null, ()->0));
-      mm.ifMissing(null, ()->0).ifMissing(null, ()->{ctr.incrementAndGet();return 0;});
+      assertEquals(mm.with(null, 0), mm.whenMissing(null, ()->0));
+      mm.whenMissing(null, ()->0).whenMissing(null, ()->{ctr.incrementAndGet();return 0;});
       assertEquals(0, value(ctr));
-      assertEquals(mm.with("L", 1), mm.ifMissing("L", ()->1));
+      assertEquals(mm.with("L", 1), mm.whenMissing("L", ()->1));
 
   }
 }
