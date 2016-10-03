@@ -1,7 +1,9 @@
 
 # Stonehorse.Grit, persistent data structures for Java
 
-Grit is a collection of persistent collections. That is immutable collections where mutation are expressions. It implements requirements of Java Collections, but inherited methods that mutate will unconditionally throw UnsupportedOperationException. These collections provide methods that return new, altered, instances of the collections while the source remains untouched.
+Grit is a collection of persistent collections. These are immutable containers where mutation are expressions. 
+
+These collections provide mutation by returning modified collections rather than mutating them in place, while the source always remain untouched. Mutating methods inherited from Java Collection API will unconditionally throw UnsupportedOperationException. These implement the mandatory requirements of Java Collections, as mutating methods are optional. 
 
 Consider adding something to an java ArrayList
 ```java
@@ -15,9 +17,9 @@ The with method does not mutate the list. Instead list will have the new value, 
 ```java
 another = list.with("something")
 ```
-The list will remain the same as prior to mutation. This makes programming much less complex. Collections start to behave similar to Strings.
+The list will remain the same as prior to mutation. This makes programming much less complex. Collections start to behave similar to e.g. Strings and things start to be less magic and easier to reason about.
 
-Small collections are cheap to copy, while larger share structure internally to prevent excessive copying up on mutation.
+
 
 
 Currently Vector, Map and Set are provided. [JavaDoc](https://stefanvstein.github.io/stonehorse.grit/index.html)
@@ -58,6 +60,19 @@ to your pom
 
 PersistentVector, PersistentMap, PersistentSet are the abstract interfaces that you use. The factory classes Vectors, Maps, Sets are your starting point.
 
+### With or without
+
+
+### Strict higher order
+
+### Performance characteristics 
+Small collections are cheap to copy, while larger share structure internally to prevent excessive copying up on mutation.
+
+### null are values
+
+### Java 8 and Compatibility
+
+### on the shoulder of gigants
 
  <div align="right">
 _Choose immutability and see where it takes you_
