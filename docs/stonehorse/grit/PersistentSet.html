@@ -147,7 +147,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is
 <td class="colFirst"><code>default &lt;V&gt;&nbsp;V</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentSet.html#fold-java.util.function.BiFunction-V-">fold</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;? super V,? super <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>,? extends V&gt;&nbsp;fn,
     V&nbsp;acc)</code>
-<div class="block">The remaining value of repeatedly combining accumulation withAt each element in arbitrary order, starting withAt an initial accumulator value.</div>
+<div class="block">The remaining value of repeatedly combining accumulation with each element in arbitrary order, starting with an initial accumulator value.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
@@ -177,19 +177,19 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>default <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentSet.html#reduce-java.util.function.BiFunction-">reduce</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;? super <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>,? super <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>,? extends <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&gt;&nbsp;fn)</code>
-<div class="block">The remaining value of repeatedly combining accumulation withAt each element in arbitrary order except one, which is used as initial accumulator value</div>
+<div class="block">The remaining value of repeatedly combining accumulation with each element in arbitrary order except one, which is used as initial accumulator value</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentSet.html" title="interface in stonehorse.grit">PersistentSet</a>&lt;<a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentSet.html#union-java.lang.Iterable-">union</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;? extends <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&gt;&nbsp;values)</code>
-<div class="block">This withAt all values</div>
+<div class="block">This with all values</div>
 </td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentSet.html" title="interface in stonehorse.grit">PersistentSet</a>&lt;<a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentSet.html#with-T-">with</a></span>(<a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&nbsp;value)</code>
-<div class="block">This set withAt value</div>
+<div class="block">This set with value</div>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
@@ -243,7 +243,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is
 <li class="blockList">
 <h4>with</h4>
 <pre><a href="../../stonehorse/grit/PersistentSet.html" title="interface in stonehorse.grit">PersistentSet</a>&lt;<a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&gt;&nbsp;with(<a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&nbsp;value)</pre>
-<div class="block">This set withAt value</div>
+<div class="block">This set with value</div>
 </li>
 </ul>
 <a name="without-java.lang.Object-">
@@ -287,7 +287,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is
 <li class="blockList">
 <h4>union</h4>
 <pre><a href="../../stonehorse/grit/PersistentSet.html" title="interface in stonehorse.grit">PersistentSet</a>&lt;<a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&gt;&nbsp;union(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;? extends <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&gt;&nbsp;values)</pre>
-<div class="block">This withAt all values</div>
+<div class="block">This with all values</div>
 </li>
 </ul>
 <a name="difference-java.lang.Iterable-">
@@ -362,7 +362,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is
 <h4>fold</h4>
 <pre>default&nbsp;&lt;V&gt;&nbsp;V&nbsp;fold(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;? super V,? super <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>,? extends V&gt;&nbsp;fn,
                    V&nbsp;acc)</pre>
-<div class="block">The remaining value of repeatedly combining accumulation withAt each element in arbitrary order, starting withAt an initial accumulator value.</div>
+<div class="block">The remaining value of repeatedly combining accumulation with each element in arbitrary order, starting with an initial accumulator value.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../stonehorse/grit/Traversable.html#fold-java.util.function.BiFunction-V-">fold</a></code>&nbsp;in interface&nbsp;<code><a href="../../stonehorse/grit/Traversable.html" title="interface in stonehorse.grit">Traversable</a>&lt;<a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&gt;</code></dd>
@@ -376,7 +376,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html?is
 <li class="blockList">
 <h4>reduce</h4>
 <pre>default&nbsp;<a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&nbsp;reduce(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;? super <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>,? super <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>,? extends <a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&gt;&nbsp;fn)</pre>
-<div class="block">The remaining value of repeatedly combining accumulation withAt each element in arbitrary order except one, which is used as initial accumulator value</div>
+<div class="block">The remaining value of repeatedly combining accumulation with each element in arbitrary order except one, which is used as initial accumulator value</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../stonehorse/grit/Traversable.html#reduce-java.util.function.BiFunction-">reduce</a></code>&nbsp;in interface&nbsp;<code><a href="../../stonehorse/grit/Traversable.html" title="interface in stonehorse.grit">Traversable</a>&lt;<a href="../../stonehorse/grit/PersistentSet.html" title="type parameter in PersistentSet">T</a>&gt;</code></dd>

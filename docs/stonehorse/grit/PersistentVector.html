@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":18,"i1":6,"i2":6,"i3":6,"i4":18,"i5":6,"i6":18,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6};
+var methods = {"i0":18,"i1":6,"i2":6,"i3":6,"i4":18,"i5":18,"i6":6,"i7":18,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -106,7 +106,7 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public interface <span class="typeNameLabel">PersistentVector&lt;T&gt;</span>
 extends <a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;T&gt;, <a href="../../stonehorse/grit/Traversable.html" title="interface in stonehorse.grit">Traversable</a>&lt;T&gt;, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;T&gt;, <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/RandomAccess.html?is-external=true" title="class or interface in java.util">RandomAccess</a></pre>
-<div class="block">A random access sequential collection withAt mutation as expression. Side effecting mutation throws UnsupportedOperationException</div>
+<div class="block">A random access sequential collection with mutation as expression. Side effecting mutation throws UnsupportedOperationException</div>
 </li>
 </ul>
 </div>
@@ -134,7 +134,7 @@ extends <a href="../../stonehorse/grit/Indexed.html" title="interface in stoneho
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#drop-int-">drop</a></span>(int&nbsp;num)</code>
-<div class="block">Vector withAt num elements dropped from the end</div>
+<div class="block">Vector with num elements dropped from the end</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -153,48 +153,55 @@ extends <a href="../../stonehorse/grit/Indexed.html" title="interface in stoneho
 <td class="colFirst"><code>default &lt;V&gt;&nbsp;V</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#fold-java.util.function.BiFunction-V-">fold</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;? super V,? super <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>,? extends V&gt;&nbsp;fn,
     V&nbsp;acc)</code>
-<div class="block">The remaining value of repeatedly combining accumulation withAt each element in this, starting withAt an initial accumulator value.</div>
+<div class="block">The remaining value of repeatedly combining accumulation with each element in this, starting with an initial accumulator value.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>default <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#getOrDefault-int-T-">getOrDefault</a></span>(int&nbsp;i,
+            <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&nbsp;value)</code>
+<div class="block">The value at index or value if this is smaller</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>&lt;V&gt;&nbsp;<a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;V&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#map-java.util.function.Function-">map</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>,? extends V&gt;&nbsp;f)</code>
 <div class="block">The vector of applying f to each of this</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>default <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#reduce-java.util.function.BiFunction-">reduce</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;? super <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>,? super <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>,? extends <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;&nbsp;fn)</code>
-<div class="block">The remaining value of repeatedly combining accumulation withAt each element in this except the first, which is used as initial accumulator value</div>
+<div class="block">The remaining value of repeatedly combining accumulation with each element in this except the first, which is used as initial accumulator value</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#subList-int-int-">subList</a></span>(int&nbsp;from,
        int&nbsp;to)</code>
 <div class="block">subvector delimited by indexes from and to</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
-<td class="colFirst"><code><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#with-T-">with</a></span>(<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&nbsp;val)</code>
-<div class="block">Vector withAt val at the tail</div>
-</td>
-</tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#withAll-java.lang.Iterable-">withAll</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;&nbsp;elements)</code>
-<div class="block">The vector withAt all elements added to end</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#with-T-">with</a></span>(<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&nbsp;val)</code>
+<div class="block">Vector with val at the tail</div>
 </td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#withAt-T-int-">withAt</a></span>(<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&nbsp;val,
-      int&nbsp;i)</code>
-<div class="block">Vector withAt val at index, where index is at most size</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#withAll-java.lang.Iterable-">withAll</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;&nbsp;elements)</code>
+<div class="block">The vector with all elements added to end</div>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
+<td class="colFirst"><code><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#withAt-T-int-">withAt</a></span>(<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&nbsp;val,
+      int&nbsp;i)</code>
+<div class="block">Vector with val at index, where index is at most size</div>
+</td>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentVector.html#without--">without</a></span>()</code>
 <div class="block">Vector without the tail</div>
@@ -206,7 +213,7 @@ extends <a href="../../stonehorse/grit/Indexed.html" title="interface in stoneho
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;stonehorse.grit.<a href="../../stonehorse/grit/Randomly.html" title="interface in stonehorse.grit">Randomly</a></h3>
-<code><a href="../../stonehorse/grit/Randomly.html#get-int-">get</a>, <a href="../../stonehorse/grit/Randomly.html#get-int-T-">get</a>, <a href="../../stonehorse/grit/Randomly.html#isEmpty--">isEmpty</a>, <a href="../../stonehorse/grit/Randomly.html#size--">size</a></code></li>
+<code><a href="../../stonehorse/grit/Randomly.html#get-int-">get</a>, <a href="../../stonehorse/grit/Randomly.html#getOr-int-java.util.function.Supplier-">getOr</a>, <a href="../../stonehorse/grit/Randomly.html#isEmpty--">isEmpty</a>, <a href="../../stonehorse/grit/Randomly.html#size--">size</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.stonehorse.grit.PersistentStack">
@@ -260,14 +267,27 @@ extends <a href="../../stonehorse/grit/Indexed.html" title="interface in stoneho
 <h4>withAt</h4>
 <pre><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;&nbsp;withAt(<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&nbsp;val,
                            int&nbsp;i)</pre>
-<div class="block">Vector withAt val at index, where index is at most size
+<div class="block">Vector with val at index, where index is at most size
  <pre><code>
- vector(1, 2).withAt(0, 30) =&gt; [30, 2]
+ vector(1, 2).withAt(30, 0) =&gt; [30, 2]
  </code></pre></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../stonehorse/grit/Indexed.html#withAt-T-int-">withAt</a></code>&nbsp;in interface&nbsp;<code><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></dd>
 </dl>
+</li>
+</ul>
+<a name="getOrDefault-int-java.lang.Object-">
+<!--   -->
+</a><a name="getOrDefault-int-T-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getOrDefault</h4>
+<pre>default&nbsp;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&nbsp;getOrDefault(int&nbsp;i,
+                       <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&nbsp;value)</pre>
+<div class="block">The value at index or value if this is smaller</div>
 </li>
 </ul>
 <a name="with-java.lang.Object-">
@@ -279,7 +299,7 @@ extends <a href="../../stonehorse/grit/Indexed.html" title="interface in stoneho
 <li class="blockList">
 <h4>with</h4>
 <pre><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;&nbsp;with(<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&nbsp;val)</pre>
-<div class="block">Vector withAt val at the tail</div>
+<div class="block">Vector with val at the tail</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../stonehorse/grit/Indexed.html#with-T-">with</a></code>&nbsp;in interface&nbsp;<code><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></dd>
@@ -382,7 +402,7 @@ extends <a href="../../stonehorse/grit/Indexed.html" title="interface in stoneho
 <li class="blockList">
 <h4>withAll</h4>
 <pre><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;&nbsp;withAll(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;&nbsp;elements)</pre>
-<div class="block">The vector withAt all elements added to end</div>
+<div class="block">The vector with all elements added to end</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../stonehorse/grit/Indexed.html#withAll-java.lang.Iterable-">withAll</a></code>&nbsp;in interface&nbsp;<code><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></dd>
@@ -398,7 +418,7 @@ extends <a href="../../stonehorse/grit/Indexed.html" title="interface in stoneho
 <li class="blockList">
 <h4>drop</h4>
 <pre><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;&nbsp;drop(int&nbsp;num)</pre>
-<div class="block">Vector withAt num elements dropped from the end</div>
+<div class="block">Vector with num elements dropped from the end</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../stonehorse/grit/Indexed.html#drop-int-">drop</a></code>&nbsp;in interface&nbsp;<code><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></dd>
@@ -417,7 +437,7 @@ extends <a href="../../stonehorse/grit/Indexed.html" title="interface in stoneho
 <h4>fold</h4>
 <pre>default&nbsp;&lt;V&gt;&nbsp;V&nbsp;fold(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;? super V,? super <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>,? extends V&gt;&nbsp;fn,
                    V&nbsp;acc)</pre>
-<div class="block">The remaining value of repeatedly combining accumulation withAt each element in this, starting withAt an initial accumulator value.</div>
+<div class="block">The remaining value of repeatedly combining accumulation with each element in this, starting with an initial accumulator value.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../stonehorse/grit/Traversable.html#fold-java.util.function.BiFunction-V-">fold</a></code>&nbsp;in interface&nbsp;<code><a href="../../stonehorse/grit/Traversable.html" title="interface in stonehorse.grit">Traversable</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></dd>
@@ -431,7 +451,7 @@ extends <a href="../../stonehorse/grit/Indexed.html" title="interface in stoneho
 <li class="blockList">
 <h4>reduce</h4>
 <pre>default&nbsp;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&nbsp;reduce(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;? super <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>,? super <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>,? extends <a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;&nbsp;fn)</pre>
-<div class="block">The remaining value of repeatedly combining accumulation withAt each element in this except the first, which is used as initial accumulator value</div>
+<div class="block">The remaining value of repeatedly combining accumulation with each element in this except the first, which is used as initial accumulator value</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../stonehorse/grit/Traversable.html#reduce-java.util.function.BiFunction-">reduce</a></code>&nbsp;in interface&nbsp;<code><a href="../../stonehorse/grit/Traversable.html" title="interface in stonehorse.grit">Traversable</a>&lt;<a href="../../stonehorse/grit/PersistentVector.html" title="type parameter in PersistentVector">T</a>&gt;</code></dd>
