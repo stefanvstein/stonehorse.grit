@@ -1,21 +1,24 @@
 
 # Stonehorse.Grit, persistent data structures for Java
 
-Grit is a collection of persistent collections. That is immutable collections where mutation are expressions. Inherited Java Collection methods that mutate will unconditionally throw UnsupportedOperationException, while these collections provide methods that return new altered instances of the collections.
+Grit is a collection of persistent collections. That is immutable collections where mutation are expressions. It implements requirements of Java Collections, but inherited methods that mutate will unconditionally throw UnsupportedOperationException. These collections provide methods that return new, altered, instances of the collections while the source remains untouched.
 
 Consider adding something to an java ArrayList
 ```java
 list.add("something");
 ```
-The list is updated in place and the state prior to mutation is lost. The corresponding PersistentVector throws up on add, but provides with:
+The list is updated in place and the state prior to mutation is lost. The corresponding PersistentVector throws up on add, but provides the with method:
 ```java
 list=list.with("something");
 ```
-The with method does not mutate the list. Instead list will have the new value due to assignment. If you want to remember the state prior to mutation, you simply assign some other variable, or final value if you prefer.
+The with method does not mutate the list. Instead list will have the new value, "something" due to the assignment. you want to remember the state prior to mutation, you simply assign some other variable, or final value if you prefer.
 ```java
-final List another = list.with("something")
+another = list.with("something")
 ```
-The list will remain the same as prior to mutation. This makes programming much less complex. Collections start to behave similar to Strings, but share structure internally to prevent excessive copying up on mutation
+The list will remain the same as prior to mutation. This makes programming much less complex. Collections start to behave similar to Strings.
+
+Small collections are cheap to copy, while larger share structure internally to prevent excessive copying up on mutation.
+
 
 Currently Vector, Map and Set are provided. [JavaDoc](https://stefanvstein.github.io/stonehorse.grit/index.html)
 
@@ -53,10 +56,12 @@ to your pom
 
 ## Usage
 
+PersistentVector, PersistentMap, PersistentSet are the abstract interfaces that you use. The factory classes Vectors, Maps, Sets are your starting point.
 
 
  <div align="right">
 _Choose immutability and see where it takes you_
+
  /Stefan von Stein
 </div> 
 
