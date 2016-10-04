@@ -107,7 +107,7 @@ Mutation of immutable collection does not mean copying whole collections. Small 
 
 ### on the shoulder of giants
 
-These algorithm are similar to those used in functional languages like Clojure and Scala. This project started out of curiosity of how the Persistent Vector in Clojure was implemented, and ended with a total rewrite both to get to know all the nuts and bolts, as well as to achieve higher Java Collection compatibility. So don't blame Clojure for issues found here as this is a total rewrite. This is implemented with simple code that should be easy to follow rather than performant code. If you like working with this, I highly encurage you to go for Clojure, which will leverage these ideas much further.
+These algorithm are similar to those used in functional languages like Clojure and Scala. This project started out of curiosity of how the Persistent Vector in Clojure was implemented, and ended with a total rewrite both to get to know all the nuts and bolts, as well as to achieve higher Java Collection compatibility. So don't blame Clojure for issues found here as this is a total rewrite. This is implemented with simple code that should be easy to follow rather than beeing performant code. If you like working with this, I highly encurage you to go for Clojure instead, as it will leverage these ideas much further. On the other hand, sometimes you don't get to choose.
 
  <div align="right">
 _Choose immutability and see where it takes you_
