@@ -86,13 +86,13 @@ There are `withAll` methods for adding many elements at once, i.e. from Iterable
 
 ### Strict higher order
 
-There are higher order mutations. That is mutating methods that take function as argument. Map has `whenMissin(K key, Supplier<V> valueSupplier)` where the value is calculated only if the key was missing, etc.
+There are higher order mutations. That is mutating methods that take function as argument. Map has `whenMissing(K key, Supplier<V> valueSupplier)` where the value is calculated only if the key was missing, etc.
 
 Then there are the classic higher order transformations: `map`, `filter`, `fold` and `reduce`, which here are strict and return a collection of the same type.
 
 ### null are values
 
-Grit recognizes null as legal value. As null is of subtype of every type that will ever be, it should always be legal value of the type currently stored in collection. This is somewhat different than Java Collection that don't always accept null.
+Grit recognizes null as legal value. As null is of subtype of every type that will ever be, so it should always be legal value of the type currently stored in collection. This is somewhat different than Java Collection that don't always accept null.
 
 ### Java 8 and Compatibility
 
@@ -102,8 +102,7 @@ There are exceptions in compatibility though. These are immutable, and they alwa
 
 ### Performance characteristics 
 
-Mutation of immutable collection does not mean copying whole collections. Small collections are cheap to copy. Larger collections share structure internally with its descendants to prevent excessive copying up on mutation. All of these collections are trees of some type. The only thing copied during a mutation is the branch from root to altered leaf, while everything else is shared. The Vector is a very shallow and highly branching tree which has O log32(n), which is very similar characteristics to O(n).
-
+Mutation of immutable collection does not mean copying whole collections. Small collections are cheap to copy. Larger collections share structure internally with its descendants to prevent excessive copying up on mutation. All of these collections are trees of some type. The only thing copied during a mutation is the branch from root to altered leaf, while everything else is shared. The Vector is a very shallow and highly branching tree which has O log32(n), which is very similar characteristics to O(1).
 
 ### on the shoulder of giants
 
