@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <name>stonehorse.grit - simpler collections</name>
-  <url></url>
+  <url>https://github.com/stefanvstein/stonehorse.grit</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

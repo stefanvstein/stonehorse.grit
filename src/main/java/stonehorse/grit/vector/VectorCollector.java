@@ -26,7 +26,7 @@ public class VectorCollector<T>
     }
 
     public static <T> VectorCollector<T> collector(PersistentVector<T> empty){
-        return new VectorCollector<T>(empty);
+        return new VectorCollector<>(empty);
     }
 
     @Override

@@ -27,7 +27,7 @@ class ArrayMapIterator<K, V> extends ImmutableIterator<Map.Entry<K, V>> {
 		i += 2;
 		if(i>=array.length)
 			throw new NoSuchElementException();
-		return new APMapEntry<K, V>((K) array[i], (V) array[i + 1]);
+		return new APMapEntry<>((K) array[i], (V) array[i + 1]);
 	}
 
 }

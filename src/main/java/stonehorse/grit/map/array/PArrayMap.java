@@ -20,12 +20,12 @@ import static stonehorse.candy.Choices.cond;
 
 public class PArrayMap<K, V> extends APMap<K, V> implements EphemerableMap<K,V>, Serializable{
 	public static final int HASHTABLE_THRESHOLD = 8;
-	private static final PArrayMap<?, ?> EMPTY = new PArrayMap<Object, Object>();
+	private static final PArrayMap<?, ?> EMPTY = new PArrayMap<>();
 
 	private final Object[] array;
 
 	static <K, V> PArrayMap<K, V> create(Object array[]) {
-		return new PArrayMap<K, V>(array);
+		return new PArrayMap<>(array);
 	}
 
 	private PArrayMap() {
@@ -38,7 +38,7 @@ public class PArrayMap<K, V> extends APMap<K, V> implements EphemerableMap<K,V>,
 	}
 
 	private Object writeReplace() throws ObjectStreamException {
-		return new SerializedMap<K, V>(this);
+		return new SerializedMap<>(this);
 	}
 
 	static int indexOf(Object key, Object array[], int len) {
@@ -121,7 +121,7 @@ public class PArrayMap<K, V> extends APMap<K, V> implements EphemerableMap<K,V>,
 	}
 
 	public EphemeralArrayMap<K, V> ephemeral() {
-		return new EphemeralArrayMap<K, V>(array);
+		return new EphemeralArrayMap<>(array);
 	}
 
 	@Override public int size() {
@@ -154,7 +154,7 @@ public class PArrayMap<K, V> extends APMap<K, V> implements EphemerableMap<K,V>,
 	}
 
 	@Override public Iterator<Map.Entry<K, V>> iterator() {
-		return new ArrayMapIterator<K, V>(array);
+		return new ArrayMapIterator<>(array);
 	}
 
 	@Override public PersistentMap<K, V> withoutAll(Iterable<?> iterable) {

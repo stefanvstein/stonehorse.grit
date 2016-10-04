@@ -15,7 +15,6 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
-import static stonehorse.candy.Choices.cond;
 import static stonehorse.candy.Choices.ifelse;
 
 public abstract class APMap<K, V> extends ImmutableMap<K, V> implements  PersistentMap<K,V> {
@@ -54,17 +53,17 @@ public abstract class APMap<K, V> extends ImmutableMap<K, V> implements  Persist
 
     @Override
     public Collection<V> values() {
-        return new ValueCollection<K, V>(this);
+        return new ValueCollection<>(this);
     }
 
     @Override
     public Set<K> keySet() {
-        return new KeySet<K, V>(this);
+        return new KeySet<>(this);
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return new EntrySet<K, V>(this);
+        return new EntrySet<>(this);
     }
 
     @Override

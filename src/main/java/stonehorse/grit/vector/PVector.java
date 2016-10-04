@@ -91,7 +91,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
     static public <T> PersistentVector<T> withTail(Object[] tail){
         if(tail.length>VFuns.BUCKET_SIZE)
             throw new IllegalArgumentException();
-        return new PVector<T>(tail.length, Node.emptyNode(), tail);
+        return new PVector<>(tail.length, Node.emptyNode(), tail);
     }
     @SuppressWarnings("unchecked") public static <T> PVector<T> empty() {
         return (PVector<T>) EMPTY;
@@ -127,7 +127,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
     // **************** getOr
 
     @SuppressWarnings("unchecked") @Override public T get(int i) {
-        return (T) arrayFor(i,size,root, levels(size), tail)[indexOfArrayAt(i)];
+        return (T) arrayFor(i,size,root, tail)[indexOfArrayAt(i)];
     }
 
     @Override public T getOr(int i, Supplier<T> notFound) {
@@ -277,7 +277,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
         requireNonNull(fn);
         int levels = levels(size);
         for(int i = 0; i<size();i++)
-          acc=fn.apply(acc,(T)arrayFor(i,size,root, levels, tail)[indexOfArrayAt(i)]);
+          acc=fn.apply(acc,(T)arrayFor(i,size,root, tail)[indexOfArrayAt(i)]);
         return acc;
     }
 
@@ -326,7 +326,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
     private PVector<T> withoutInTree() {
         Iterable<Integer> path = pathToNode(size, indexOfLastAfterWithout(size));
         Node newRoot = rootWithoutLast(path, root);
-        Object[] newTail =arrayFor(size - 2,size,root, levels(size), tail);
+        Object[] newTail =arrayFor(size - 2,size,root, tail);
         return ifelse(
                 canShrink(newRoot),
                 () -> shrink(newRoot, newTail),

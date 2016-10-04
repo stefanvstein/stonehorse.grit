@@ -266,10 +266,10 @@ public final class BitmapIndexedNode implements Node {
 		return editable;
 	}
 
-	private BitmapIndexedNode editAndSet(Object owner,	int i, Object a, int j, Object b) {
+	private BitmapIndexedNode editAndSetNode(Object owner,  int j, Object b) {
 		BitmapIndexedNode editable = ensureEditable(owner);
-		editable.array[i] = a;
-		editable.array[j] = b;
+		editable.array[keyPosition(j)] = null;
+		editable.array[valuePosition(j)] = b;
 		return editable;
 	}
 
@@ -322,11 +322,9 @@ public final class BitmapIndexedNode implements Node {
 	}
 
 	private BitmapIndexedNode putInNewNodeEphemerally(Object owner, int shift, int hash, Object key, Object val, int idx) {
-		return editAndSet(
+		return editAndSetNode(
                 owner,
-                keyPosition(idx),
-                null,
-                valuePosition(idx),
+                idx,
                 createNodeEphemerally(owner, nextShift(shift), keyAtIndex(idx), valAtIndex(idx), hash,
                         key, val));
 	}
@@ -447,7 +445,7 @@ public final class BitmapIndexedNode implements Node {
 
 	private Result removeNodeEphemerally(Object owner, int shift, int hash, Object key, boolean isRemoved, int bit, int idx) {
 		Node node = (Node) valAtIndex(idx);
-		Result res = ((Node) node).withoutEphemerally(owner, nextShift(shift), hash, key, isRemoved);
+		Result res = node.withoutEphemerally(owner, nextShift(shift), hash, key, isRemoved);
 		return cond(
 				() -> res.node == node,
 				() -> result(this).withResizeOf(res),
@@ -482,7 +480,7 @@ public final class BitmapIndexedNode implements Node {
 				()-> HashCollisionNode.create(
 						key1hash,
 						2,
-						new Object[] {key1, val1, key2, val2 }),
+						key1, val1, key2, val2),
 
 				()->BitmapIndexedNode.EMPTY
 						.withEphemerally(owner, shift, key1hash, key1, val1, false).node
@@ -497,7 +495,7 @@ public final class BitmapIndexedNode implements Node {
 				()->HashCollisionNode.create(
 					key1hash,
 					2,
-					new Object[] { key1, val1, key2, val2 }),
+						key1, val1, key2, val2),
 				()->BitmapIndexedNode.EMPTY
 						.with(shift, key1hash, key1, val1,	false).node
 						.with(shift, key2hash, key2, val2, true).node);
@@ -515,7 +513,7 @@ public final class BitmapIndexedNode implements Node {
 	@Override
 	public String toString() {
 		return toString(0);
-	};
+	}
 
 	@Override public String toString(int ident) {
 		StringBuilder sb = new StringBuilder();

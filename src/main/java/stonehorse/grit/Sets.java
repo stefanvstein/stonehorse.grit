@@ -86,9 +86,8 @@ public class Sets {
      * A set of supplied values
      */
     public static <T> PersistentSet<T> setOfAll(T... values){
-        PersistentSet<T> s=Sets.<T>set();
-        for(int i = 0;i<values.length; i++)
-            s=s.with(values[i]);
+        PersistentSet<T> s=Sets.set();
+        for (T value : values) s = s.with(value);
         return s;
     }
     /**

@@ -9,32 +9,32 @@ import java.util.Map;
 public interface EphemeralMap<K, V>
         extends Associative<K, V> {
 
-    public boolean isEmpty();
+     boolean isEmpty();
 
-	public EphemeralMap<K, V> withoutAll(Iterable<?> iterable) ;
+	 EphemeralMap<K, V> withoutAll(Iterable<?> iterable) ;
 
-	public EphemeralMap<K, V> withAll(Map<? extends K, ? extends V> map) ;
+	 EphemeralMap<K, V> withAll(Map<? extends K, ? extends V> map) ;
 
-    public int size() ;
+     int size() ;
 
-    public V get(Object key, V otherwise);
+     V get(Object key, V otherwise);
 
-    @Override default public V get(Object key) {
+    @Override default V get(Object key) {
         return get(key, null);
     }
 
 
-    public PersistentMap<K, V> persistent() ;
+     PersistentMap<K, V> persistent() ;
 
-    @Override public default EphemeralMap<K, V> ensureKey(K key, V val) {
+    @Override  default EphemeralMap<K, V> ensureKey(K key, V val) {
         if (!has(key))
             return with(key, val);
         return this;
     }
 
-    @Override public EphemeralMap<K, V> with(K key, V val) ;
+    @Override  EphemeralMap<K, V> with(K key, V val) ;
 
-    @Override public EphemeralMap<K, V> without(Object key);
+    @Override  EphemeralMap<K, V> without(Object key);
     
     
 

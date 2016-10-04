@@ -38,7 +38,7 @@ public class PHashMap<T, V> extends APMap<T, V> implements EphemerableMap<T,V>, 
 	final boolean hasNull;
 	final V nullValue;
 
-	final public static PHashMap<?, ?> EMPTY = new PHashMap<Object, Object>(0,
+	final public static PHashMap<?, ?> EMPTY = new PHashMap<>(0,
 			null, false, null);
 
 	@SuppressWarnings("unchecked")
@@ -56,7 +56,7 @@ public class PHashMap<T, V> extends APMap<T, V> implements EphemerableMap<T,V>, 
 	static <K,V> PHashMap<K,V> create(int count, Node root, boolean hasNull, V nullValue){
 		//TODO return empty if count is 0. but first make sure all nodes are cleaned up when no longer used
 
-		return new PHashMap<K, V>(count, root, hasNull, nullValue);
+		return new PHashMap<>(count, root, hasNull, nullValue);
 	}
 
 	 private Object writeReplace() throws ObjectStreamException {
@@ -180,7 +180,7 @@ public class PHashMap<T, V> extends APMap<T, V> implements EphemerableMap<T,V>, 
 	public V get(Object key) {
 		return ifelse(key == null,
 				() -> ifelse(hasNull,
-						() -> (V) nullValue,
+						() ->  nullValue,
 						() -> null),
 				() -> ifelse(root != null,
 						() -> (V) root.find(0, hash(key), key, null),

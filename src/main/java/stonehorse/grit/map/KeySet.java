@@ -20,7 +20,7 @@ final class KeySet<K, V> extends AbstractSet<K> {
 				return mi.hasNext();
 			}
 			@Override public K next() {
-				Entry<K, V> e = (Entry<K, V>) mi.next();
+				Entry<K, V> e = mi.next();
 				return e.getKey();
 			}
 		};

@@ -28,7 +28,7 @@ public interface PersistentVector<T> extends Indexed<T>, Traversable<T>,
 	/**
 	 * The value at index or value if this is smaller
 	 */
-	public default T getOrDefault(int i, T value){
+	 default T getOrDefault(int i, T value){
 		return getOr(i, ()->value);
 	}
 	/**

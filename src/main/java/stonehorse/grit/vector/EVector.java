@@ -1,6 +1,5 @@
 package stonehorse.grit.vector;
 
-import stonehorse.candy.Atomic;
 import stonehorse.grit.Indexed;
 
 import java.util.Arrays;
@@ -20,7 +19,7 @@ import static stonehorse.grit.vector.VFuns.*;
 
 public final class EVector<T> implements Indexed<T> {
 	private int size;
-    private AtomicReference<Object> owner;
+	final private AtomicReference<Object> owner;
 	private Node root;
 	private Object[] tail;
 
@@ -32,7 +31,7 @@ public final class EVector<T> implements Indexed<T> {
 	}
 
 	public static <T> EVector<T> of(PVector<T> v){
-		return new EVector<T>(v.size, Node.nodeOf(v.root), Arrays.copyOf(v.tail, BUCKET_SIZE));
+		return new EVector<>(v.size, Node.nodeOf(v.root), Arrays.copyOf(v.tail, BUCKET_SIZE));
 	}
 
 	private void ensureEditable() {
@@ -55,7 +54,7 @@ public final class EVector<T> implements Indexed<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public T get(int i) {
-		return (T) arrayFor(i,size,root,levels(size),tail)[indexOfArrayAt(i)];
+		return (T) arrayFor(i,size,root,tail)[indexOfArrayAt(i)];
 	}
 
 	@Override
@@ -189,7 +188,7 @@ public final class EVector<T> implements Indexed<T> {
 	}
 
 	private EVector<T> withoutInTree() {
-		Object[] newTail = arrayFor(size - 2, size, root, levels(size()), tail);
+		Object[] newTail = arrayFor(size - 2, size, root, tail);
 		Iterable<Integer> path = pathToNode(size, indexOfLastAfterWithout(size));
 		root = rootWithoutLast(path, root);
 

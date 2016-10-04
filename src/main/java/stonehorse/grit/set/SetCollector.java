@@ -25,7 +25,7 @@ public class SetCollector<T> implements Collector<T, AtomicReference<PersistentS
     }
 
     public static <T> SetCollector<T> collector(PersistentSet<T> empty){
-        return new SetCollector<T>(empty);
+        return new SetCollector<>(empty);
     }
 
     @Override

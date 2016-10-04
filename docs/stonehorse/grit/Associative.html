@@ -138,9 +138,9 @@ extends <a href="../../stonehorse/grit/Lookup.html" title="interface in stonehor
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/Associative.html" title="interface in stonehorse.grit">Associative</a>&lt;<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">K</a>,<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">V</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Associative.html#ifMissing-K-java.util.function.Supplier-">ifMissing</a></span>(<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">K</a>&nbsp;key,
-         <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function">Supplier</a>&lt;<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">V</a>&gt;&nbsp;valueSupplier)</code>
-<div class="block">This associated with new key and lazy value binding, if key is not yet used as association</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Associative.html#whenMissing-K-java.util.function.Supplier-">whenMissing</a></span>(<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">K</a>&nbsp;key,
+           <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function">Supplier</a>&lt;<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">V</a>&gt;&nbsp;valueSupplier)</code>
+<div class="block">This associated with new key and lazy value binding, when key is not yet used as association</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -198,17 +198,17 @@ extends <a href="../../stonehorse/grit/Lookup.html" title="interface in stonehor
 <div class="block">This associated with new key and value binding, if key is not yet used as association</div>
 </li>
 </ul>
-<a name="ifMissing-java.lang.Object-java.util.function.Supplier-">
+<a name="whenMissing-java.lang.Object-java.util.function.Supplier-">
 <!--   -->
-</a><a name="ifMissing-K-java.util.function.Supplier-">
+</a><a name="whenMissing-K-java.util.function.Supplier-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>ifMissing</h4>
-<pre><a href="../../stonehorse/grit/Associative.html" title="interface in stonehorse.grit">Associative</a>&lt;<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">K</a>,<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">V</a>&gt;&nbsp;ifMissing(<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">K</a>&nbsp;key,
-                           <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function">Supplier</a>&lt;<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">V</a>&gt;&nbsp;valueSupplier)</pre>
-<div class="block">This associated with new key and lazy value binding, if key is not yet used as association</div>
+<h4>whenMissing</h4>
+<pre><a href="../../stonehorse/grit/Associative.html" title="interface in stonehorse.grit">Associative</a>&lt;<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">K</a>,<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">V</a>&gt;&nbsp;whenMissing(<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">K</a>&nbsp;key,
+                             <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function">Supplier</a>&lt;<a href="../../stonehorse/grit/Associative.html" title="type parameter in Associative">V</a>&gt;&nbsp;valueSupplier)</pre>
+<div class="block">This associated with new key and lazy value binding, when key is not yet used as association</div>
 </li>
 </ul>
 <a name="with-java.lang.Object-java.lang.Object-">

@@ -81,7 +81,7 @@ public class VFuns {
                 ()->node);
     }
 
-    public static Object[] arrayFor(int index, int size, Node root, int levels, Object[] tail) {
+    public static Object[] arrayFor(int index, int size, Node root, Object[] tail) {
         if (outOfBounds(index, size))
             throw new IndexOutOfBoundsException();
         if (isInTail(index, size))

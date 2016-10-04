@@ -100,10 +100,6 @@ public class Iteration {
         };
     }
 
-    static <T> PersistentVector<T> with(PersistentVector<T> v, T t){
-        return v.with(t);
-    }
-
     private static boolean isNodeAt(Object[] array, int i) {
         return array[keyPos(i)]==null;
     }
@@ -124,9 +120,9 @@ public class Iteration {
         return ()->{
             PersistentVector nodes = vector();
             Object[] array = node.array();
-            for(int i = 0; i< array.length;i++)
-                if(array[i]!= null)
-                    nodes=nodes.with(array[i]);
+            for (Object anArray : array)
+                if (anArray != null)
+                    nodes = nodes.with(anArray);
             return recur( iterable( stack.withAll(nodes), emptyIterator()));
         };
     }

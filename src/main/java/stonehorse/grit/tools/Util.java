@@ -287,9 +287,6 @@ public static boolean iteratorContains(Iterator<?> it, Object o){
 		}
 
 		private Object readResolve() throws ObjectStreamException {
-			// ensures that we aren't hanging onto a new default comparator for
-			// every
-			// sorted set, etc., we deserialize
 			return DEFAULT_COMPARATOR;
 		}
 	}
@@ -325,7 +322,7 @@ public static boolean iteratorContains(Iterator<?> it, Object o){
 		try {
 			b.toBigIntegerExact();
 			return true;
-		} catch (ArithmeticException e) {
+		} catch (ArithmeticException ignored) {
 		}
 		return false;
 	}

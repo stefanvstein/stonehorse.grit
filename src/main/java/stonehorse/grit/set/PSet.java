@@ -31,10 +31,10 @@ public class PSet<T> extends ImmutableSet<T> implements PersistentSet<T>, Serial
 	private PSet(PersistentMap<T, T> impl) {
 		this.impl = impl;
 	}
-	private static final PSet<?> EMPTY = new PSet<Object>();
+	private static final PSet<?> EMPTY = new PSet<>();
 	
 	public static <T> PSet<T> of(PersistentMap<T,T> impl){
-		return new PSet<T>(impl);
+		return new PSet<>(impl);
 	}
 	
 	@SuppressWarnings("unchecked") 
@@ -43,19 +43,19 @@ public class PSet<T> extends ImmutableSet<T> implements PersistentSet<T>, Serial
 	}
 	
 	 private Object writeReplace() throws ObjectStreamException {
-			return new SerializedSet<T>(this);
+			return new SerializedSet<>(this);
 		}
 	@Override public PersistentSet<T> with(T t) {
 		PersistentMap<T, T> val = impl.with(t, t);
 		if (val == impl)
 			return this;
-		return new PSet<T>(val);
+		return new PSet<>(val);
 	}
 	@Override public PersistentSet<T> without(Object key) {
 		PersistentMap<T, T> val = impl.without(key);
 		if (val == impl)
 			return this;
-		return new PSet<T>(val);
+		return new PSet<>(val);
 	}
 
 	public String toString() {
@@ -101,7 +101,7 @@ public class PSet<T> extends ImmutableSet<T> implements PersistentSet<T>, Serial
 		}
 		return array;
 	}
-	@Override public <T> T[] toArray(T[] a) {
+	@Override public <G> G[] toArray(G[] a) {
 		return Util.setToArray(a, this);
 	}
 	@Override public boolean containsAll(Collection<?> c) {
@@ -175,7 +175,7 @@ public class PSet<T> extends ImmutableSet<T> implements PersistentSet<T>, Serial
 
 	public EphemeralSet<T> ephemeral() {
 		if (impl instanceof EphemerableMap)
-			return new EpSet<T>(((EphemerableMap<T, T>) impl).ephemeral());
+			return new EpSet<>(((EphemerableMap<T, T>) impl).ephemeral());
 		throw new UnsupportedOperationException();
 	}
 

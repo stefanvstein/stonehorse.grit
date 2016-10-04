@@ -24,7 +24,7 @@ public final class ValueCollection<K, V> extends AbstractCollection<V> {
 	        }
 	        @Override
 	        public V next() {
-	            Entry<K, V> e = (Entry<K, V>) mi.next();
+	            Entry<K, V> e = mi.next();
 	            return e.getValue();
 	        }
 	    };

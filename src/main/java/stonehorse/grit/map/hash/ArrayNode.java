@@ -71,18 +71,15 @@ boolean isNothingAt(int index){
     }
 
     private Node withoutInNode(int shift, int hash, Object key, Node node, int idx) {
-        Node n= maybe(node.without(nextShift(shift), hash, key))
-                .map(newNode->
-                        ifelse(newNode==node,
-                        ()-> nothingFound(),
-                        ()->create( count, cloneAndSet(array, idx, newNode))))
-                .orElseGet(()-> withoutNode(idx));
-        return n;
+        return maybe(node.without(nextShift(shift), hash, key))
+                .map(newNode ->
+                        ifelse(newNode == node,
+                                this::nothingFound,
+                                () -> create(count, cloneAndSet(array, idx, newNode))))
+                .orElseGet(() -> withoutNode(idx));
     }
 
-    private Node asBitmap(ArrayNode an) {
-        return an;
-    }
+
 
     private Node withoutNode(int idx) {
         return ifelse (count <= 8, // shrink

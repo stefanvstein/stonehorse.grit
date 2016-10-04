@@ -110,7 +110,7 @@ public class EphemeralArrayMap<K, V> implements EphemeralMap<K, V> {
     }
 
     @Override public PArrayMap<K, V> persistent() {
-             return PArrayMap.<K,V>create(Arrays.copyOf(array,len));
+             return PArrayMap.create(Arrays.copyOf(array,len));
     }
 
 

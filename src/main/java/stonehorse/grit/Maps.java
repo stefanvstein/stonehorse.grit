@@ -9,7 +9,6 @@ import java.util.function.Function;
 import java.util.stream.Collector;
 
 import static stonehorse.candy.Iterables.fold;
-import static stonehorse.candy.Iterables.reduce;
 
 /**
  * Creation of persistent Associative Map structures that accept null as ordinary valid key value.
@@ -28,7 +27,7 @@ public class Maps {
      * The empty persistent map
      */
     static public <K,V> PersistentMap<K,V>  map() {
-        return PArrayMap.<K,V>empty();
+        return PArrayMap.empty();
     }
 
     /**

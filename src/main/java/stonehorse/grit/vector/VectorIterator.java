@@ -21,7 +21,7 @@ final class VectorIterator<T> extends ImmutableIterator<T> {
         i = start;
         base = i - (i % VFuns.BUCKET_SIZE);
         if(start<vector.size())
-            array= VFuns.arrayFor(i, vector.size, vector.root, VFuns.levels(vector.size()), vector.tail);
+            array= VFuns.arrayFor(i, vector.size, vector.root, vector.tail);
         else array=null;
     }
 
@@ -32,7 +32,7 @@ final class VectorIterator<T> extends ImmutableIterator<T> {
     @SuppressWarnings("unchecked") public T next() {
         if (hasNext()) {
             if (i - base == VFuns.BUCKET_SIZE) {
-                array = VFuns.arrayFor(i,vector.size, vector.root, VFuns.levels(vector.size()), vector.tail);
+                array = VFuns.arrayFor(i,vector.size, vector.root, vector.tail);
                 base += VFuns.BUCKET_SIZE;
             }
             i++;

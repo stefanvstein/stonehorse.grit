@@ -22,7 +22,7 @@ public class EpSet<T> implements EphemeralSet<T> {
 	}
 
 	@Override public PersistentSet<T> persistent() {
-		return PSet.<T>of(
+		return PSet.of(
 				impl.persistent());
 	}
 

@@ -71,7 +71,7 @@ public class ToMapCollector<T, K, U> implements Collector<T, AtomicReference<Per
               Function<? super T, ? extends U> valueMapper,
               BinaryOperator<U> valueMerger,
               PersistentMap<K, U> empty) {
-        return new ToMapCollector<T, K, U>(keyMapper, valueMapper, valueMerger, empty);
+        return new ToMapCollector<>(keyMapper, valueMapper, valueMerger, empty);
     }
 
 }
