@@ -71,7 +71,7 @@ The factory classes [Vectors](https://stefanvstein.github.io/stonehorse.grit/sto
 The `with` and `without` are the most basic methods used to mutate. As explained above these methods returns new versions of the collections rather than changing them. These basic methods add and remove elements on the most effective position, which is dependent on collection type. For a vector the most effective position is at the end. While for a set it is unknown.
 
 ```java
-PersistentList<Integer> list=Vector.vector().with(1).with(2);
+PersistentList<Integer> list = Vector.vector().with(1).with(2);
 ```
 ..will give you a vector of `[1, 2]`
 
@@ -81,24 +81,24 @@ list.without()
 ```
 ...would return a vector `[1]` as the second element, the most effective, would be removed. Vectors naturally mutate at the end.
 
-The `without` method for Set, is applied with the elements that should be removed. For the Map that is the key to remove. With for a Map is both key and value.
+The `without` method for Set, is applied with the elements that should be removed. 
 
-There are `withAll` methods for adding many elements at once, i.e. from Iterables or other Maps for Maps. This is though called `union` for Set, while `withoutAll` similarly is called `difference` for Set. 
+There are `withAll` methods for adding many elements at once, i.e. from Iterables or other Maps. 
 
 
 ### Strict higher order
 
-There are higher order mutations. That is mutating methods that take function as argument. Map has `whenMissing(K key, Supplier<V> valueSupplier)` where the value is calculated only if the key was missing, etc.
+There are higher order mutations. That is, mutating methods that take function as argument. Map has `whenMissing(K key, Supplier<V> valueSupplier)` where the value is calculated only when the key was missing, etc.
 
 Then there are the classic higher order transformations: `map`, `filter`, `fold` and `reduce`, which here are strict and return a collection of the same type.
 
 ### null are values
 
-Grit recognizes null as legal value. As null is of subtype of every type that will ever be, so it should always be legal value of the type currently stored in collection. This is somewhat different than Java Collection that don't always accept null.
+Grit recognizes null as legal value. As null is of subtype of every type that will ever be, it should always be legal value of the type currently stored in collection. This is somewhat different than Java Collection that don't always accept null.
 
 ### Java 8 and Compatibility
 
-There are other Persistent Collections for Java out there. This one is trying to be very compatible with Java Collections, in order to be easy to use. It is also devised with Java 8 in mind, and have higher order methods fit for lambdas, and integration with Streams.
+There are other Persistent Collections for Java out there. This one is trying to be very compatible with Java Collections, in order to be easy to use. This is also devised with Java 8 in mind, and have higher order methods fit for lambdas, and integration with Streams.
 
 There are exceptions in compatibility though. These are immutable, and they always accept null. Exceptions is another area where Java Collections is a bit inconsistent
 
@@ -108,7 +108,7 @@ Mutation of immutable collection does not mean copying whole collections. Small 
 
 ### on the shoulder of giants
 
-These algorithm are similar to those used in functional languages like Clojure and Scala. This project started out of curiosity of how the Persistent Vector in Clojure was implemented, and ended with a total rewrite both to get to know all the nuts and bolts, as well as to achieve higher Java Collection compatibility. So don't blame Clojure for issues found here as this is a total rewrite. This is implemented with simple code that should be easy to follow rather than beeing performant code. If you like working with this, I highly encurage you to go for Clojure instead, as it will leverage these ideas much further. On the other hand, sometimes you don't get to choose.
+These algorithm are similar to those used in functional languages like Clojure and Scala. This project started out of curiosity of how the Persistent Vector in Clojure was implemented, and ended with a total rewrite, both to get to know all the nuts and bolts, as well as to achieve higher Java Collection compatibility. So don't blame Clojure for issues found here as this is a total rewrite. This is implemented with simple code that should be easy to follow rather than focusing on beeing performant. If you like working with this, I highly encurage you to go for Clojure, as it will leverage these ideas much further. On the other hand, sometimes you don't get to choose.
 
  <div align="right">
 _Choose immutability and see where it takes you_
