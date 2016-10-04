@@ -13,7 +13,7 @@ The ArrayList is updated in place and the state prior to mutation is lost for al
 
 The corresponding PersistentVector throws up on add, but instead provides the `with`-method that returns the altered list:
 ```java
-list=list.with("something");
+list = list.with("something");
 ```
 The `with` does not mutate the list and all referencing it still sees the list as prior to mutation. Instead the reference list will refer a new value, list with "something" due to the assignment. 
 
