@@ -1,6 +1,7 @@
 package stonehorse.grit.map.hash;
 
 
+import stonehorse.grit.SerializedMap;
 import stonehorse.grit.tools.ImmutableIterator;
 import stonehorse.grit.PersistentMap;
 import stonehorse.grit.map.*;

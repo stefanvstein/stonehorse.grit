@@ -3,6 +3,7 @@ package stonehorse.grit.map.array;
 
 
 import stonehorse.grit.PersistentMap;
+import stonehorse.grit.SerializedMap;
 import stonehorse.grit.map.*;
 import stonehorse.grit.map.hash.EphemeralHashMap;
 import stonehorse.grit.map.hash.PHashMap;

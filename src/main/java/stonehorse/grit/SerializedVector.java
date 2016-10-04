@@ -1,4 +1,4 @@
-package stonehorse.grit.vector;
+package stonehorse.grit;
 
 import stonehorse.grit.PersistentVector;
 import stonehorse.grit.Vectors;
@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
-
+/**
+ * Placeholder for serial vectors, implemented as a simple sequence of values
+ */
 public class SerializedVector implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private transient PersistentVector vector;

@@ -17,12 +17,16 @@ import stonehorse.grit.vector.VFuns;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
+import static stonehorse.candy.Iterables.map;
+import static stonehorse.candy.Iterables.range;
+import static stonehorse.candy.Threading.thread;
 import static stonehorse.grit.test.A.a;
 import static stonehorse.grit.test.B.b;
 
@@ -132,7 +136,28 @@ public class PersistentVectorTest {
         }
     }
 
+    @Test public void largeWithAt(  ){
+        PersistentVector<Integer> p = PVector.create(Iterables.range(40));
+        for(int i =0; i<p.size(); i++)
+            p=p.withAt(i+1, i);
+        assertEquals(p, PVector.create(Iterables.range(1,41)));
+    }
 
+
+    @Test public void largeWith(){
+        PVector<Integer> v = PVector.empty();
+        for(int i =0; i<50_000;i++) {
+            if(i==2048+32) {
+                System.out.println("Before:"+v.dump());
+                v = v.with(i);
+                System.out.println("After:"+v.dump());
+            }
+            else v = v.with(i);
+        }
+        Iterator it=v.iterator();
+        for(int i =0; i<50_000;i++)
+            assertEquals(Integer.valueOf(i), it.next());
+    }
     @Test
     public void nullTest() {
 
@@ -165,7 +190,7 @@ try {
     public void EphemeralConsistencyTest() {
         PersistentVector<Integer> v = Vectors.vector();
         int m = 1024 + 31;
-        v = v.withAll(Iterables.range(0, m));
+        v = v.withAll(range(0, m));
         PersistentVector<Integer> v2 = Vectors.vector();
         for (int i = 0; i < m; i++) {
             v2 = v2.with(i);
@@ -258,6 +283,10 @@ try {
         v = Vectors.vectorOfAll(new String[]{});
         assertTrue(v.isEmpty());
         assertEquals(Vectors.vector(1,2), Vectors.vectorOfAll(1,2));
+        PersistentVector<Integer> vi=Vectors.vectorOf(thread(range(40)));
+vi=Vectors.vectorOfAll(vi.toArray(new Integer[]{}));
+        assertEquals(Iterables.reduce((a,x)-> a+x,0, range(40)),
+                vi.reduce((a, x)->a+x));
     }
 
     @Test

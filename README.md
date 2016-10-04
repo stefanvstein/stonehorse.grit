@@ -60,6 +60,8 @@ and dependency:
 ```
 to your pom
 
+This is not dependent on anything else than its sister project [Stonehorse.Candy](https://github.com/stefanvstein/stonehorse.candy), Java 8, and JUnit
+
 ## Usage
 
 The factory classes [Vectors](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/Vectors.html), [Maps](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/Maps.html), [Sets](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/Sets.html) are your starting points, while [PersistentVector](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/PersistentVector.html), [PersistentMap](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/PersistentMap.html), [PersistentSet](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/PersistentSet.html) are the abstract interfaces representing the structures. These extend Java Collections interfaces List, Map, and Set, but act as read only versions of them. Similar to wrapping them in Collections.unmodifiableCollection from Java Collection perspective.

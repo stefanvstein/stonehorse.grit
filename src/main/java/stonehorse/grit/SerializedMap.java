@@ -1,4 +1,4 @@
-package stonehorse.grit.map;
+package stonehorse.grit;
 
 import stonehorse.grit.PersistentMap;
 import stonehorse.grit.map.array.PArrayMap;
@@ -9,6 +9,9 @@ import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.Map.Entry;
 
+/**
+ * Placeholder for serial maps, implemented as a simple sequence of key value pairs
+ */
 public class SerializedMap<K,V> implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private transient PersistentMap<K,V> map;

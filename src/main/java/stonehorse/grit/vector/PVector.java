@@ -5,6 +5,7 @@ import stonehorse.candy.Iterables;
 import stonehorse.candy.Tuples;
 
 import stonehorse.grit.PersistentVector;
+import stonehorse.grit.SerializedVector;
 
 import java.io.ObjectStreamException;
 import java.io.Serializable;
@@ -187,7 +188,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
         return ifelse(has(remaining),
                 ()->mapOr(mother.child(index),
                         child->cloneNodeWithValue(mother, withNodeIn(remaining, child, value), index),
-                        ()->cloneNodeWithValue(mother, newPath(size(path), value), index)),
+                        ()->cloneNodeWithValue(mother, newPath(size(path)-1, value), index)),
                 ()->cloneNodeWithValue(mother, value, index));
 
     }

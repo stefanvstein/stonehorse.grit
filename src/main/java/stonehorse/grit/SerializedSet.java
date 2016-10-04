@@ -1,12 +1,16 @@
-package stonehorse.grit.set;
+package stonehorse.grit;
 
 import stonehorse.grit.PersistentSet;
+import stonehorse.grit.set.PSet;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 
+/**
+ * Placeholder for serial sets, implemented as a simple sequence of values
+ */
 public class SerializedSet<V> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private transient PersistentSet<V> set;

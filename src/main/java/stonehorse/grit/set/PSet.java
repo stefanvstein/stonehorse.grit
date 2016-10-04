@@ -1,6 +1,7 @@
 package stonehorse.grit.set;
 
 
+import stonehorse.grit.SerializedSet;
 import stonehorse.grit.tools.ImmutableIterator;
 import stonehorse.grit.tools.ImmutableSet;
 import stonehorse.grit.PersistentMap;
