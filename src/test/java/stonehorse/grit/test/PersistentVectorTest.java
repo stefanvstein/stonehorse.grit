@@ -146,14 +146,9 @@ public class PersistentVectorTest {
 
     @Test public void largeWith(){
         PVector<Integer> v = PVector.empty();
-        for(int i =0; i<50_000;i++) {
-            if(i==2048+32) {
-                System.out.println("Before:"+v.dump());
-                v = v.with(i);
-                System.out.println("After:"+v.dump());
-            }
-            else v = v.with(i);
-        }
+        for(int i =0; i<50_000;i++)
+             v = v.with(i);
+
         Iterator it=v.iterator();
         for(int i =0; i<50_000;i++)
             assertEquals(Integer.valueOf(i), it.next());
@@ -285,7 +280,7 @@ try {
         assertEquals(Vectors.vector(1,2), Vectors.vectorOfAll(1,2));
         PersistentVector<Integer> vi=Vectors.vectorOf(thread(range(40)));
 vi=Vectors.vectorOfAll(vi.toArray(new Integer[]{}));
-        assertEquals(Iterables.reduce((a,x)-> a+x,0, range(40)),
+        assertEquals(Iterables.fold((a,x)-> a+x,0, range(40)),
                 vi.reduce((a, x)->a+x));
     }
 

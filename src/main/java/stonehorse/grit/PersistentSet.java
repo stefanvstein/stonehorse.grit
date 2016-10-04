@@ -70,7 +70,7 @@ public interface PersistentSet<T> extends Set<T>, Traversable<T> {
      */
     @Override
     default <V> V fold(BiFunction<? super V, ? super T, ? extends V> fn, V acc) {
-        return Iterables.reduce(fn, acc, this);
+        return Iterables.fold(fn, acc, this);
     }
 
     /**

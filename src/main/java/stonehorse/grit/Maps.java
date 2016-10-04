@@ -8,6 +8,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collector;
 
+import static stonehorse.candy.Iterables.fold;
 import static stonehorse.candy.Iterables.reduce;
 
 /**
@@ -167,7 +168,7 @@ public class Maps {
      * A persistent map made of map entries
      */
     public static <K,V> PersistentMap<K,V> fromEntries(Iterable<Map.Entry<K, V>> entries){
-        return reduce((acc, entry)->
+        return fold((acc, entry)->
                         acc.with(entry.getKey(), entry.getValue()),
                 map(),
                 entries);

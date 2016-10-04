@@ -55,9 +55,10 @@ public class PVector<T> extends APVector<T> implements Serializable{
         return Tuples.of(size, Node.nodeOfArray(tail), root);
     }
     public String dump(){
-        return ("Size:" + size) +
+        return ("Size:" + size) +System.lineSeparator()+
                 " Tail:" + Arrays.asList(tail) +
-                " Tree:" + root;
+                System.lineSeparator()+
+                " Tree:" + root.toString(2);
     }
 
     private static <T> EVector<T> ephemeral(PVector<T> v){
@@ -194,7 +195,7 @@ public class PVector<T> extends APVector<T> implements Serializable{
     }
 
     private static int size(Iterable<?> i){
-        return Iterables.reduce((a, v)-> a+1, 0, i);
+        return Iterables.fold((a, v)-> a+1, 0, i);
     }
 
     private static Node cloneNodeWithValue(Node node, Object v, int index) {

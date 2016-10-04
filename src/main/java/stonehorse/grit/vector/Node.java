@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import static java.lang.System.lineSeparator;
 import static java.util.Arrays.asList;
 import static stonehorse.candy.Choices.mapOr;
 import static stonehorse.candy.Iterables.first;
@@ -97,15 +98,27 @@ public class Node implements Serializable {
         return Objects.hash(array);
     }
 
-    @Override
-    public String toString() {
-
-        StringBuilder sb = new StringBuilder();
+    public String toString(int indent) {
+       StringBuilder sb = new StringBuilder(lineSeparator());
+        for(int i=0;i<indent;i++)
+            sb.append(" ");
         sb.append("node[" + Integer.toHexString(System.identityHashCode(this)) + "]{");
-        for (String a : interleave(() -> ", ", Iterables.map(Objects::toString, mapOr(array, Arrays::asList, () -> null))))
+        for (String a : interleave(() -> ", ", Iterables.map(x->indentNodes(x, indent), mapOr(array, Arrays::asList, () -> null))))
             sb.append(a);
         sb.append("}");
         return sb.toString();
+    }
 
+    private static < A> String indentNodes(A a, int i) {
+        if(null==a)
+            return "null";
+        if(a instanceof Node)
+            return ((Node)a ).toString(i+1);
+        return a.toString();
+    }
+
+    @Override
+    public String toString() {
+      return toString(0);
     }
 }

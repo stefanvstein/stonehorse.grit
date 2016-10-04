@@ -14,9 +14,7 @@ import static stonehorse.candy.Atomic.value;
 import static stonehorse.candy.Choices.cond;
 import static stonehorse.candy.Choices.ifelse;
 import static stonehorse.candy.Choices.mapOr;
-import static stonehorse.candy.Iterables.first;
-import static stonehorse.candy.Iterables.next;
-import static stonehorse.candy.Iterables.reduce;
+import static stonehorse.candy.Iterables.*;
 import static stonehorse.grit.vector.Node.nodeOfArray;
 import static stonehorse.grit.vector.VFuns.*;
 
@@ -169,7 +167,7 @@ public final class EVector<T> implements Indexed<T> {
 	}
 
 	private static int size(Iterable<?> i){
-		return reduce((a,v)-> a+1, 0, i);
+		return fold((a,v)-> a+1, 0, i);
 	}
 
 	private static Node withIndexSet(Node node, int index, Object val) {

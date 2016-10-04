@@ -67,13 +67,13 @@ public class TestHashMap extends MapBase {
             }
         }
         assertEquals(Integer.valueOf(0),
-                Iterables.reduce(
+                Iterables.fold(
                         (Integer ac, Object v) -> ac + 1, 0,
                         Iteration.iterable(((PHashMap<Object, String>) source).root(), false, null))
         );
 
         assertEquals(Integer.valueOf(39),
-                Iterables.reduce(
+                Iterables.fold(
                         (Integer ac, Object v) -> ac + 1, 0,
                         Iteration.iterable(((PHashMap<Object, String>) a).root(), false, null))
         );
@@ -336,7 +336,7 @@ public class TestHashMap extends MapBase {
         assertNull(t.get("Exceptions"));
         assertEquals(3, t.size());
 
-        PHashMap<String, String> source = Iterables.reduce(
+        PHashMap<String, String> source = Iterables.fold(
                 (acc, v) -> acc.with(Integer.toBinaryString(v), Integer.toHexString(v)),
                 PHashMap.empty(),
                 Iterables.range(5000));
@@ -355,7 +355,7 @@ public class TestHashMap extends MapBase {
         t = t.with("1", "1");
         assertTrue(t.has("1"));
 
-        PHashMap<String, String> source = Iterables.reduce(
+        PHashMap<String, String> source = Iterables.fold(
                 (acc, v) -> acc.with(Integer.toBinaryString(v), Integer.toHexString(v)),
                 PHashMap.empty(),
                 Iterables.range(5000));
