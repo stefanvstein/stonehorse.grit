@@ -15,7 +15,7 @@ The corresponding PersistentVector throws up on add, but instead provides the `w
 ```java
 list = list.with("something");
 ```
-The `with` does not mutate the list and all referencing it still sees the list as prior to mutation. Instead the reference list will refer a new value, list with "something" due to the assignment. 
+The `with` does not mutate the list in place and all referencing it still sees the list as prior to mutation. Instead the reference list will refer a new value, list with "something" due to the assignment, as `with` returned a new value. 
 
 If you want to remember the state prior to mutation, you simply assign the new list to some other reference, or final value if you prefer.
 ```java
