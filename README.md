@@ -94,21 +94,21 @@ Then there are the classic higher order transformations: `map`, `filter`, `fold`
 
 ### null are values
 
-Grit recognizes null as legal value. As null is of subtype of every type that will ever be, it should always be legal value of the type currently stored in collection. This is somewhat different than Java Collection that don't always accept null.
+Grit recognizes null as legal value. As null is of subtype of every type that will ever be, null should always be legal value of the type currently stored in collection. This is somewhat different than Java Collection that don't always accept null.
 
 ### Java 8 and Compatibility
 
 There are other Persistent Collections for Java out there. This one is trying to be very compatible with Java Collections, in order to be easy to use. This is also devised with Java 8 in mind, and have higher order methods fit for lambdas, and integration with Streams.
 
-There are exceptions in compatibility though. These are immutable, and they always accept null. Exceptions is another area where Java Collections is a bit inconsistent
+There are exceptions in compatibility, as these always accept null.
 
 ### Performance characteristics 
 
-Mutation of immutable collection does not mean copying whole collections. Small collections are cheap to copy. Larger collections share structure internally with its descendants to prevent excessive copying up on mutation. All of these collections are trees of some type. The only thing copied during a mutation is the branch from root to altered leaf, while everything else is shared. The Vector is a very shallow and highly branching tree which has O log32(n), which is very similar characteristics to O(1).
+Mutation of persistent collection does not necessarily mean copying whole collections. Small collections are cheap to copy. Larger collections share structure internally with its descendants to prevent excessive copying up on mutation. All of these collections are trees of some type. The only thing copied during a mutation is the branch from root to altered leaf, while everything else is shared. The Vector is a very shallow and highly branching tree which has O log32(n), which is very similar characteristics to O(1).
 
 ### on the shoulder of giants
 
-These algorithm are similar to those used in functional languages like Clojure and Scala. This project started out of curiosity of how the Persistent Vector in Clojure was implemented, and ended with a total rewrite, both to get to know all the nuts and bolts, as well as to achieve higher Java Collection compatibility. So don't blame Clojure for issues found here as this is a total rewrite. This is implemented with simple code that should be easy to follow rather than focusing on beeing performant. If you like working with this, I highly encurage you to go for Clojure, as it will leverage these ideas much further. On the other hand, sometimes you don't get to choose.
+These algorithms are similar to those used in functional languages like Clojure and Scala. This project started out of curiosity of how the Persistent Vector in Clojure was implemented, and ended with a total rewrite, both to get to know all the nuts and bolts, as well as to achieve higher Java Collection compatibility. So don't blame Clojure for issues found here as this is a total rewrite. This is implemented with simple code that should be easy to follow rather than focusing on being performant. If you like working with this, I highly encourage you to go for Clojure, as it will leverage these ideas much further. On the other hand, sometimes you don't get to choose.
 
  <div align="right">
 _Choose immutability and see where it takes you_

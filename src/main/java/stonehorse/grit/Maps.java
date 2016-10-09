@@ -153,8 +153,8 @@ public class Maps {
     }
 
     /**
-     * Termination of stream of elements into Persistent Map where mapper functions are used to for key and value,
-     * and value confilicts are resolved using a merge function.
+     * Termination of a stream into a Persistent Map where mapper functions are used for producing key and value,
+     * and where value conflicts are resolved using a merge function.
      */
     public static <T,K,U> Collector<T,?,PersistentMap<K,U>>
     toMap(Function<? super T,? extends K> keyMapper,
