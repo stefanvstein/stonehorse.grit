@@ -48,7 +48,7 @@ public class Iteration {
                                 ()->node.isEmpty()));
     }
 
-    private static <T,V> Supplier<Trampoline.RecursiveVal<Map.Entry<T,V>>> iterable(PersistentVector<Node> stack, Iterator<Map.Entry<T,V>> elements) {
+    private static <T,V> Supplier<Trampoline.Continuation<Map.Entry<T,V>>> iterable(PersistentVector<Node> stack, Iterator<Map.Entry<T,V>> elements) {
         return () ->
                 cond(
                     ()->elements.hasNext(),
@@ -58,7 +58,7 @@ public class Iteration {
                     ()-> continueWithNextNode(stack));
     }
 
-    private static <T, V> RecursiveVal<Map.Entry<T, V>> continueWithNextNode(PersistentVector<Node> stack) {
+    private static <T, V> Continuation<Map.Entry<T, V>> continueWithNextNode(PersistentVector<Node> stack) {
         Node node = stack.get();
         return ifelse(node==null,
                 ()->recur(iterable(stack.without(), emptyIterator())),
@@ -68,7 +68,7 @@ public class Iteration {
                         ()->recur(extractNodes((ArrayNode) node, stack.without()))));
     }
 
-    private static <T, V> RecursiveVal<Map.Entry<T, V>> returnAndContinueWithRemaining(PersistentVector<Node> stack, Iterator<Map.Entry<T, V>> elements) {
+    private static <T, V> Continuation<Map.Entry<T, V>> returnAndContinueWithRemaining(PersistentVector<Node> stack, Iterator<Map.Entry<T, V>> elements) {
         Map.Entry<T, V> t = elements.next();
         return seq(iterable(stack, elements), t);
     }
@@ -85,7 +85,7 @@ public class Iteration {
         return 2*i+1;
     }
 
-    private static <T,V> Supplier<RecursiveVal<Map.Entry<T,V>>> extractNodeAndElements(Node node, PersistentVector<Node> stack) {
+    private static <T,V> Supplier<Continuation<Map.Entry<T,V>>> extractNodeAndElements(Node node, PersistentVector<Node> stack) {
         return ()->{
             PersistentVector<Node> nodes= vector();
             PersistentVector<Map.Entry<T,V>> elements = vector();
@@ -116,7 +116,7 @@ public class Iteration {
         return new APMapEntry<>(k,v);
     }
 
-    private static <T,V> Supplier<RecursiveVal<Map.Entry<T,V>>> extractNodes(Node node, PersistentVector<Node> stack) {
+    private static <T,V> Supplier<Continuation<Map.Entry<T,V>>> extractNodes(Node node, PersistentVector<Node> stack) {
         return ()->{
             PersistentVector nodes = vector();
             Object[] array = node.array();
