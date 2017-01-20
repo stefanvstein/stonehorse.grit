@@ -1,30 +1,51 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <groupId>stonehorse</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.stefanvstein</groupId>
   <artifactId>grit</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-
   <name>stonehorse.grit - simpler collections</name>
+  <description>Persistent Collections for Java. Immutable
+  containers with mutation as expression</description>
   <url>https://github.com/stefanvstein/stonehorse.grit</url>
-
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.sourceEncoding>
+    UTF-8</project.build.sourceEncoding>
   </properties>
-  <repositories>
-    <repository>
-      <id>stefanvstein-snapshots</id>
-      <url>https://github.com/stefanvstein/mvn/raw/master/snapshots</url>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-      </snapshots>
-    </repository>
-  </repositories>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Stefan von Stein</name>
+      <email>stefanvstein@gmail.com</email>
+      <organizationUrl>
+      https://github.com/stefanvstein</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <connection>
+    scm:git:git://github.com/stefanvstein/stonehorse.grit.git</connection>
+    <developerConnection>
+    scm:git:ssh://github.com:stefanvstein/stonehorse.grit.git</developerConnection>
+    <url>
+    https://github.com/stefanvstein/stonehorse.grit/tree/master</url>
+  </scm>
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>
+      https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
   <build>
-     <resources>
+    <resources>
       <resource>
         <directory>${basedir}</directory>
         <targetPath>META-INF</targetPath>
@@ -33,17 +54,17 @@
         </includes>
       </resource>
     </resources>
-  <plugins>
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.3</version>
-    <configuration>
-      <source>1.8</source>
-      <target>1.8</target>
-    </configuration>
-  </plugin>
-  <plugin>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <version>3.0.1</version>
@@ -59,13 +80,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-	    <version>2.10.4</version>
+        <version>2.10.4</version>
         <configuration>
           <links>
             <link>https://docs.oracle.com/javase/8/docs/api/</link>
           </links>
-	  <excludePackageNames>stonehorse.grit.map*:stonehorse.grit.set:stonehorse.grit.vector:stonehorse.grit.tools</excludePackageNames>
-
+          <excludePackageNames>
+          stonehorse.grit.map*:stonehorse.grit.set:stonehorse.grit.vector:stonehorse.grit.tools</excludePackageNames>
           <notimestamp>true</notimestamp>
           <reportOutputDirectory>${basedir}</reportOutputDirectory>
           <destDir>docs</destDir>
@@ -79,14 +100,39 @@
           </execution>
         </executions>
       </plugin>
-  </plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.7</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
   <dependencies>
-      <dependency>
-        <groupId>stonehorse</groupId>
-        <artifactId>candy</artifactId>
-        <version>0.1-SNAPSHOT</version>
-      </dependency>
+    <dependency>
+      <groupId>com.github.stefanvstein</groupId>
+      <artifactId>candy</artifactId>
+      <version>0.1</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
