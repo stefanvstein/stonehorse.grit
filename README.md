@@ -32,35 +32,19 @@ It is very early, and interface may still change
 
 ## Installation
 
-Currently running github as maven repo. Add the following to your pom
+Grit can be found in the central maven repo, just add the follwing to your pom.xml, or similar depending on your build, and maven should download it for you.
 
-Add a the repository
-```xml
-<repositories>
-    <repository>
-        <id>stefanvstein-snapshots</id>
-        <url>https://github.com/stefanvstein/mvn/raw/master/snapshots</url>
-        <snapshots>
-           <enabled>true</enabled>
-           <updatePolicy>daily</updatePolicy>
-        </snapshots>
-    </repository>
-</repositories>
-```
-
-and dependency:
 ```xml
 <dependencies>
   <dependency>
-    <groupId>stonehorse</groupId>
+    <groupId>com.github.stefanvstein</groupId>
     <artifactId>grit</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
   </dependency>
 </dependencies>
 ```
-to your pom
 
-This is not dependent on anything else than its sister project [Stonehorse.Candy](https://github.com/stefanvstein/stonehorse.candy), Java 8, and JUnit
+This is not dependent on anything else than its sister project [Stonehorse.Candy](https://github.com/stefanvstein/stonehorse.candy), Java 8, and JUnit (for test)
 
 ## Usage
 
