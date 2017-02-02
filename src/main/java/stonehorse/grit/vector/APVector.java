@@ -2,6 +2,7 @@ package stonehorse.grit.vector;
 
 import stonehorse.grit.tools.ImmutableList;
 import stonehorse.grit.PersistentVector;
+import stonehorse.grit.tools.RandomlyListIterator;
 import stonehorse.grit.tools.Util;
 
 import java.util.Collection;
@@ -132,7 +133,7 @@ public abstract class APVector<T> extends ImmutableList<T> implements Persistent
     @Override
     public ListIterator<T> listIterator(final int index) {
         return unless(
-                () -> VectorListIterator.create(this, index),
+                () -> RandomlyListIterator.create(this, index),
                 index < 0 || index > size(),
                 () -> {
                     throw new IndexOutOfBoundsException();
