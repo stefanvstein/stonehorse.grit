@@ -92,7 +92,7 @@ public class PFifo<T> implements PersistentFifo<T> {
 
     @Override
     public T get(int index) {
-        return getOr(index, ()->null);
+        return getOr(index, ()->{throw new IndexOutOfBoundsException();});
     }
 
 
@@ -100,7 +100,7 @@ public class PFifo<T> implements PersistentFifo<T> {
     public int indexOf(Object o) {
 
        for(Tuples.T2<Integer, T> e:Iterables.map((i,e)-> Tuples.of(i,e), Iterables.range(), this)){
-           if(Objects.equals(Tuples.second(e), o))
+           if(Objects.equals(o,Tuples.second(e)))
                return Tuples.first(e);
 
        }return -1;
@@ -124,7 +124,7 @@ public class PFifo<T> implements PersistentFifo<T> {
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        return RandomlyListIterator.create(this,0);
+        return RandomlyListIterator.create(this,index);
     }
 
     @Override

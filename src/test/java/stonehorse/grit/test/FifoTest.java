@@ -3,9 +3,12 @@ package stonehorse.grit.test;
 import org.junit.Test;
 import stonehorse.candy.Lists;
 import stonehorse.grit.PersistentFifo;
+import stonehorse.grit.test.generic.ListCheck;
 import stonehorse.grit.vector.PFifo;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Objects;
 
 import static java.util.Objects.nonNull;
@@ -204,5 +207,55 @@ public class FifoTest {
         assertEquals(asList("a","b","a"), m.filter(Objects::nonNull));
         m=empty();
         assertEquals( asList(),m.filter(Objects::nonNull));
+    }
+
+    @Test public void testListIterator(){
+        PersistentFifo<String> m = mid();
+        ListIterator<String> l = m.listIterator(1);
+        assertEquals("b",l.next());
+        assertTrue(l.hasPrevious());
+        assertEquals("b",l.previous());
+        assertTrue(l.hasPrevious());
+        assertEquals("a",l.previous());
+        assertFalse(l.hasPrevious());
+        assertEquals("a", l.next());
+        assertEquals("b", l.next());
+        assertNull( l.next());
+        assertEquals("a", l.next());
+        m = right();
+       l = m.listIterator(1);
+        assertEquals("b",l.next());
+        assertTrue(l.hasPrevious());
+        assertEquals("b",l.previous());
+        assertTrue(l.hasPrevious());
+        assertEquals("a",l.previous());
+        assertFalse(l.hasPrevious());
+        assertEquals("a", l.next());
+        assertEquals("b", l.next());
+        assertNull( l.next());
+        assertEquals("a", l.next());
+        m = left();
+        l = m.listIterator(1);
+        assertEquals("b",l.next());
+        assertTrue(l.hasPrevious());
+        assertEquals("b",l.previous());
+        assertTrue(l.hasPrevious());
+        assertEquals("a",l.previous());
+        assertFalse(l.hasPrevious());
+        assertEquals("a", l.next());
+        assertEquals("b", l.next());
+        assertNull( l.next());
+        assertEquals("a", l.next());
+  }
+
+
+    @Test public void testSubList() {
+       new ListCheck().testList(midA());
+    }
+
+    private List<A> midA() {
+       return PFifo.<A>empty().with(A.a()).with(B.b()).with(A.a()).with(B.b()).with(null).with(A.a()).without().without();
+
+
     }
 }
