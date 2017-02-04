@@ -14,6 +14,8 @@ public class RandomlyListIterator<T> extends ImmutableListIterator<T> {
 	}
 	
 	public static <T> RandomlyListIterator<T> create(Randomly<T> ran, int index){
+		if(index > ran.size())
+			throw new IndexOutOfBoundsException();
 		return new RandomlyListIterator<>(ran, index);
 	}
 

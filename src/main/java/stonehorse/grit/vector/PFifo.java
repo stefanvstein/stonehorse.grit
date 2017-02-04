@@ -3,11 +3,17 @@ package stonehorse.grit.vector;
 import stonehorse.candy.Iterables;
 import stonehorse.candy.Tuples;
 import stonehorse.grit.PersistentFifo;
+import stonehorse.grit.PersistentVector;
 import stonehorse.grit.tools.RandomSubList;
 import stonehorse.grit.tools.RandomlyListIterator;
 import stonehorse.grit.tools.Util;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -16,14 +22,12 @@ import java.util.function.Supplier;
 import static stonehorse.candy.Choices.cond;
 import static stonehorse.candy.Maybe.maybe;
 
-/**
- * Created by stefan on 1/28/17.
- */
+
 public class PFifo<T> implements PersistentFifo<T> {
-    private final APVector<T> head;
-    private final PVector<T> tail;
+    private final PersistentVector<T> head;
+    private final PersistentVector<T> tail;
     private static PFifo empty=new PFifo(null, null);
-    PFifo(APVector<T> head, PVector<T> tail){
+    private PFifo(PersistentVector<T> head, PersistentVector<T> tail){
         this.head=head;
         this.tail=tail;
     }
@@ -39,6 +43,10 @@ public class PFifo<T> implements PersistentFifo<T> {
 
     public static <T> PFifo<T> empty(){
         return empty;
+    }
+
+    public static <T> PFifo<T> of(PersistentVector<T> tail){
+        return new PFifo<T>(null, tail);
     }
 
     @Override
@@ -77,12 +85,8 @@ public class PFifo<T> implements PersistentFifo<T> {
 
     @Override
     public int size() {
-        return maybe(head)
-                .map(Collection::size)
-                .orElse(0) +
-               maybe(tail)
-                       .map(Collection::size)
-                       .orElse(0);
+        return headSize() +
+                tailSize();
     }
 
     @Override
@@ -92,7 +96,20 @@ public class PFifo<T> implements PersistentFifo<T> {
 
     @Override
     public T get(int index) {
-        return getOr(index, ()->{throw new IndexOutOfBoundsException();});
+        int headSize= headSize();
+        return cond(
+                ()->index <0,
+                ()->{throw new IndexOutOfBoundsException();},
+                ()->index<headSize,
+                ()-> head.get(index),
+                ()->index>=headSize+ tailSize(),
+                ()->{throw new IndexOutOfBoundsException();},
+                ()->maybe(tail).map(t->t.get(index-headSize)).orElse(null));
+
+    }
+
+    private Integer tailSize() {
+        return maybe(tail).map(Collection::size).orElse(0);
     }
 
 
@@ -111,7 +128,7 @@ public class PFifo<T> implements PersistentFifo<T> {
         int last=-1;
 
         for(Tuples.T2<Integer, T> e:Iterables.map((i,e)-> Tuples.of(i,e), Iterables.range(), this)) {
-            if (Objects.equals(Tuples.second(e), o))
+            if (Objects.equals( o, Tuples.second(e)))
                 last = Tuples.first(e);
         }
         return last;
@@ -134,18 +151,27 @@ public class PFifo<T> implements PersistentFifo<T> {
 
     @Override
     public T getOr(int index, Supplier<T> notFound) {
-        int headSize=maybe(head).map(Collection::size).orElse(0);
 
-        if(index<headSize)
-            return head.getOr(index, notFound);
-        int tailSize=maybe(tail).map(Collection::size).orElse(0);
-        return maybe(tail).map(t->t.getOr(index-headSize, notFound)).orElse(null);
+        int headSize = headSize();
 
+        return cond (
+                ()->index<0,
+                ()->notFound.get(),
+                ()->index < headSize,
+                ()->head.getOr(index, notFound),
+                ()-> tailSize() > 0,
+                ()->maybe(tail).map(t -> t.getOr(index - headSize, notFound)).orElse(null),
+                ()->notFound.get());
+
+    }
+
+    private Integer headSize() {
+        return maybe(head).map(Collection::size).orElse(0);
     }
 
     @Override
     public boolean contains(Object o) {
-        return Iterables.filter(e->Objects.equals(e,o),this).iterator().hasNext();
+        return Iterables.filter(e->Objects.equals(o,e),this).iterator().hasNext();
     }
 
     @Override

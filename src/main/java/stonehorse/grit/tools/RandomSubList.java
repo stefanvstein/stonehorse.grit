@@ -19,7 +19,7 @@ public class RandomSubList<T> extends AbstractList<T> {
 
     public static <T> RandomSubList<T> create(List<T> list, int from, int to){
         int listsize=list.size();
-        if(from>=listsize || from<0 || to>listsize || to<0 || from>to)
+        if(from>listsize || from<0 || to>listsize || to<0 || from>to)
             throw new IndexOutOfBoundsException();
         if (from>to)
             throw new IllegalArgumentException();

@@ -313,6 +313,8 @@ vi=Vectors.vectorOfAll(vi.toArray(new Integer[]{}));
         v=v.with(11);
         assertEquals(Integer.valueOf(11),v.getOr(0, ()->1));
         assertEquals(Integer.valueOf(1),v.getOr(1, ()->1));
+        assertEquals(Integer.valueOf(1),v.getOr(-1, ()->1));
+
 
     }
 

@@ -3,6 +3,7 @@ package stonehorse.grit.test;
 import org.junit.Test;
 import stonehorse.candy.Lists;
 import stonehorse.grit.PersistentFifo;
+import stonehorse.grit.test.generic.EmptyListCheck;
 import stonehorse.grit.test.generic.ListCheck;
 import stonehorse.grit.vector.PFifo;
 
@@ -16,12 +17,10 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static stonehorse.candy.Choices.when;
 import static stonehorse.candy.Lists.asList;
 
-/**
- * Created by stefan on 1/28/17.
- */
 public class FifoTest {
 
     PersistentFifo<String> left(){
@@ -35,6 +34,16 @@ public class FifoTest {
     PersistentFifo<String> right(){
         PersistentFifo<String> fifo=PFifo.<String>empty().with("crap");
         return fifo.with("a").with("b").with(null).with("a").without();
+    }
+private List<A> leftA(){
+       return PFifo.<A>empty().with(A.a()).with(B.b()).with(null).with(A.a());
+}
+    private List<A> rightA(){
+        return PFifo.<A>empty().with(A.a()).with(A.a()).with(B.b()).with(null).with(A.a()).without();
+    }
+
+    private List<A> midA() {
+        return PFifo.<A>empty().with(A.a()).with(A.a()).with(B.b()).without().with(null).with(A.a());
     }
     PersistentFifo<String> empty(){
         return PFifo.<String>empty().without();
@@ -72,6 +81,54 @@ public class FifoTest {
         assertEquals("b", l.get(1));
         assertNull(l.get(2));
         assertEquals("a", l.get(3));
+        try {
+            assertEquals("a", l.get(4));
+            fail();
+        }catch(IndexOutOfBoundsException e){}
+        l = mid();
+        assertEquals("a", l.get(0));
+        assertEquals("b", l.get(1));
+        assertNull(l.get(2));
+        assertEquals("a", l.get(3));
+        try {
+            assertEquals("a", l.get(4));
+            fail();
+        }catch(IndexOutOfBoundsException e){}
+        l = right();
+        assertEquals("a", l.get(0));
+        assertEquals("b", l.get(1));
+        assertNull(l.get(2));
+        assertEquals("a", l.get(3));
+        try {
+            assertEquals("a", l.get(4));
+            fail();
+        }catch(IndexOutOfBoundsException e){}
+    }
+
+    @Test public void testGetOr(){
+        PersistentFifo<String> l = left();
+        assertEquals("a", l.getOr(0, ()->"ELSE"));
+        assertEquals("b", l.getOr(1, ()->"ELSE"));
+        assertNull(l.getOr(2, ()->"ELSE"));
+        assertEquals("a", l.getOr(3, ()->"ELSE"));
+        assertEquals("ELSE", l.getOr(4, ()->"ELSE"));
+        assertEquals("ELSE", l.getOr(-1, ()->"ELSE"));
+
+        l = mid();
+        assertEquals("a", l.getOr(0, ()->"ELSE"));
+        assertEquals("b", l.getOr(1, ()->"ELSE"));
+        assertNull(l.getOr(2, ()->"ELSE"));
+        assertEquals("a", l.getOr(3, ()->"ELSE"));
+        assertEquals("ELSE", l.getOr(4, ()->"ELSE"));
+        assertEquals("ELSE", l.getOr(-1, ()->"ELSE"));
+
+        l = right();
+        assertEquals("a", l.getOr(0, ()->"ELSE"));
+        assertEquals("b", l.getOr(1, ()->"ELSE"));
+        assertNull(l.getOr(2, ()->"ELSE"));
+        assertEquals("a", l.getOr(3, ()->"ELSE"));
+        assertEquals("ELSE", l.getOr(4, ()->"ELSE"));
+        assertEquals("ELSE", l.getOr(-1, ()->"ELSE"));
     }
 
 @Test public void without(){
@@ -124,33 +181,31 @@ public class FifoTest {
     assertEquals(-1,m.lastIndexOf(null));
 }
 
+
     @Test public void addAndRemove(){
         PersistentFifo<Integer> s = PFifo.empty();
-        System.out.println(s);
+
         s=s.with(1).with(2);
-        System.out.println(s);
+        assertTrue(s.containsAll(asList(1,2)));
         s=s.without();
-        System.out.println(s);
-        s=s.with(3);
+        assertFalse(s.contains(1));
         assertTrue(s.contains(2));
+        s=s.with(3);
+
         assertFalse(s.contains(1));
         assertTrue(s.containsAll(Lists.arrayList(2,3)));
         assertFalse(s.containsAll(Lists.arrayList(1,3)));
-        System.out.println(s);
+
         assertEquals(Integer.valueOf(2), s.getOr(0, ()->-1));
         assertEquals(Integer.valueOf(-1), s.getOr(2, ()->-1));
         assertEquals(Integer.valueOf(3), s.getOr(1, ()->-1));
         s=s.without();
         assertFalse(s.contains(2));
-        System.out.println(s);
-        s=s.without();
-        System.out.println(s);
-        s=s.with(4);
-        System.out.println(s);
-        s=s.without();
-        System.out.println(s);
-        assertFalse(s.containsAll(Lists.arrayList(4)));
 
+        s=s.without();
+        s=s.with(4);
+        s=s.without();
+        assertFalse(s.containsAll(Lists.arrayList(4)));
     }
 
     @Test public void testreduce(){
@@ -249,13 +304,34 @@ public class FifoTest {
   }
 
 
-    @Test public void testSubList() {
+    @Test public void listCheck() {
        new ListCheck().testList(midA());
+        new ListCheck().testList(leftA());
+        new ListCheck().testList(rightA());
+        new EmptyListCheck().checkEmptyList(empty());
     }
 
-    private List<A> midA() {
-       return PFifo.<A>empty().with(A.a()).with(B.b()).with(A.a()).with(B.b()).with(null).with(A.a()).without().without();
+    @Test public void testEqualsHash(){
+        assertEquals(mid(), left());
+        assertEquals(right(), left());
+        assertEquals(asList("a","b", null, "a"), left());
+        assertEquals(asList("a","b", null, "a"), right());
+        assertEquals(asList("a","b", null, "a"), mid());
+        assertEquals(left(),asList("a","b", null, "a") );
+        assertEquals(right(), asList("a","b", null, "a"));
+        assertEquals(mid(), asList("a","b", null, "a"));
+        assertEquals(midA(),rightA());
+        assertEquals(asList("a","b", null, "a").hashCode(), mid().hashCode());
+        assertEquals(right().hashCode(), mid().hashCode());
+        assertEquals(right().hashCode(), left().hashCode());
+    }
 
+    @Test public void defaults(){
+        PersistentFifo<String> l = mid().with("b");
+        assertEquals("a", l.get());
+        assertEquals("a", l.getOr(()->"O"));
+        assertEquals("1",PFifo.empty().getOr(()->"1"));
 
+        assertEquals("b", l.apply(1));
     }
 }
