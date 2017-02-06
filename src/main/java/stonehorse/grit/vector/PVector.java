@@ -4,6 +4,7 @@ package stonehorse.grit.vector;
 import stonehorse.candy.Iterables;
 import stonehorse.candy.Tuples;
 
+import stonehorse.grit.PersistentStack;
 import stonehorse.grit.PersistentVector;
 import stonehorse.grit.SerializedVector;
 
@@ -38,9 +39,6 @@ import static stonehorse.grit.vector.VFuns.*;
  */
 
 public class PVector<T> extends APVector<T> implements Serializable{
-
-
-
     final int size;
     final Node root;
     final Object[] tail;
@@ -127,6 +125,9 @@ public class PVector<T> extends APVector<T> implements Serializable{
     // **************** getOr
 
     @SuppressWarnings("unchecked") @Override public T get(int i) {
+        if(i>=size || size<0)
+            throw new IndexOutOfBoundsException();
+
         return (T) arrayFor(i,size,root, tail)[indexOfArrayAt(i)];
     }
 
@@ -141,6 +142,8 @@ public class PVector<T> extends APVector<T> implements Serializable{
 	@Override
     public PersistentVector<T> drop(int num) {
         return cond(
+                ()-> num<0,
+                PVector::throwIllegalArgument,
                 () -> num > size(),
                 PVector::throwToFewElements,
                 () -> num > 0,
@@ -152,6 +155,9 @@ public class PVector<T> extends APVector<T> implements Serializable{
         throw new IllegalArgumentException("To few elements");
     }
 
+    private static <T> PersistentVector<T> throwIllegalArgument() {
+        throw new IllegalArgumentException();
+    }
     // ************with
     @Override public PVector<T> with(T val) {
         return ifelse (isFullTail(size),
@@ -364,7 +370,12 @@ public class PVector<T> extends APVector<T> implements Serializable{
         return size-2;
     }
     @Override
-     public EVector<T> ephemeral() {
+    public EVector<T> ephemeral() {
         return  EVector.of(this);
+    }
+
+    @Override
+    public PVector<T> dropWhile(Predicate<? super T> pred) {
+        return ephemeral().dropWhile(pred).persistent();
     }
 }

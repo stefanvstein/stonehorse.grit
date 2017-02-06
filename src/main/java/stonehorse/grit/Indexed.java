@@ -1,5 +1,7 @@
 package stonehorse.grit;
 
+import java.util.function.Predicate;
+
 /**
  * Sequentially indexed composition of homogeneous values where modification is expression.
   */
@@ -35,4 +37,10 @@ public interface Indexed<T> extends Randomly<T>, PersistentStack<T> {
      */
     @Override
     Indexed<T> drop(int num);
+
+    /**
+     * This without all continous most naturally removable elements matching removed
+     */
+    @Override
+    Indexed<T> dropWhile(Predicate<? super T> pred);
 }

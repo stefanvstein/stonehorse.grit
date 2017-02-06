@@ -16,7 +16,8 @@ public class StackCheck {
 		checkPeek(abnulla, empty);
 		checkPush(abnulla, empty);
 		checkPop(abnulla, empty);
-
+		checkDrop(abnulla, empty);
+		checkDropWhile(abnulla,empty);
 	}
 
 	private void checkPop(PersistentStack<A> abnulla, PersistentStack<A> empty) {
@@ -26,7 +27,7 @@ public class StackCheck {
 		assertEquals(empty, a);
 		assertNotNull(a);
 		assertEquals(asList(b()), a.with(b()));
-		assertEquals(null,a.get());
+
 		try {
 			assertEquals(empty, a.without());
 			fail();
@@ -68,7 +69,39 @@ public class StackCheck {
 
 	private void checkPeek(PersistentStack<A> abnulla, PersistentStack<A> empty) {
 		assertEquals(a(), abnulla.get());
-		assertEquals(null,empty.get());
+		try{
+			empty.get();
+			fail();
 
+		}catch(NoSuchElementException e){}
+
+	}
+	private void checkDrop(PersistentStack<A> abnulla, PersistentStack<A> empty){
+		try{
+			abnulla.drop(-1);
+			fail();
+		}catch(IllegalArgumentException e){}
+		try{
+			abnulla.drop(5);
+			fail();
+		}catch(IllegalArgumentException e){}
+		assertEquals(abnulla,abnulla.drop(0));
+		assertEquals(empty,abnulla.drop(4));
+		try{
+			empty.drop(1);
+			fail();
+		}catch(IllegalArgumentException e){}
+		empty.drop(0);
+		assertEquals(empty.with(a()).with(b()),abnulla.drop(1).drop(1));
+		assertEquals(empty.with(a()),abnulla.drop(1).drop(2));
+		assertEquals(empty,abnulla.drop(1).drop(2).drop(1).drop(0));
+	}
+
+	private void checkDropWhile(PersistentStack<A> abnulla, PersistentStack<A> empty){
+		assertEquals(empty, empty.dropWhile(e->true));
+		assertEquals(empty, empty.dropWhile(e->false));
+		assertEquals(empty, abnulla.dropWhile(e->true));
+		assertEquals(abnulla, abnulla.dropWhile(e->false));
+		assertEquals(abnulla.drop(1), abnulla.dropWhile(e->e!=null));
 	}
 }

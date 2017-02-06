@@ -9,22 +9,22 @@ import java.util.function.Supplier;
  */
 public interface Randomly<T> extends IntFunction<T> {
     /**
-     * Elememt at index, where i is absolut and less than size
+     * Elememt at index or IndexOutOfBoundsException
      */
     T get(int index);
 
     /**
-     * Element at i or notFound, where i is absolut
+     * Element at i or value of notFound. Will not throw unless notFound is null.
      */
     T getOr(int index, Supplier<T> notFound);
 
     /**
-     * the maximum index allowed in getOr
+     * One more than where get succeeds
      */
     int size();
 
     /**
-     * when getOr always will fail
+     * when get always fails
      */
     boolean isEmpty();
 }

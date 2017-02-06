@@ -2,11 +2,12 @@ package stonehorse.grit.tools;
 
 import java.util.AbstractList;
 import java.util.List;
+import java.util.RandomAccess;
 
 /**
  * Created by stefan on 1/29/17.
  */
-public class RandomSubList<T> extends AbstractList<T> {
+public class RandomSubList<T> extends AbstractList<T> implements RandomAccess {
     private final List<T> list;
     private final int from;
     private final int to;
@@ -29,6 +30,12 @@ public class RandomSubList<T> extends AbstractList<T> {
         }
         return new RandomSubList<T>(list, from, to);
     }
+
+    @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        return super.subList(fromIndex, toIndex);
+    }
+
     @Override
     public T get(int index) {
         if(index>=to|| index < 0)

@@ -7,10 +7,9 @@ import stonehorse.grit.tools.Util;
 
 import java.util.Collection;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
-import static stonehorse.candy.Choices.mapOr;
-import static stonehorse.candy.Choices.unless;
-import static stonehorse.candy.Choices.when;
+import static stonehorse.candy.Choices.*;
 
 /**
  * Warning, should only store immutables
@@ -152,9 +151,10 @@ public abstract class APVector<T> extends ImmutableList<T> implements Persistent
 
     @Override
     public T get() {
-        return when(
+        return ifelse(
                 size()>0,
-                ()->get(size() - 1));
+                ()->get(size() - 1),
+                ()->{throw new NoSuchElementException();});
     }
 
 }

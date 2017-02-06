@@ -106,5 +106,6 @@ public interface PersistentVector<T> extends Indexed<T>, Traversable<T>,
 		return defaultReduce(fn, this);
 	}
 
-
+	@Override
+	PersistentVector<T> dropWhile(Predicate<? super T> pred);
 }

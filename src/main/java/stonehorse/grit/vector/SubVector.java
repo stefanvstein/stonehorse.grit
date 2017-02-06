@@ -181,4 +181,13 @@ public class SubVector<T> extends APVector<T> {
         );
     }
 
+
+    @Override
+    public SubVector<T> dropWhile(Predicate<? super T> pred) {
+        int i=size()-1;
+        while(i>=0 && pred.test(get(i)))
+            i=i-1;
+        return create(v, start, end - i);
+    }
+
 }

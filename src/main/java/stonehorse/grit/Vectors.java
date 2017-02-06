@@ -1,5 +1,6 @@
 package stonehorse.grit;
 
+import stonehorse.grit.vector.PFifo;
 import stonehorse.grit.vector.PVector;
 
 import java.util.stream.Collector;
@@ -95,6 +96,10 @@ public class Vectors {
      */
     static public <T, V extends T> PersistentVector<T> vectorOfAll(V... elements) {
         return PVector.createOfAll(elements);
+    }
+
+    static <T> PersistentFifo<T> fifo(PersistentVector v){
+        return PFifo.of(v);
     }
 
     /**

@@ -1,10 +1,12 @@
 package stonehorse.grit.vector;
 
 import stonehorse.grit.Indexed;
+import stonehorse.grit.PersistentStack;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
@@ -299,5 +301,13 @@ public final class EVector<T> implements Indexed<T> {
 	@Override
 	public T apply(int index) {
 		return get(index);
+	}
+
+	@Override
+	public EVector<T> dropWhile(Predicate<? super T> pred) {
+		EVector<T> e = this;
+		while(e.size()>0 && pred.test(e.get()))
+			e=e.without();
+		return e;
 	}
 }

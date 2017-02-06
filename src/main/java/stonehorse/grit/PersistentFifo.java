@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 /**
  * Adds in the tail and removes in head
  */
-public interface PersistentFifo<T> extends Randomly<T>, Traversable<T>, List<T> {
+public interface PersistentFifo<T> extends Randomly<T>, Traversable<T>, List<T> , java.util.RandomAccess{
     PersistentFifo<T> with(T t);
     PersistentFifo<T> without();
     T get();
