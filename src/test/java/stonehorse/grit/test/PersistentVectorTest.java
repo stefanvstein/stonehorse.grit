@@ -41,7 +41,7 @@ public class PersistentVectorTest {
 
     @Test
     public void testStack() {
-        new StackCheck().checkStack(abnulla(), Vectors.<A>vector());
+        new StackCheck().checkStack( Vectors.<A>vector());
     }
 
     PersistentVector<A> abnulla() {

@@ -2,6 +2,7 @@ package stonehorse.grit.test.generic;
 
 import stonehorse.grit.test.A;
 import stonehorse.grit.PersistentStack;
+import stonehorse.grit.test.B;
 
 import java.util.NoSuchElementException;
 
@@ -12,15 +13,16 @@ import static stonehorse.grit.test.B.b;
 
 public class StackCheck {
 
-	public void checkStack(PersistentStack<A> abnulla, PersistentStack<A> empty) {
-		checkPeek(abnulla, empty);
-		checkPush(abnulla, empty);
-		checkPop(abnulla, empty);
-		checkDrop(abnulla, empty);
-		checkDropWhile(abnulla,empty);
+	public void checkStack(PersistentStack<A> empty) {
+		checkPeek( empty);
+		checkPush( empty);
+		checkPop(empty);
+		checkDrop(empty);
+		checkDropWhile(empty);
 	}
 
-	private void checkPop(PersistentStack<A> abnulla, PersistentStack<A> empty) {
+	private void checkPop(PersistentStack<A> empty) {
+		PersistentStack<A> abnulla = empty.with(A.a()).with(B.b()).with(null).with(A.a());
 		assertEquals(3, size(abnulla.without()));
 		assertEquals(abnulla, abnulla.without().with(a()));
 		PersistentStack<A> a = abnulla.without().without().without().without();
@@ -56,7 +58,8 @@ public class StackCheck {
 		return i;
 	}
 
-	private void checkPush(PersistentStack<A> abnulla, PersistentStack<A> empty) {
+	private void checkPush(PersistentStack<A> empty) {
+		PersistentStack<A> abnulla = empty.with(A.a()).with(B.b()).with(null).with(A.a());
 		assertEquals(b(), abnulla.with(b()).get());
 		assertEquals(5, size(abnulla.with(null)));
 		assertEquals(null, abnulla.with(null).get());
@@ -67,7 +70,8 @@ public class StackCheck {
 		assertEquals(b(), empty.with(null).with(b()).get());
 	}
 
-	private void checkPeek(PersistentStack<A> abnulla, PersistentStack<A> empty) {
+	private void checkPeek( PersistentStack<A> empty) {
+		PersistentStack<A> abnulla = empty.with(A.a()).with(B.b()).with(null).with(A.a());
 		assertEquals(a(), abnulla.get());
 		try{
 			empty.get();
@@ -76,7 +80,8 @@ public class StackCheck {
 		}catch(NoSuchElementException e){}
 
 	}
-	private void checkDrop(PersistentStack<A> abnulla, PersistentStack<A> empty){
+	private void checkDrop( PersistentStack<A> empty){
+		PersistentStack<A> abnulla = empty.with(A.a()).with(B.b()).with(null).with(A.a());
 		try{
 			abnulla.drop(-1);
 			fail();
@@ -92,12 +97,14 @@ public class StackCheck {
 			fail();
 		}catch(IllegalArgumentException e){}
 		empty.drop(0);
-		assertEquals(empty.with(a()).with(b()),abnulla.drop(1).drop(1));
-		assertEquals(empty.with(a()),abnulla.drop(1).drop(2));
+		PersistentStack<A> abn = empty.with(A.a()).with(B.b()).with(null).with(A.a());
+		assertEquals(empty.with(a()).with(b()),abn.drop(1).drop(1));
+		assertEquals(empty.with(a()),abn.drop(1).drop(2));
 		assertEquals(empty,abnulla.drop(1).drop(2).drop(1).drop(0));
 	}
 
-	private void checkDropWhile(PersistentStack<A> abnulla, PersistentStack<A> empty){
+	private void checkDropWhile(PersistentStack<A> empty){
+		PersistentStack<A> abnulla = empty.with(A.a()).with(B.b()).with(null).with(A.a());
 		assertEquals(empty, empty.dropWhile(e->true));
 		assertEquals(empty, empty.dropWhile(e->false));
 		assertEquals(empty, abnulla.dropWhile(e->true));

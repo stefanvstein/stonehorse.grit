@@ -3,6 +3,9 @@ package stonehorse.grit.test;
 import jdk.internal.dynalink.NoSuchDynamicMethodException;
 import org.junit.Test;
 import stonehorse.grit.Vectors;
+import stonehorse.grit.test.generic.EmptyListCheck;
+import stonehorse.grit.test.generic.ListCheck;
+import stonehorse.grit.test.generic.StackCheck;
 import stonehorse.grit.vector.PList;
 import stonehorse.grit.vector.PVector;
 
@@ -165,11 +168,16 @@ public class PListTest {
     }
 
     @Test public void testSub(){
-        System.out.println("*");
-        System.out.println(p);
-        List<String> s = p.subList(0, 2);
-        s=s.subList(0,1);
-        System.out.println(s);
+        assertEquals(o, p.subList(2, 3));
+        assertEquals(o, p.subList(2,3).subList(0,1));
+        assertEquals(e, p.subList(1,1).subList(0,0));
+        assertTrue(p.subList(1,1).isEmpty());
+
+        new EmptyListCheck().checkEmptyList(p.subList(1,1));
+        new ListCheck().testList(PList.of(Vectors.vector(A.a(),null, B.b(), A.a())));
+        new ListCheck().testList(PList.of(Vectors.vector(A.a(),null, B.b(), A.a())).with(A.a()).subList(1,5));
+        new StackCheck().checkStack(
+                PList.<A>of(Vectors.vector(A.a())).without());
     }
 
 }
