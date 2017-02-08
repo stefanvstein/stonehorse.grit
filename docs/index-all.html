@@ -81,6 +81,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentFifo.html#addAll-int-java.util.Collection-">addAll(int, Collection&lt;? extends T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentFifo.html" title="interface in stonehorse.grit">PersistentFifo</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#apply-int-">apply(int)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">Functional interface of the value at index</div>
+</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentVector.html#apply-int-">apply(int)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a></dt>
 <dd>
 <div class="block">Functional interface of the value at index</div>
@@ -111,14 +115,28 @@
 <dd>
 <div class="block">This with the num most naturally removable elements removed.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#drop-int-">drop(int)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">Vector with num elements dropped from the beginning</div>
+</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentStack.html#drop-int-">drop(int)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a></dt>
 <dd>
-<div class="block">This stack without num elements at head</div>
+<div class="block">This stack without num elements at head, or IllegalArgumentException</div>
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentVector.html#drop-int-">drop(int)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a></dt>
 <dd>
 <div class="block">Vector with num elements dropped from the end</div>
 </dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/Indexed.html#dropWhile-java.util.function.Predicate-">dropWhile(Predicate&lt;? super T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a></dt>
+<dd>
+<div class="block">This without all continous most naturally removable elements matching removed</div>
+</dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentStack.html#dropWhile-java.util.function.Predicate-">dropWhile(Predicate&lt;? super T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a></dt>
+<dd>
+<div class="block">This without those first matching pred.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentVector.html#dropWhile-java.util.function.Predicate-">dropWhile(Predicate&lt;? super T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <a name="I:E">
 <!--   -->
@@ -143,6 +161,10 @@
 <dd>
 <div class="block">The elements matching the predicate</div>
 </dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#filter-java.util.function.Predicate-">filter(Predicate&lt;? super T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">List of all elements matching predicate</div>
+</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentSet.html#filter-java.util.function.Predicate-">filter(Predicate&lt;? super T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentSet.html" title="interface in stonehorse.grit">PersistentSet</a></dt>
 <dd>
 <div class="block">The set of all of this matching p</div>
@@ -159,6 +181,10 @@
 <dd>
 <div class="block">The concatenation of the results of applying f to every element</div>
 </dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#flatMap-java.util.function.Function-">flatMap(Function&lt;? super T, Iterable&lt;? extends V&gt;&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">List of the concatenation of the results of applying f to each of this</div>
+</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentSet.html#flatMap-java.util.function.Function-">flatMap(Function&lt;? super T, Iterable&lt;? extends V&gt;&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentSet.html" title="interface in stonehorse.grit">PersistentSet</a></dt>
 <dd>
 <div class="block">Set of the concatenation of the results of applying f to each of this, in arbitrary order</div>
@@ -170,6 +196,10 @@
 <dt><span class="memberNameLink"><a href="stonehorse/grit/Traversable.html#flatMap-java.util.function.Function-">flatMap(Function&lt;? super T, Iterable&lt;? extends V&gt;&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/Traversable.html" title="interface in stonehorse.grit">Traversable</a></dt>
 <dd>
 <div class="block">The concatenation of the results of applying f to every element</div>
+</dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#fold-java.util.function.BiFunction-V-">fold(BiFunction&lt;? super V, ? super T, ? extends V&gt;, V)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">The remaining value of repeatedly combining accumulation with each element in this, starting with an initial accumulator value.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentSet.html#fold-java.util.function.BiFunction-V-">fold(BiFunction&lt;? super V, ? super T, ? extends V&gt;, V)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentSet.html" title="interface in stonehorse.grit">PersistentSet</a></dt>
 <dd>
@@ -205,17 +235,21 @@
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentStack.html#get--">get()</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a></dt>
 <dd>
-<div class="block">The head of the stack</div>
+<div class="block">The head of the stack or NoSuchElementException</div>
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/Randomly.html#get-int-">get(int)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/Randomly.html" title="interface in stonehorse.grit">Randomly</a></dt>
 <dd>
-<div class="block">Elememt at index, where i is absolut and less than size</div>
+<div class="block">Elememt at index or IndexOutOfBoundsException</div>
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentFifo.html#getOr-java.util.function.Supplier-">getOr(Supplier&lt;T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentFifo.html" title="interface in stonehorse.grit">PersistentFifo</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/Randomly.html#getOr-int-java.util.function.Supplier-">getOr(int, Supplier&lt;T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/Randomly.html" title="interface in stonehorse.grit">Randomly</a></dt>
 <dd>
-<div class="block">Element at i or notFound, where i is absolut</div>
+<div class="block">Element at i or value of notFound.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#getOrDefault-int-T-">getOrDefault(int, T)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">The value at index or value if this is smaller</div>
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentVector.html#getOrDefault-int-T-">getOrDefault(int, T)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a></dt>
 <dd>
@@ -251,11 +285,11 @@
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentStack.html#isEmpty--">isEmpty()</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a></dt>
 <dd>
-<div class="block">when this stack is empty</div>
+<div class="block">When without get get would throw</div>
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/Randomly.html#isEmpty--">isEmpty()</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/Randomly.html" title="interface in stonehorse.grit">Randomly</a></dt>
 <dd>
-<div class="block">when getOr always will fail</div>
+<div class="block">when get always fails</div>
 </dd>
 </dl>
 <a name="I:L">
@@ -321,6 +355,10 @@
 <dd>
 <div class="block">The result of applying f to every element</div>
 </dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#map-java.util.function.Function-">map(Function&lt;? super T, ? extends V&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">The list of applying f to each of this</div>
+</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentSet.html#map-java.util.function.Function-">map(Function&lt;? super T, ? extends V&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentSet.html" title="interface in stonehorse.grit">PersistentSet</a></dt>
 <dd>
 <div class="block">The set of applying f to each of this, in arbitrary order</div>
@@ -351,6 +389,8 @@
 <dd>
 <div class="block">Adds in the tail and removes in head</div>
 </dd>
+<dt><a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit"><span class="typeNameLink">PersistentList</span></a>&lt;<a href="stonehorse/grit/PersistentList.html" title="type parameter in PersistentList">T</a>&gt; - Interface in <a href="stonehorse/grit/package-summary.html">stonehorse.grit</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="stonehorse/grit/PersistentMap.html" title="interface in stonehorse.grit"><span class="typeNameLink">PersistentMap</span></a>&lt;<a href="stonehorse/grit/PersistentMap.html" title="type parameter in PersistentMap">K</a>,<a href="stonehorse/grit/PersistentMap.html" title="type parameter in PersistentMap">V</a>&gt; - Interface in <a href="stonehorse/grit/package-summary.html">stonehorse.grit</a></dt>
 <dd>
 <div class="block">A read only map where mutation is expression.</div>
@@ -376,6 +416,10 @@
 <dt><a href="stonehorse/grit/Randomly.html" title="interface in stonehorse.grit"><span class="typeNameLink">Randomly</span></a>&lt;<a href="stonehorse/grit/Randomly.html" title="type parameter in Randomly">T</a>&gt; - Interface in <a href="stonehorse/grit/package-summary.html">stonehorse.grit</a></dt>
 <dd>
 <div class="block">Composite where homogeneous members are randomly accessible by integer index</div>
+</dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#reduce-java.util.function.BiFunction-">reduce(BiFunction&lt;? super T, ? super T, ? extends T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">The remaining value of repeatedly combining accumulation with each element in this except the first, which is used as initial accumulator value</div>
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentSet.html#reduce-java.util.function.BiFunction-">reduce(BiFunction&lt;? super T, ? super T, ? extends T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentSet.html" title="interface in stonehorse.grit">PersistentSet</a></dt>
 <dd>
@@ -485,10 +529,14 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/Randomly.html#size--">size()</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/Randomly.html" title="interface in stonehorse.grit">Randomly</a></dt>
 <dd>
-<div class="block">the maximum index allowed in getOr</div>
+<div class="block">One more than where get succeeds</div>
 </dd>
 <dt><a href="stonehorse/grit/package-summary.html">stonehorse.grit</a> - package stonehorse.grit</dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#subList-int-int-">subList(int, int)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">sublist delimited by indexes from and to.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentVector.html#subList-int-int-">subList(int, int)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a></dt>
 <dd>
 <div class="block">subvector delimited by indexes from and to.</div>
@@ -610,6 +658,10 @@
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentFifo.html#with-T-">with(T)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentFifo.html" title="interface in stonehorse.grit">PersistentFifo</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#with-T-">with(T)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">List with val at the tail</div>
+</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentMap.html#with-K-V-">with(K, V)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentMap.html" title="interface in stonehorse.grit">PersistentMap</a></dt>
 <dd>
 <div class="block">This map with key value association</div>
@@ -630,6 +682,10 @@
 <dd>
 <div class="block">This with the all elements at the naturally growing position</div>
 </dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#withAll-java.lang.Iterable-">withAll(Iterable&lt;T&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">The vector with all elements added to beginning</div>
+</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentMap.html#withAll-java.util.Map-">withAll(Map&lt;? extends K, ? extends V&gt;)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentMap.html" title="interface in stonehorse.grit">PersistentMap</a></dt>
 <dd>
 <div class="block">This map with all associations found in map</div>
@@ -646,6 +702,8 @@
 <dd>
 <div class="block">This with value at index.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#withAt-T-int-">withAt(T, int)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentVector.html#withAt-T-int-">withAt(T, int)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a></dt>
 <dd>
 <div class="block">Vector with val at index, where index is at most size</div>
@@ -660,6 +718,10 @@
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentFifo.html#without--">without()</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentFifo.html" title="interface in stonehorse.grit">PersistentFifo</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentList.html#without--">without()</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a></dt>
+<dd>
+<div class="block">List without the tail</div>
+</dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentMap.html#without-java.lang.Object-">without(Object)</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentMap.html" title="interface in stonehorse.grit">PersistentMap</a></dt>
 <dd>
 <div class="block">This map without key association identified by key</div>
@@ -670,7 +732,7 @@
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentStack.html#without--">without()</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a></dt>
 <dd>
-<div class="block">This stack without head</div>
+<div class="block">This stack without head or NoSuchElementException</div>
 </dd>
 <dt><span class="memberNameLink"><a href="stonehorse/grit/PersistentVector.html#without--">without()</a></span> - Method in interface stonehorse.grit.<a href="stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a></dt>
 <dd>

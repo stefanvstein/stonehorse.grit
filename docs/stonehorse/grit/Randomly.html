@@ -104,7 +104,7 @@ var activeTableTab = "activeTableTab";
 </dl>
 <dl>
 <dt>All Known Subinterfaces:</dt>
-<dd><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;T&gt;, <a href="../../stonehorse/grit/PersistentFifo.html" title="interface in stonehorse.grit">PersistentFifo</a>&lt;T&gt;, <a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;T&gt;</dd>
+<dd><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;T&gt;, <a href="../../stonehorse/grit/PersistentFifo.html" title="interface in stonehorse.grit">PersistentFifo</a>&lt;T&gt;, <a href="../../stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a>&lt;T&gt;, <a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;T&gt;</dd>
 </dl>
 <hr>
 <br>
@@ -132,26 +132,26 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/In
 <tr id="i0" class="altColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/Randomly.html" title="type parameter in Randomly">T</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Randomly.html#get-int-">get</a></span>(int&nbsp;index)</code>
-<div class="block">Elememt at index, where i is absolut and less than size</div>
+<div class="block">Elememt at index or IndexOutOfBoundsException</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/Randomly.html" title="type parameter in Randomly">T</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Randomly.html#getOr-int-java.util.function.Supplier-">getOr</a></span>(int&nbsp;index,
      <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function">Supplier</a>&lt;<a href="../../stonehorse/grit/Randomly.html" title="type parameter in Randomly">T</a>&gt;&nbsp;notFound)</code>
-<div class="block">Element at i or notFound, where i is absolut</div>
+<div class="block">Element at i or value of notFound.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Randomly.html#isEmpty--">isEmpty</a></span>()</code>
-<div class="block">when getOr always will fail</div>
+<div class="block">when get always fails</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Randomly.html#size--">size</a></span>()</code>
-<div class="block">the maximum index allowed in getOr</div>
+<div class="block">One more than where get succeeds</div>
 </td>
 </tr>
 </table>
@@ -183,7 +183,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/In
 <li class="blockList">
 <h4>get</h4>
 <pre><a href="../../stonehorse/grit/Randomly.html" title="type parameter in Randomly">T</a>&nbsp;get(int&nbsp;index)</pre>
-<div class="block">Elememt at index, where i is absolut and less than size</div>
+<div class="block">Elememt at index or IndexOutOfBoundsException</div>
 </li>
 </ul>
 <a name="getOr-int-java.util.function.Supplier-">
@@ -194,7 +194,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/In
 <h4>getOr</h4>
 <pre><a href="../../stonehorse/grit/Randomly.html" title="type parameter in Randomly">T</a>&nbsp;getOr(int&nbsp;index,
         <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html?is-external=true" title="class or interface in java.util.function">Supplier</a>&lt;<a href="../../stonehorse/grit/Randomly.html" title="type parameter in Randomly">T</a>&gt;&nbsp;notFound)</pre>
-<div class="block">Element at i or notFound, where i is absolut</div>
+<div class="block">Element at i or value of notFound. Will not throw unless notFound is null.</div>
 </li>
 </ul>
 <a name="size--">
@@ -204,7 +204,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/In
 <li class="blockList">
 <h4>size</h4>
 <pre>int&nbsp;size()</pre>
-<div class="block">the maximum index allowed in getOr</div>
+<div class="block">One more than where get succeeds</div>
 </li>
 </ul>
 <a name="isEmpty--">
@@ -214,7 +214,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/In
 <li class="blockList">
 <h4>isEmpty</h4>
 <pre>boolean&nbsp;isEmpty()</pre>
-<div class="block">when getOr always will fail</div>
+<div class="block">when get always fails</div>
 </li>
 </ul>
 </li>

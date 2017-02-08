@@ -94,6 +94,10 @@
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>interface&nbsp;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a>&lt;T&gt;</span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>interface&nbsp;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;T&gt;</span></code>
 <div class="block">A random access sequential collection with mutation as expression.</div>
 </td>
@@ -110,25 +114,31 @@
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">PersistentStack.</span><code><span class="memberNameLink"><a href="../../../stonehorse/grit/PersistentStack.html#drop-int-">drop</a></span>(int&nbsp;num)</code>
-<div class="block">This stack without num elements at head</div>
+<div class="block">This stack without num elements at head, or IllegalArgumentException</div>
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code><a href="../../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;</code></td>
+<td class="colLast"><span class="typeNameLabel">PersistentStack.</span><code><span class="memberNameLink"><a href="../../../stonehorse/grit/PersistentStack.html#dropWhile-java.util.function.Predicate-">dropWhile</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;? super <a href="../../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;&nbsp;pred)</code>
+<div class="block">This without those first matching pred.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">PersistentStack.</span><code><span class="memberNameLink"><a href="../../../stonehorse/grit/PersistentStack.html#with-T-">with</a></span>(<a href="../../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&nbsp;element)</code>
 <div class="block">This stack with an additional pushed element</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">PersistentStack.</span><code><span class="memberNameLink"><a href="../../../stonehorse/grit/PersistentStack.html#withAll-java.lang.Iterable-">withAll</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="../../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;&nbsp;elements)</code>
 <div class="block">This stack with elements added to head</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;</code></td>
 <td class="colLast"><span class="typeNameLabel">PersistentStack.</span><code><span class="memberNameLink"><a href="../../../stonehorse/grit/PersistentStack.html#without--">without</a></span>()</code>
-<div class="block">This stack without head</div>
+<div class="block">This stack without head or NoSuchElementException</div>
 </td>
 </tr>
 </tbody>

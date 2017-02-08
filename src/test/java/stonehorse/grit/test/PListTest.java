@@ -2,6 +2,9 @@ package stonehorse.grit.test;
 
 import jdk.internal.dynalink.NoSuchDynamicMethodException;
 import org.junit.Test;
+import stonehorse.candy.Atomic;
+import stonehorse.candy.Lists;
+import stonehorse.candy.Tuples;
 import stonehorse.grit.Vectors;
 import stonehorse.grit.test.generic.EmptyListCheck;
 import stonehorse.grit.test.generic.ListCheck;
@@ -10,6 +13,7 @@ import stonehorse.grit.vector.PList;
 import stonehorse.grit.vector.PVector;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
@@ -88,8 +92,20 @@ public class PListTest {
         assertEquals(p, e.with("a").with("b").with("c"));
         assertEquals(e.with("e").with("b").with("d"), p.withAt("d",0).withAt("e",2));
         assertEquals(o, e.withAt("a",0));
+        assertEquals(e.with("a").with("b").with(null), e.withAll(Lists.asList("a", "b", null)));
+        assertEquals(e.with("a").with("b").with(null), o.withAll(Lists.asList( "b", null)));
+        System.out.println(o.withAll(Lists.asList( "b", null)));
+
     }
 
+
+    @Test public void mapTest(){
+
+        AtomicInteger a = Atomic.atomic(4);
+        System.out.println(p);
+       
+        assertEquals(Lists.asList(Tuples.of("a", 7), Tuples.of("b", 6), Tuples.of("c", 5)), p.map(e-> Tuples.of(e,a.incrementAndGet())));
+    }
     @Test
     public void testIndexOf() {
         assertEquals(0, p.indexOf("c"));
@@ -115,8 +131,6 @@ public class PListTest {
         l.addFirst("a");
         l.addFirst("b");
         l.addFirst("c");
-        System.out.println(l);
-        System.out.println(p);
 
         ListIterator<String> ll = l.listIterator();
         ListIterator<String> i = p.listIterator();

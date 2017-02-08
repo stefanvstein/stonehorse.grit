@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -100,7 +100,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Known Subinterfaces:</dt>
-<dd><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;T&gt;, <a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;T&gt;</dd>
+<dd><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;T&gt;, <a href="../../stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a>&lt;T&gt;, <a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;T&gt;</dd>
 </dl>
 <hr>
 <br>
@@ -127,37 +127,43 @@ var activeTableTab = "activeTableTab";
 <tr id="i0" class="altColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentStack.html#drop-int-">drop</a></span>(int&nbsp;num)</code>
-<div class="block">This stack without num elements at head</div>
+<div class="block">This stack without num elements at head, or IllegalArgumentException</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentStack.html#get--">get</a></span>()</code>
-<div class="block">The head of the stack</div>
+<td class="colFirst"><code><a href="../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentStack.html#dropWhile-java.util.function.Predicate-">dropWhile</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;? super <a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;&nbsp;pred)</code>
+<div class="block">This without those first matching pred.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentStack.html#isEmpty--">isEmpty</a></span>()</code>
-<div class="block">when this stack is empty</div>
+<td class="colFirst"><code><a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentStack.html#get--">get</a></span>()</code>
+<div class="block">The head of the stack or NoSuchElementException</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentStack.html#isEmpty--">isEmpty</a></span>()</code>
+<div class="block">When without get get would throw</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentStack.html#with-T-">with</a></span>(<a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&nbsp;element)</code>
 <div class="block">This stack with an additional pushed element</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentStack.html#withAll-java.lang.Iterable-">withAll</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;&nbsp;elements)</code>
 <div class="block">This stack with elements added to head</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/PersistentStack.html#without--">without</a></span>()</code>
-<div class="block">This stack without head</div>
+<div class="block">This stack without head or NoSuchElementException</div>
 </td>
 </tr>
 </table>
@@ -182,7 +188,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <h4>get</h4>
 <pre><a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&nbsp;get()</pre>
-<div class="block">The head of the stack</div>
+<div class="block">The head of the stack or NoSuchElementException</div>
 </li>
 </ul>
 <a name="with-java.lang.Object-">
@@ -204,7 +210,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <h4>without</h4>
 <pre><a href="../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;&nbsp;without()</pre>
-<div class="block">This stack without head</div>
+<div class="block">This stack without head or NoSuchElementException</div>
 </li>
 </ul>
 <a name="withAll-java.lang.Iterable-">
@@ -224,7 +230,17 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <h4>drop</h4>
 <pre><a href="../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;&nbsp;drop(int&nbsp;num)</pre>
-<div class="block">This stack without num elements at head</div>
+<div class="block">This stack without num elements at head, or IllegalArgumentException</div>
+</li>
+</ul>
+<a name="dropWhile-java.util.function.Predicate-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dropWhile</h4>
+<pre><a href="../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;&nbsp;dropWhile(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;? super <a href="../../stonehorse/grit/PersistentStack.html" title="type parameter in PersistentStack">T</a>&gt;&nbsp;pred)</pre>
+<div class="block">This without those first matching pred. Will not throw unless pred is null or throws.</div>
 </li>
 </ul>
 <a name="isEmpty--">
@@ -234,7 +250,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <h4>isEmpty</h4>
 <pre>boolean&nbsp;isEmpty()</pre>
-<div class="block">when this stack is empty</div>
+<div class="block">When without get get would throw</div>
 </li>
 </ul>
 </li>

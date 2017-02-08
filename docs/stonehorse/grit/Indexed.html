@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -104,7 +104,7 @@ var activeTableTab = "activeTableTab";
 </dl>
 <dl>
 <dt>All Known Subinterfaces:</dt>
-<dd><a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;T&gt;</dd>
+<dd><a href="../../stonehorse/grit/PersistentList.html" title="interface in stonehorse.grit">PersistentList</a>&lt;T&gt;, <a href="../../stonehorse/grit/PersistentVector.html" title="interface in stonehorse.grit">PersistentVector</a>&lt;T&gt;</dd>
 </dl>
 <hr>
 <br>
@@ -137,24 +137,30 @@ extends <a href="../../stonehorse/grit/Randomly.html" title="interface in stoneh
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Indexed.html#dropWhile-java.util.function.Predicate-">dropWhile</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;? super <a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;&nbsp;pred)</code>
+<div class="block">This without all continous most naturally removable elements matching removed</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Indexed.html#with-T-">with</a></span>(<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&nbsp;value)</code>
 <div class="block">This with value associated at the natural growing position</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Indexed.html#withAll-java.lang.Iterable-">withAll</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;&nbsp;elements)</code>
 <div class="block">This with the all elements at the naturally growing position</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Indexed.html#withAt-T-int-">withAt</a></span>(<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&nbsp;value,
       int&nbsp;index)</code>
 <div class="block">This with value at index.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../stonehorse/grit/Indexed.html#without--">without</a></span>()</code>
 <div class="block">This with the most naturally removable element removed.</div>
@@ -257,7 +263,7 @@ extends <a href="../../stonehorse/grit/Randomly.html" title="interface in stoneh
 <a name="drop-int-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>drop</h4>
 <pre><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;&nbsp;drop(int&nbsp;num)</pre>
@@ -265,6 +271,20 @@ extends <a href="../../stonehorse/grit/Randomly.html" title="interface in stoneh
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../stonehorse/grit/PersistentStack.html#drop-int-">drop</a></code>&nbsp;in interface&nbsp;<code><a href="../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="dropWhile-java.util.function.Predicate-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>dropWhile</h4>
+<pre><a href="../../stonehorse/grit/Indexed.html" title="interface in stonehorse.grit">Indexed</a>&lt;<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;&nbsp;dropWhile(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;? super <a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;&nbsp;pred)</pre>
+<div class="block">This without all continous most naturally removable elements matching removed</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../stonehorse/grit/PersistentStack.html#dropWhile-java.util.function.Predicate-">dropWhile</a></code>&nbsp;in interface&nbsp;<code><a href="../../stonehorse/grit/PersistentStack.html" title="interface in stonehorse.grit">PersistentStack</a>&lt;<a href="../../stonehorse/grit/Indexed.html" title="type parameter in Indexed">T</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
