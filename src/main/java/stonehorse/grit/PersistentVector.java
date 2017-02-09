@@ -9,7 +9,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import static stonehorse.grit.tools.Util.defaultReduce;
 
 /**
  * A random access sequential collection with mutation as expression. Side effecting mutation throws UnsupportedOperationException
@@ -103,7 +102,7 @@ public interface PersistentVector<T> extends Indexed<T>, Traversable<T>,
 	 */
 	@Override
 	default T reduce(BiFunction<? super T, ? super T, ? extends T> fn) {
-		return defaultReduce(fn, this);
+		return Iterables.reduce(fn, this);
 	}
 
 	@Override

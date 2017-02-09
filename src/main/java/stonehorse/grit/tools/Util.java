@@ -71,7 +71,7 @@ public class Util {
 	}
 
 
-	public static <T> T defaultReduce(BiFunction<? super T, ? super T, ? extends T> fn, Iterable<T> iterable) {
+/*	public static <T> T defaultReduce(BiFunction<? super T, ? super T, ? extends T> fn, Iterable<T> iterable) {
 		Iterator<T> i = iterable.iterator();
 		return when(i.hasNext(),
 				() -> {
@@ -80,7 +80,7 @@ public class Util {
 						acc = fn.apply(acc, i.next());
 					return acc;
 				});
-	}
+	}*/
 
 
 

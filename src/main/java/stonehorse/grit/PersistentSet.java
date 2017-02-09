@@ -78,6 +78,6 @@ public interface PersistentSet<T> extends Set<T>, Traversable<T> {
      */
     @Override
     default T reduce(BiFunction<? super T, ? super T, ? extends T> fn) {
-        return Util.defaultReduce(fn, this);
+        return Iterables.reduce(fn, this);
     }
 }

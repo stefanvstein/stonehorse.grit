@@ -1,16 +1,9 @@
 package stonehorse.grit;
 
-
-import stonehorse.candy.Iterables;
-
 import java.io.Serializable;
 import java.util.List;
-import java.util.RandomAccess;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
-import static stonehorse.grit.tools.Util.defaultReduce;
 
 public interface PersistentList<T> extends Indexed<T>, Traversable<T>,
         List<T>, Serializable {
@@ -84,20 +77,6 @@ public interface PersistentList<T> extends Indexed<T>, Traversable<T>,
     /**
      * The remaining value of repeatedly combining accumulation with each element in this, starting with an initial accumulator value.
      */
-
-    @Override
-    default <V> V fold(BiFunction<? super V, ? super T, ? extends V> fn, V acc) {
-        return Iterables.fold(fn,acc, this);
-    }
-
-    /**
-     * The remaining value of repeatedly combining accumulation with each element in this except the first, which is used as initial accumulator value
-     */
-    @Override
-    default T reduce(BiFunction<? super T, ? super T, ? extends T> fn) {
-        return defaultReduce(fn, this);
-    }
-
 
 }
 

@@ -5,6 +5,7 @@ import org.junit.Test;
 import stonehorse.candy.Atomic;
 import stonehorse.candy.Lists;
 import stonehorse.candy.Tuples;
+import stonehorse.grit.PersistentList;
 import stonehorse.grit.Vectors;
 import stonehorse.grit.test.generic.EmptyListCheck;
 import stonehorse.grit.test.generic.ListCheck;
@@ -20,11 +21,13 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static stonehorse.candy.Lists.arrayList;
 
 public class PListTest {
-    PList<String> p = PList.of(Vectors.vector("a","b","c"));
+    PList<String> p = PList.of(Vectors.vector("a", "b", "c"));
     PList<String> o = PList.of(Vectors.vector("a"));
     PList<String> e = PList.of(Vectors.vector());
+
     @Test
     public void testGet() {
 
@@ -43,12 +46,13 @@ public class PListTest {
         } catch (IndexOutOfBoundsException ex) {
         }
 
-        assertEquals("a",p.getOr(2, ()->"No"));
-        assertEquals("No",p.getOr(3, ()->"No"));
-        assertEquals("No",p.getOr(-1, ()->"No"));
-        assertEquals("c",p.getOr(0, ()->"No"));
-        assertEquals("No",e.getOr(0, ()->"No"));
+        assertEquals("a", p.getOr(2, () -> "No"));
+        assertEquals("No", p.getOr(3, () -> "No"));
+        assertEquals("No", p.getOr(-1, () -> "No"));
+        assertEquals("c", p.getOr(0, () -> "No"));
+        assertEquals("No", e.getOr(0, () -> "No"));
     }
+
     @Test
     public void testWithout() {
         assertEquals(PList.of(Vectors.vector("a", "b")), p.without());
@@ -61,51 +65,81 @@ public class PListTest {
 
         }
     }
+
     @Test
     public void testDrop() {
         assertEquals(PList.of(Vectors.vector("a", "b")), p.drop(1));
         assertEquals(o, p.drop(2));
         assertEquals(e, p.drop(3));
-        try{
+        try {
             p.drop(4);
             fail();
-        }catch(IllegalArgumentException ex){}
-        try{
+        } catch (IllegalArgumentException ex) {
+        }
+        try {
             p.drop(-1);
             fail();
-        }catch(IllegalArgumentException ex){}
+        } catch (IllegalArgumentException ex) {
+        }
         assertEquals(p, p.drop(0));
         assertEquals(e, e.drop(0));
         assertEquals(o, o.drop(0));
         assertEquals(e, o.drop(1));
 
-        assertEquals(e, p.dropWhile(x->true));
-        assertEquals(p, p.dropWhile(x->false));
-        assertEquals(o, p.dropWhile(x-> !"a".equals(x)));
-        assertEquals(e, e.dropWhile(x->true));
-        assertEquals(e, e.dropWhile(x->false));
+        assertEquals(e, p.dropWhile(x -> true));
+        assertEquals(p, p.dropWhile(x -> false));
+        assertEquals(o, p.dropWhile(x -> !"a".equals(x)));
+        assertEquals(e, e.dropWhile(x -> true));
+        assertEquals(e, e.dropWhile(x -> false));
 
     }
 
     @Test
     public void testWith() {
         assertEquals(p, e.with("a").with("b").with("c"));
-        assertEquals(e.with("e").with("b").with("d"), p.withAt("d",0).withAt("e",2));
-        assertEquals(o, e.withAt("a",0));
+        assertEquals(e.with("e").with("b").with("d"), p.withAt("d", 0).withAt("e", 2));
+        assertEquals(o, e.withAt("a", 0));
         assertEquals(e.with("a").with("b").with(null), e.withAll(Lists.asList("a", "b", null)));
-        assertEquals(e.with("a").with("b").with(null), o.withAll(Lists.asList( "b", null)));
-        System.out.println(o.withAll(Lists.asList( "b", null)));
+        assertEquals(e.with("a").with("b").with(null), o.withAll(Lists.asList("b", null)));
+        System.out.println(o.withAll(Lists.asList("b", null)));
 
     }
 
 
-    @Test public void mapTest(){
+    @Test
+    public void mapTest() {
 
         AtomicInteger a = Atomic.atomic(4);
-        System.out.println(p);
-       
-        assertEquals(Lists.asList(Tuples.of("a", 7), Tuples.of("b", 6), Tuples.of("c", 5)), p.map(e-> Tuples.of(e,a.incrementAndGet())));
+
+        assertEquals(
+                Lists.asList(Tuples.of("a", 7), Tuples.of("b", 6), Tuples.of("c", 5)),
+                p.map(e -> Tuples.of(e, a.incrementAndGet())));
     }
+
+    @Test
+    public void flatMapTest() {
+        assertEquals(
+                Lists.asList("a", "a", "b", "b", "c", "c"),
+                p.flatMap(e -> arrayList(e, e)));
+
+        assertEquals(
+                Lists.asList("a", "-a", "b", "-b", "c", "-c"),
+                p.flatMap(e -> arrayList("-" + e, e)));
+    }
+
+    @Test
+    public void filterTest() {
+        assertEquals(arrayList("a", "c"),
+                p.filter(e -> !e.startsWith("b")));
+    }
+
+    @Test public void folding(){
+
+        assertEquals(arrayList("c","b","a"), p.fold((a,v)->a.with(v), Vectors.vector()));
+        assertEquals("cba", p.reduce ((a,v)->a+v));
+
+    }
+
     @Test
     public void testIndexOf() {
         assertEquals(0, p.indexOf("c"));
@@ -126,7 +160,8 @@ public class PListTest {
         assertEquals(2, e.with("a").with("a").with("b").lastIndexOf("a"));
     }
 
-    @Test public void testListIterator(){
+    @Test
+    public void testListIterator() {
         LinkedList<String> l = new LinkedList<String>();
         l.addFirst("a");
         l.addFirst("b");
@@ -153,43 +188,48 @@ public class PListTest {
         assertEquals(ll.previousIndex(), i.previousIndex());
 
         l = new LinkedList<String>();
-        ll=l.listIterator();
-        i=e.listIterator();
+        ll = l.listIterator();
+        i = e.listIterator();
         assertEquals(ll.hasNext(), i.hasNext());
         assertEquals(ll.nextIndex(), i.nextIndex());
-        try{
+        try {
             i.next();
             fail();
-        }catch(NoSuchElementException e){}
+        } catch (NoSuchElementException e) {
+        }
 
-        i=p.listIterator(p.size());
+        i = p.listIterator(p.size());
         assertTrue(i.hasPrevious());
         assertFalse(i.hasNext());
-        try{
+        try {
             i.next();
             fail();
-        }catch(NoSuchElementException ex){}
+        } catch (NoSuchElementException ex) {
+        }
         try {
             p.listIterator(p.size() + 1);
             fail();
-        }catch(IndexOutOfBoundsException e){}
+        } catch (IndexOutOfBoundsException e) {
+        }
         try {
             p.listIterator(-1);
             fail();
-        }catch(IndexOutOfBoundsException e){}
+        } catch (IndexOutOfBoundsException e) {
+        }
         p.listIterator(0);
 
     }
 
-    @Test public void testSub(){
+    @Test
+    public void testSub() {
         assertEquals(o, p.subList(2, 3));
-        assertEquals(o, p.subList(2,3).subList(0,1));
-        assertEquals(e, p.subList(1,1).subList(0,0));
-        assertTrue(p.subList(1,1).isEmpty());
+        assertEquals(o, p.subList(2, 3).subList(0, 1));
+        assertEquals(e, p.subList(1, 1).subList(0, 0));
+        assertTrue(p.subList(1, 1).isEmpty());
 
-        new EmptyListCheck().checkEmptyList(p.subList(1,1));
-        new ListCheck().testList(PList.of(Vectors.vector(A.a(),null, B.b(), A.a())));
-        new ListCheck().testList(PList.of(Vectors.vector(A.a(),null, B.b(), A.a())).with(A.a()).subList(1,5));
+        new EmptyListCheck().checkEmptyList(p.subList(1, 1));
+        new ListCheck().testList(PList.of(Vectors.vector(A.a(), null, B.b(), A.a())));
+        new ListCheck().testList(PList.of(Vectors.vector(A.a(), null, B.b(), A.a())).with(A.a()).subList(1, 5));
         new StackCheck().checkStack(
                 PList.<A>of(Vectors.vector(A.a())).without());
     }

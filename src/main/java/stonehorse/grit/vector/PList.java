@@ -11,6 +11,7 @@ import stonehorse.grit.tools.RandomSubList;
 import stonehorse.grit.tools.Util;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -129,7 +130,17 @@ public class PList<T> extends APList<T> {
     @Override
     public <V> PersistentList<V> flatMap(Function<? super T, Iterable<? extends V>> f) {
         requireNonNull(f);
-        return PList.<V>empty().withAll(Iterables.flatMap(f, this));
+        return PList.<V>empty().withAll(Iterables.flatMap(f,this));
+    }
+
+    @Override
+    public <V> V fold(BiFunction<? super V, ? super T, ? extends V> fn, V acc) {
+        return Iterables.fold(fn, acc, this);
+    }
+
+    @Override
+    public T reduce(BiFunction<? super T, ? super T, ? extends T> fn) {
+        return Iterables.reduce(fn, this);
     }
 
     @Override
@@ -191,8 +202,7 @@ public class PList<T> extends APList<T> {
 
     @Override
     public String toString() {
-
-        return Objects.toString(Iterables.forceList(this));
+        return Util.collectionToString(this);
     }
 
     @Override
