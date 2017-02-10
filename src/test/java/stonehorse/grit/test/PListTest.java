@@ -10,17 +10,18 @@ import stonehorse.grit.Vectors;
 import stonehorse.grit.test.generic.EmptyListCheck;
 import stonehorse.grit.test.generic.ListCheck;
 import stonehorse.grit.test.generic.StackCheck;
+import stonehorse.grit.tools.Util;
 import stonehorse.grit.vector.PList;
 import stonehorse.grit.vector.PVector;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static stonehorse.candy.Atomic.atomic;
 import static stonehorse.candy.Lists.arrayList;
 
 public class PListTest {
@@ -101,15 +102,13 @@ public class PListTest {
         assertEquals(o, e.withAt("a", 0));
         assertEquals(e.with("a").with("b").with(null), e.withAll(Lists.asList("a", "b", null)));
         assertEquals(e.with("a").with("b").with(null), o.withAll(Lists.asList("b", null)));
-        System.out.println(o.withAll(Lists.asList("b", null)));
-
     }
 
 
     @Test
     public void mapTest() {
 
-        AtomicInteger a = Atomic.atomic(4);
+        AtomicInteger a = atomic(4);
 
         assertEquals(
                 Lists.asList(Tuples.of("a", 7), Tuples.of("b", 6), Tuples.of("c", 5)),
@@ -138,6 +137,18 @@ public class PListTest {
         assertEquals(arrayList("c","b","a"), p.fold((a,v)->a.with(v), Vectors.vector()));
         assertEquals("cba", p.reduce ((a,v)->a+v));
 
+    }
+
+    @Test
+    public void testStream(){
+        AtomicInteger a = atomic(4);
+        assertEquals(Lists.asList(
+                Tuples.of("a", 7),
+                Tuples.of("b", 6),
+                Tuples.of("c", 5)),
+            p.stream()
+             .map(e -> Tuples.of(e, a.incrementAndGet()))
+             .collect(Vectors.toList()));
     }
 
     @Test
@@ -233,5 +244,15 @@ public class PListTest {
         new StackCheck().checkStack(
                 PList.<A>of(Vectors.vector(A.a())).without());
     }
+
+    @Test
+    public void testSerial() throws IOException, ClassNotFoundException {
+        PersistentList<A> source = PList.of(Vectors.vector(A.a(), null, B.b(), A.a()));
+        PersistentList<A> copy = Util.deepCopy(source);
+        assertEquals(copy, source);
+        assertEquals(source, copy);
+        assertNotSame(copy, source);
+    }
+
 
 }

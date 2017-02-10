@@ -2,12 +2,16 @@ package stonehorse.grit.vector;
 
 import stonehorse.candy.Iterables;
 import stonehorse.candy.Tuples;
-import stonehorse.grit.PersistentFifo;
+import stonehorse.grit.PersistentQueue;
 import stonehorse.grit.PersistentVector;
+import stonehorse.grit.SerializedQueue;
+import stonehorse.grit.tools.ImmutableList;
 import stonehorse.grit.tools.RandomSubList;
 import stonehorse.grit.tools.RandomlyListIterator;
 import stonehorse.grit.tools.Util;
 
+import java.io.ObjectStreamException;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -23,7 +27,7 @@ import static stonehorse.candy.Choices.cond;
 import static stonehorse.candy.Maybe.maybe;
 
 
-public class PFifo<T> implements PersistentFifo<T> {
+public class PFifo<T> extends ImmutableList<T> implements PersistentQueue<T>, Serializable {
     private final PersistentVector<T> head;
     private final PersistentVector<T> tail;
     private static PFifo empty=new PFifo(null, null);
@@ -32,9 +36,12 @@ public class PFifo<T> implements PersistentFifo<T> {
         this.tail=tail;
     }
 
+    private Object writeReplace() throws ObjectStreamException {
+        return new SerializedQueue(this);
+    }
 
     @Override
-    public PersistentFifo<T> with(T t) {
+    public PersistentQueue<T> with(T t) {
         return new PFifo<T>(head, maybe(tail)
                 .map(c -> c.with(t))
                 .orElseGet(() -> PVector.<T>empty().with(t)));
@@ -50,7 +57,7 @@ public class PFifo<T> implements PersistentFifo<T> {
     }
 
     @Override
-    public PersistentFifo<T> without() {
+    public PersistentQueue<T> without() {
         return cond(
                 () -> isEmpty(),
                 () -> this,
@@ -214,7 +221,7 @@ public class PFifo<T> implements PersistentFifo<T> {
     }
 
     @Override
-    public PersistentFifo<T> filter(Predicate<? super T> p) {
+    public PersistentQueue<T> filter(Predicate<? super T> p) {
         Objects.requireNonNull(p);
         if(isEmpty())
             return this;
@@ -222,7 +229,7 @@ public class PFifo<T> implements PersistentFifo<T> {
     }
 
     @Override
-    public <V> PersistentFifo<V> map(Function<? super T, ? extends V> f) {
+    public <V> PersistentQueue<V> map(Function<? super T, ? extends V> f) {
         Objects.requireNonNull(f);
         if(isEmpty())
             return empty();
@@ -230,7 +237,7 @@ public class PFifo<T> implements PersistentFifo<T> {
     }
 
     @Override
-    public <V> PersistentFifo<V> flatMap(Function<? super T, Iterable<? extends V>> f) {
+    public <V> PersistentQueue<V> flatMap(Function<? super T, Iterable<? extends V>> f) {
         Objects.requireNonNull(f);
         if(isEmpty())
             return empty();

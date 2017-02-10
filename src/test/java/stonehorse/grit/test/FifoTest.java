@@ -2,20 +2,23 @@ package stonehorse.grit.test;
 
 import org.junit.Test;
 import stonehorse.candy.Lists;
-import stonehorse.grit.PersistentFifo;
+import stonehorse.grit.PersistentList;
+import stonehorse.grit.PersistentQueue;
+import stonehorse.grit.Vectors;
 import stonehorse.grit.test.generic.EmptyListCheck;
 import stonehorse.grit.test.generic.ListCheck;
+import stonehorse.grit.tools.Util;
 import stonehorse.grit.vector.PFifo;
+import stonehorse.grit.vector.PList;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
 
 import static java.util.Objects.nonNull;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static stonehorse.candy.Choices.when;
@@ -23,16 +26,16 @@ import static stonehorse.candy.Lists.asList;
 
 public class FifoTest {
 
-    PersistentFifo<String> left(){
-        PersistentFifo<String> fifo=PFifo.empty();
+    PersistentQueue<String> left(){
+        PersistentQueue<String> fifo=PFifo.empty();
       return fifo.with("a").with("b").with(null).with("a");
     }
-    PersistentFifo<String> mid(){
-        PersistentFifo<String> fifo=PFifo.<String>empty().with("crap");
+    PersistentQueue<String> mid(){
+        PersistentQueue<String> fifo=PFifo.<String>empty().with("crap");
         return fifo.with("a").with("b").without().with(null).with("a");
     }
-    PersistentFifo<String> right(){
-        PersistentFifo<String> fifo=PFifo.<String>empty().with("crap");
+    PersistentQueue<String> right(){
+        PersistentQueue<String> fifo=PFifo.<String>empty().with("crap");
         return fifo.with("a").with("b").with(null).with("a").without();
     }
 private List<A> leftA(){
@@ -45,7 +48,7 @@ private List<A> leftA(){
     private List<A> midA() {
         return PFifo.<A>empty().with(A.a()).with(A.a()).with(B.b()).without().with(null).with(A.a());
     }
-    PersistentFifo<String> empty(){
+    PersistentQueue<String> empty(){
         return PFifo.<String>empty().without();
     }
 
@@ -76,7 +79,7 @@ private List<A> leftA(){
     }
 
     @Test public void testGet(){
-        PersistentFifo<String> l = left();
+        PersistentQueue<String> l = left();
         assertEquals("a", l.get(0));
         assertEquals("b", l.get(1));
         assertNull(l.get(2));
@@ -106,7 +109,7 @@ private List<A> leftA(){
     }
 
     @Test public void testGetOr(){
-        PersistentFifo<String> l = left();
+        PersistentQueue<String> l = left();
         assertEquals("a", l.getOr(0, ()->"ELSE"));
         assertEquals("b", l.getOr(1, ()->"ELSE"));
         assertNull(l.getOr(2, ()->"ELSE"));
@@ -141,7 +144,7 @@ private List<A> leftA(){
 }
 
 @Test public void testIndexOf(){
-    PersistentFifo<String> m = mid();
+    PersistentQueue<String> m = mid();
     assertEquals(0,m.indexOf("a"));
     assertEquals(3,m.lastIndexOf("a"));
     assertEquals(1,m.indexOf("b"));
@@ -183,7 +186,7 @@ private List<A> leftA(){
 
 
     @Test public void addAndRemove(){
-        PersistentFifo<Integer> s = PFifo.empty();
+        PersistentQueue<Integer> s = PFifo.empty();
 
         s=s.with(1).with(2);
         assertTrue(s.containsAll(asList(1,2)));
@@ -210,7 +213,7 @@ private List<A> leftA(){
 
     @Test public void testreduce(){
 
-        PersistentFifo<String> m = mid();
+        PersistentQueue<String> m = mid();
         assertEquals("abnulla", m.reduce((e, d)->e+d));
         m=left();
         assertEquals("abnulla", m.reduce((e, d)->e+d));
@@ -221,7 +224,7 @@ private List<A> leftA(){
     }
     @Test public void testfold(){
 
-        PersistentFifo<String> m = mid();
+        PersistentQueue<String> m = mid();
         assertEquals("kabnulla", m.fold((e, d)->e+d,"k"));
         m=left();
         assertEquals("kabnulla", m.fold((e, d)->e+d, "k"));
@@ -233,7 +236,7 @@ private List<A> leftA(){
 
 
     @Test public void testmap(){
-        PersistentFifo<String> m = mid();
+        PersistentQueue<String> m = mid();
         assertEquals(asList("A","B",null,"A"), m.map(e->when(nonNull(e), ()->e.toUpperCase())));
         m=left();
         assertEquals(asList("A","B",null,"A"), m.map(e->when(nonNull(e), ()->e.toUpperCase())));
@@ -244,7 +247,7 @@ private List<A> leftA(){
     }
 
     @Test public void testflatmap(){
-        PersistentFifo<String> m = mid();
+        PersistentQueue<String> m = mid();
         assertEquals(asList("A","U", "B", "U","A", "U"), m.flatMap(e->when(nonNull(e), ()->asList(e.toUpperCase(), "U"))));
         m=left();
         assertEquals(asList("A","U", "B", "U","A", "U"), m.flatMap(e->when(nonNull(e), ()->asList(e.toUpperCase(), "U"))));
@@ -254,7 +257,7 @@ private List<A> leftA(){
         assertEquals(asList(), m.flatMap(e->when(nonNull(e), ()->asList(e.toUpperCase(), "U"))));
     }
     @Test public void testfilter(){
-        PersistentFifo<String> m = mid();
+        PersistentQueue<String> m = mid();
         assertEquals(asList("a","b","a"), m.filter(Objects::nonNull));
         m=left();
         assertEquals(asList("a","b","a"), m.filter(Objects::nonNull));
@@ -265,7 +268,7 @@ private List<A> leftA(){
     }
 
     @Test public void testListIterator(){
-        PersistentFifo<String> m = mid();
+        PersistentQueue<String> m = mid();
         ListIterator<String> l = m.listIterator(1);
         assertEquals("b",l.next());
         assertTrue(l.hasPrevious());
@@ -327,11 +330,20 @@ private List<A> leftA(){
     }
 
     @Test public void defaults(){
-        PersistentFifo<String> l = mid().with("b");
+        PersistentQueue<String> l = mid().with("b");
         assertEquals("a", l.get());
         assertEquals("a", l.getOr(()->"O"));
         assertEquals("1",PFifo.empty().getOr(()->"1"));
 
         assertEquals("b", l.apply(1));
+    }
+
+    @Test
+    public void testSerial() throws IOException, ClassNotFoundException {
+        PersistentQueue<A> source = Vectors.queued(Vectors.vector(A.a(), null, B.b(), A.a()));
+        PersistentQueue<A> copy = Util.deepCopy(source);
+        assertEquals(copy, source);
+        assertEquals(source, copy);
+        assertNotSame(copy, source);
     }
 }

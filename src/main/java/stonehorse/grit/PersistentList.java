@@ -74,9 +74,7 @@ public interface PersistentList<T> extends Indexed<T>, Traversable<T>,
     @Override
     PersistentList<T> drop(int num);
 
-    /**
-     * The remaining value of repeatedly combining accumulation with each element in this, starting with an initial accumulator value.
-     */
+
 
 }
 

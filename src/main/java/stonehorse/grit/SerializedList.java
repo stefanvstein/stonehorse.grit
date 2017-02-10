@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
+
 /**
- * Placeholder for serial vectors, implemented as a simple sequence of values
+ * Placeholder for serial lists, implemented as a simple sequence of values
  */
-public class SerializedVector implements Serializable {
+public class SerializedList implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private transient PersistentVector vector;
-	public SerializedVector(PersistentVector vector) {
+	public SerializedList(PersistentVector vector) {
 		this.vector = vector;
 	}
 	private void writeObject(ObjectOutputStream out) throws IOException {
@@ -30,6 +31,6 @@ public class SerializedVector implements Serializable {
 	}
 	
 	private Object readResolve() throws ObjectStreamException {
-		return vector;
+		return Vectors.reversed(vector);
 	}
 }

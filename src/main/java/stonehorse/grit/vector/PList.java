@@ -4,12 +4,12 @@ package stonehorse.grit.vector;
 import stonehorse.candy.Iterables;
 import stonehorse.grit.PersistentList;
 import stonehorse.grit.PersistentVector;
+import stonehorse.grit.SerializedList;
 import stonehorse.grit.Vectors;
-import stonehorse.grit.tools.ImmutableIterator;
-import stonehorse.grit.tools.ImmutableListIterator;
-import stonehorse.grit.tools.RandomSubList;
-import stonehorse.grit.tools.Util;
+import stonehorse.grit.tools.*;
 
+import java.io.ObjectStreamException;
+import java.io.Serializable;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -21,7 +21,7 @@ import static stonehorse.candy.Choices.*;
 import static stonehorse.candy.Choices.ifelse;
 
 
-public class PList<T> extends APList<T> {
+public class PList<T>  extends ImmutableList<T> implements PersistentList<T>, RandomAccess, Serializable {
     final PersistentVector<T> vec;
     private int hash = 0;
     private static final PList empty=PList.of(Vectors.vector());
@@ -66,7 +66,9 @@ public class PList<T> extends APList<T> {
         return ReversedIterator.of(vec.listIterator(size()));
 
     }
-
+    private Object writeReplace() throws ObjectStreamException {
+        return new SerializedList(this.vec);
+    }
     @Override
     public Object[] toArray() {
         return Util.indexedToArray(this);
@@ -119,8 +121,7 @@ public class PList<T> extends APList<T> {
 
     @Override
     public <V> PersistentList<V> map(Function<? super T, ? extends V> f) {
-        requireNonNull(f);
-        return PList.<V>empty().withAll(Iterables.map(f,this));
+        return PList.<V>empty().withAll(Iterables.map(requireNonNull(f),this));
     }
 
     private static <V> PList<V> empty() {
@@ -129,8 +130,7 @@ public class PList<T> extends APList<T> {
 
     @Override
     public <V> PersistentList<V> flatMap(Function<? super T, Iterable<? extends V>> f) {
-        requireNonNull(f);
-        return PList.<V>empty().withAll(Iterables.flatMap(f,this));
+        return PList.<V>empty().withAll(Iterables.flatMap(requireNonNull(f),this));
     }
 
     @Override
@@ -145,8 +145,7 @@ public class PList<T> extends APList<T> {
 
     @Override
     public PersistentList<T> filter(Predicate<? super T> predicate) {
-        requireNonNull(predicate);
-        return PList.<T>empty().withAll(Iterables.filter(predicate, this));
+        return PList.<T>empty().withAll(Iterables.filter( requireNonNull(predicate), this));
     }
 
     @Override

@@ -1,10 +1,13 @@
 package stonehorse.grit;
 
+import stonehorse.grit.vector.ListCollector;
 import stonehorse.grit.vector.PFifo;
+import stonehorse.grit.vector.PList;
 import stonehorse.grit.vector.PVector;
 
 import java.util.stream.Collector;
 
+import static java.util.Objects.requireNonNull;
 import static stonehorse.grit.vector.VectorCollector.collector;
 
 /**
@@ -98,15 +101,34 @@ public class Vectors {
         return PVector.createOfAll(elements);
     }
 
-    static <T> PersistentFifo<T> fifo(PersistentVector v){
-        return PFifo.of(v);
-    }
 
     /**
      * Terminates Stream in a persistent vector
      */
     public static <T> Collector<T,?, PersistentVector<T>> toVector(){
         return  collector(vector());
+    }
+    /**
+     * Terminates Stream in a persistent vector-backed list
+     */
+    public static <T> Collector<T,?, PersistentList<T>> toList(){
+        return ListCollector.collector(vector());
+    }
+
+    /**
+     * A list view of a vector, with natural mutation at head. This looks like a linked list, but is
+     * a array based vector indexed and traversed in reverse with random access. The order of the supplied vector
+     * will appear in reverse
+     */
+    public static <T> PersistentList<T> reversed(PersistentVector<T> vector){
+        return PList.of(requireNonNull(vector));
+    }
+
+    /**
+     * A queue view of a vector, which grows at tail and shrinks at head
+     */
+    public static <T> PersistentQueue<T> queued(PersistentVector<T> vector){
+        return PFifo.of(requireNonNull(vector));
     }
 
 }
