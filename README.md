@@ -30,6 +30,8 @@ Currently `PersistentVector`, `PersistentMap` and `PersistentSet` are provided. 
 
 It is very early, and interface may still change
 
+A talk [Simpler Java](https://stefanvstein.github.io/stonehorse.grit/SimplerJava.pdf) at Javaforum 
+
 ## Installation
 
 Grit can be found in the central maven repo, just add the follwing to your pom.xml, or similar depending on your build, and maven should download it for you.
