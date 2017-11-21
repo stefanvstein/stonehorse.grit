@@ -1,36 +1,25 @@
 
 # Stonehorse.Grit, persistent data structures for Java
 
-Grit is a collection of persistent collections. These are immutable containers with mutation as expression. 
+Grit is a set of immutable containers with mutation as expression. That is, read only versions of Vector, Map and Set, where mutation return new versions rather than updating the collection in place. These new versions share structure with previous, by utilizing path copying, rather than copying the whole collection during mutation. These collections always remain untouched, which simplifies programming a lot. A panacea for immutable composites. These are the same algorithms as found in many functional languages.
 
-These collections provide mutation by returning modified collections rather than mutating them in place. Collection always remain untouched. Mutating methods inherited from Java Collection API will unconditionally throw UnsupportedOperationException. These implement the mandatory requirements of Java Collections as mutating methods are optional and can safely be used where read only collections are acceptable. 
+Mutating methods inherited from Java Collection API will unconditionally throw UnsupportedOperationException. These implement the mandatory requirements of Java Collections as mutating methods are optional. These can safely be used where read only collections are acceptable.
 
-As an example: consider adding something to an ordinary java ArrayList
 ```java
-list.add("something");
+PersistentVector<String> vector = Vectors.vector();
+final PersistentVector<?> empty = vector;
+vector = vector.with("something");
+PersistentVector<String> another = vector.with("else");
 ```
-The ArrayList is updated in place and the state prior to mutation is lost for all referring to it. 
 
-The corresponding PersistentVector throws up on add, but instead provides the `with`-method that returns the altered list:
-```java
-list = list.with("something");
-```
-The `with` does not mutate the list in place and all referencing it still sees the list as prior to mutation. Instead the reference list will refer a new value, list with "something" due to the assignment, as `with` returned a new value. 
+In above code everythings remains untouched. The empty reference will always be empty, vector will always have something, while another always will have something else. The reference named vector did however not stay consistent throughout the snippet, as it referred two immutables. This would not be possible if it was final. There are no variables here, only immutable values. Empty will always refer to an empty vector, no matter what.
 
-If you want to remember the state prior to mutation, you simply assign the new list to some other reference, or final value if you prefer.
-```java
-another = list.with("something")
-```
-The list reference will remain the same as prior to mutation. Anyone referring to the list and wants the mutation will have to go and fetch the new reference, when ever they are prepared to accept changes.
-
-This technique reduces code complexity, and is commonly used in functional programming languages. Collections start to behave similar to e.g. Strings and becomes easier to reason about. You can safely make assumptions about stable state and safely pass your collections to less trusted libraries as these won't be able to alter them at unexpected moments, via secretly saved references. State won't change until you are prepared. It is a panacea for writing your immutable composites.
+Immutables reduce complexity. Collections start to behave similar to e.g. Strings, and becomes easier to reason about. You can safely make assumptions about stable state and safely pass your collections to any, even less trusted libraries, as these can't be altered at unexpected moments. State won't change until you are prepared. It is the panacea for writing immutable composites.
 
 
-Currently `PersistentVector`, `PersistentMap` and `PersistentSet` are provided. [JavaDoc](https://stefanvstein.github.io/stonehorse.grit/index.html)
+Currently `PersistentVector`, `PersistentMap` and `PersistentSet` are provided. [Doc](https://stefanvstein.github.io/stonehorse.grit/index.html)
 
-It is very early, and interface may still change
-
-A talk [Simpler Java](https://stefanvstein.github.io/stonehorse.grit/SimplerJava.pdf) at Javaforum 
+A talk [Simpler Java](https://stefanvstein.github.io/stonehorse.grit/SimplerJava.pdf) made at Javaforum
 
 ## Installation
 
@@ -50,33 +39,33 @@ This is not dependent on anything else than its sister project [Stonehorse.Candy
 
 ## Usage
 
-The factory classes [Vectors](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/Vectors.html), [Maps](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/Maps.html), [Sets](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/Sets.html) are your starting points, while [PersistentVector](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/PersistentVector.html), [PersistentMap](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/PersistentMap.html), [PersistentSet](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/PersistentSet.html) are the abstract interfaces representing the structures. These extend Java Collections interfaces List, Map, and Set, but act as read only versions of them. Similar to wrapping them in Collections.unmodifiableCollection from Java Collection perspective.
+The factory classes [Vectors](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/Vectors.html), [Maps](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/Maps.html), [Sets](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/Sets.html) are your starting points, while [PersistentVector](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/PersistentVector.html), [PersistentMap](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/PersistentMap.html), [PersistentSet](https://stefanvstein.github.io/stonehorse.grit/stonehorse/grit/PersistentSet.html) are the abstract interfaces representing the structures. These extend Java Collections interfaces List, Map, and Set, but act as read only versions of these. Similar to wrapping them in Collections.unmodifiableCollection from a Java Collection perspective.
 
 ### With or without
 
-The `with` and `without` are the most basic methods used to mutate. As explained above these methods returns new versions of the collections rather than changing them. These basic methods add and remove elements on the most effective position, which is dependent on collection type. For a vector the most effective position is at the end. While for a set it is unknown.
+The `with` and `without` are the most basic methods used to mutate. These methods returns new versions of the collections rather than changing them. These basic methods add and remove elements on the most effective position, which is dependent on collection type.
 
 ```java
-PersistentList<Integer> list = Vector.vector().with(1).with(2);
+PersistentVector<Integer> list = Vectors.vector().with(1).with(2);
 ```
 ..will give you a vector of `[1, 2]`
 
-The expression 
+The following expression
 ```java
 list.without()
 ```
 ...would return a vector `[1]` as the second element, the most effective, would be removed. Vectors naturally mutate at the end.
 
-The `without` method for Set, is applied with the elements that should be removed. 
+The `without` method for Set, is applied with the elements that should be removed.
 
-There are `withAll` methods for adding many elements at once, i.e. from Iterables or other Maps. 
+There are `withAll` methods for adding many elements at once, i.e. from Iterables or other Maps.
 
 
 ### Strict higher order
 
 There are higher order mutations. That is, mutating methods that take function as argument. Map has `whenMissing(K key, Supplier<V> valueSupplier)` where the value is calculated only when the key was missing, etc.
 
-Then there are the classic higher order transformations: `map`, `filter`, `fold` and `reduce`, which here are strict and return a collection of the same type.
+Then there are the classic higher order transformations: `map`, `filter`, `fold` and `reduce`. These are strict and return a collection of the same type.
 
 ### null are values
 
@@ -86,7 +75,7 @@ Grit recognizes null as legal value. As null is of subtype of every type that wi
 
 There are other Persistent Collections for Java out there. This one is trying to be very compatible with Java Collections, in order to be easy to use. This is also devised with Java 8 in mind, and have higher order methods fit for lambdas, and integration with Streams.
 
-There are exceptions in compatibility, as these always accept null.
+There are exceptions in compatibility with similar JDK collections, as these collections always accept null as valid value, while some JDK ones don't.
 
 ### Performance characteristics 
 
@@ -97,7 +86,7 @@ Mutation of persistent collection does not necessarily mean copying whole collec
 These algorithms are similar to those used in functional languages like Clojure and Scala. This project started out of curiosity of how the Persistent Vector in Clojure was implemented, and ended with a total rewrite, both to get to know all the nuts and bolts, as well as to achieve higher Java Collection compatibility. So don't blame Clojure for issues found here as this is a total rewrite. This is implemented with simple code that should be easy to follow rather than focusing on being performant. If you like working with this, I highly encourage you to go for Clojure, as it will leverage these ideas much further. On the other hand, sometimes you don't get to choose.
 
  <div align="right">
-_Choose immutability and see where it takes you_
+Choose immutability and see where it takes you
 
  /Stefan von Stein
 </div> 
